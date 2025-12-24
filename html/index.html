@@ -36,7 +36,7 @@ header {
 }
 
 header h1 {
-    font-size: 2rem; 
+    font-size: 2rem;
     color: #fff;
     font-family: 'Orbitron', sans-serif;
     display: block;
@@ -166,7 +166,6 @@ footer {
     color: #fff;
     pointer-events: none;
     animation-name: fall;
-    animation-duration: 12s; /* slow fall */
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
@@ -257,14 +256,14 @@ searchInput.addEventListener('input', () => {
     });
 });
 
-// Snow ❄️ generation (slower)
-const snowCount = 50;
+// Snow ❄️ generation - fewer, smaller, slower
+const snowCount = 10;
 for(let i=0;i<snowCount;i++){
     const snow = document.createElement('div');
     snow.className = 'snowflake';
     snow.style.left = Math.random()*100 + 'vw';
-    snow.style.animationDuration = (12 + Math.random()*8) + 's'; // 12-20s slower fall
-    snow.style.fontSize = (10 + Math.random()*10) + 'px';
+    snow.style.animationDuration = (20 + Math.random()*10) + 's'; // slow
+    snow.style.fontSize = (8 + Math.random()*6) + 'px'; // small
     snow.textContent = '❄️';
     document.body.appendChild(snow);
 }
