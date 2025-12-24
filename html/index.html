@@ -14,68 +14,59 @@
 
 body {
     background-color: #ffffff; /* Pure white background */
-    color: #000; /* Default dark text */
+    color: #000;
 }
 
 header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    position: relative; /* search box overlay කරන්න relative */
     background-color: #000; /* header black */
-    padding: 20px 20px 80px 20px; /* bottom padding වැඩි කරලා search box + subtext ට තැන */
+    padding: 20px 20px 60px 20px; /* bottom padding වැඩි කරලා */
     text-align: center;
+    z-index: 1;
 }
 
 header h1 {
     font-size: 1.8rem;
     letter-spacing: 3px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     color: #fff;
 }
 
 .header-subtext {
     margin-top: 10px;
-    color: #00ff00; /* lime green text */
+    color: #00ff00; /* lime text */
     font-size: 0.9rem;
-    border-top: 1px solid #fff; /* white line මැද */
+    border-top: 1px solid #fff;
     display: inline-block;
     padding-top: 5px;
 }
 
-/* Fixed Search Box */
+/* Search Box overlay effect */
 .search-container {
-    position: absolute; /* header අගට attach කරන්න */
-    top: 100%;
+    position: absolute;
+    top: 100%; /* header box bottom */
     left: 50%;
-    transform: translateX(-50%);
-    z-index: 1001;
-    width: 80%;       /* width ටිකක් පොඩි කරමින් දෙපැත්තෙන් margin */
+    transform: translateX(-50%) translateY(-50%); /* slightly overlap */
+    width: 80%;
     max-width: 400px;
-    transition: all 0.5s ease;
-}
-
-.search-container.hide {
-    opacity: 0;
+    z-index: 2;
 }
 
 .search-container input {
     width: 100%;
     padding: 12px 15px;
     border-radius: 25px;
-    border: none;
+    border: 2px solid #000; /* outline black for contrast */
     font-size: 1rem;
     outline: none;
-    background-color: rgba(255,255,255,0.95);
+    background-color: #fff; /* white box to be visible */
     color: #333;
-    box-shadow: 0 0 0 2px #000 inset;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* elevated look */
     transition: all 0.3s ease;
 }
 
 .search-container input:focus {
-    box-shadow: 0 0 12px 4px #000 inset;
     transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 /* Products Section */
@@ -83,7 +74,7 @@ header h1 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    padding: 220px 40px 40px 40px; /* header + search box spacing */
+    padding: 160px 40px 40px 40px; /* header + search spacing */
     max-width: 1200px;
     margin: auto;
 }
@@ -169,11 +160,10 @@ html {
     <div class="header-subtext">
         A very valuable customer service from us.
     </div>
+    <div class="search-container" id="searchContainer">
+        <input type="text" id="searchInput" placeholder="Search for products...">
+    </div>
 </header>
-
-<div class="search-container" id="searchContainer">
-    <input type="text" id="searchInput" placeholder="Search for products...">
-</div>
 
 <section class="products" id="productGrid">
     <div class="product-card">
