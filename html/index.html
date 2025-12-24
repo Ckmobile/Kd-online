@@ -88,19 +88,19 @@ header h1 {
     margin: auto;
 }
 
-/* Product Cards with outline and bottom shadow */
+/* Product Cards with only shadow, no outline */
 .product-card {
     background: #fff;
     border-radius: 12px;
     overflow: hidden;
-    border: 2px solid #000;  
+    /* border: 2px solid #000;  <-- Removed outline */
     box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* subtle bottom shadow */
     transition: all 0.3s ease;
 }
 
 .product-card:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 0 5px rgba(0,0,0,0.2); /* full outline on hover */
+    box-shadow: 0 0 0 5px rgba(0,0,0,0.2); /* full hover effect */
 }
 
 .product-card img {
