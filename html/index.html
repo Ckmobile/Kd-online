@@ -1,150 +1,123 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KD ONLINE SHOP</title>
-<style>
-  /* General body and background */
-  body {
-    font-family: Arial, sans-serif;
-    margin:0;
-    padding:0;
-    background: url('https://via.placeholder.com/1024x1024?text=Online+Market+Background') no-repeat center center fixed;
-    background-size: cover;
-  }
-
-  /* Overlay for readability */
-  body::before {
-    content: "";
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background-color: rgba(255,255,255,0.85);
-    z-index: -1;
-  }
-
-  /* Header */
-  header {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:10px 15px;
-    background:#f5f5f5;
-    box-shadow:0 2px 5px rgba(0,0,0,0.1);
-    position:sticky;
-    top:0;
-    z-index:1000;
-  }
-  header .logo { font-weight:bold; font-size:20px; }
-  header .icons { display:flex; gap:15px; font-size:18px; align-items:center; }
-  .language-switch { font-size:12px; cursor:pointer; padding:3px 6px; border:1px solid #ccc; border-radius:5px; }
-
-  /* Main products section */
-  main {
-    padding:10px 15px;
-    margin-bottom:70px;
-  }
-  .product {
-    display:flex;
-    flex-direction:column;
-    gap:5px;
-    border-bottom:1px solid #eee;
-    padding-bottom:15px;
-    margin-bottom:15px;
-    background-color: rgba(255,255,255,0.95);
-    border-radius:8px;
-    padding:10px;
-  }
-  .product img { width:100%; max-height:200px; object-fit:cover; border-radius:8px; }
-  .product-name { font-weight:bold; font-size:16px; }
-  .product-price { color:#E53935; font-weight:bold; margin-top:5px; }
-  .product-description { font-size:14px; color:#555; margin-top:5px; }
-  .add-to-cart {
-    background:#25D366;
-    color:white;
-    text-align:center;
-    padding:10px;
-    border-radius:8px;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:10px;
-    text-decoration:none;
-    display:block;
-  }
-
-  /* Footer buttons */
-  footer {
-    display:flex;
-    justify-content:space-around;
-    padding:10px 0;
-    background:#f5f5f5;
-    box-shadow:0 -2px 5px rgba(0,0,0,0.1);
-    position:fixed;
-    bottom:0;
-    width:100%;
-  }
-  footer a {
-    display:flex;
-    align-items:center;
-    gap:5px;
-    padding:10px 15px;
-    border-radius:8px;
-    text-decoration:none;
-    color:white;
-    font-weight:bold;
-    font-size:14px;
-  }
-  .call-btn { background:#25D366; }
-  .facebook-btn { background:#4267B2; }
-  .whatsapp-btn { background:#25D366; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KD ONLINE SHOP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background: #ff6f61;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #ff8a75;
+        }
+        nav a {
+            color: #fff;
+            padding: 15px 20px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background: #ff6f61;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .product {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px;
+            text-align: center;
+        }
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .product h3 {
+            margin: 10px 0 5px;
+        }
+        .product p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .product button {
+            background: #ff6f61;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .product button:hover {
+            background: #ff8a75;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #ff6f61;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">KD ONLINE SHOP</div>
-  <div class="icons">
-    🔍 🛒
-    <span class="language-switch">EN | සිංහල</span>
-  </div>
+    <h1>KD ONLINE SHOP</h1>
+    <p>ඔබේ සියලුම අවශ්‍ය භාණ්ඩ මෙතනින්</p>
 </header>
 
-<main>
-  <!-- Product 1 -->
-  <div class="product">
-    <img src="https://via.placeholder.com/400x200" alt="Bluetooth Headphone">
-    <div class="product-name">බ්ලූටූත් හෙඩ්ෆෝන්</div>
-    <div class="product-price">රු. 2500</div>
-    <div class="product-description">සංගීත සහ ඇමතුම් සඳහා උසස් තත්ත්වයේ වයර්ලස් බ්ලූටූත් හෙඩ්ෆෝන්.</div>
-    <a href="#" class="add-to-cart">බලන්න / ඇඩ් කරන්න</a>
-  </div>
+<nav>
+    <a href="#products">භාණ්ඩ</a>
+    <a href="https://www.facebook.com/profile.php?id=61556891643471&mibextid=ZbWKwL" target="_blank">Facebook</a>
+    <a href="https://wa.me/0755997160" target="_blank">WhatsApp</a>
+</nav>
 
-  <!-- Product 2 -->
-  <div class="product">
-    <img src="https://via.placeholder.com/400x200" alt="Art Set 150 Pieces">
-    <div class="product-name">කලා සෙට් 150 කොටස්</div>
-    <div class="product-price">රු. 4000</div>
-    <div class="product-description">පෙන්සිල්, පැන්ට්, බුරුෂ් සහ ස්කෙච්බුක් සමග සම්පූර්ණ කලා සෙට්.</div>
-    <a href="#" class="add-to-cart">බලන්න / ඇඩ් කරන්න</a>
-  </div>
-
-  <!-- Product 3 -->
-  <div class="product">
-    <img src="https://via.placeholder.com/400x200" alt="Derma Roller">
-    <div class="product-name">ඩර්මා රෝලර්</div>
-    <div class="product-price">රු. 1200</div>
-    <div class="product-description">කොලජන් වැඩි කිරීම සඳහා වෘත්තීය ඩර්මා රෝලර්.</div>
-    <a href="#" class="add-to-cart">බලන්න / ඇඩ් කරන්න</a>
-  </div>
-</main>
+<section id="products" class="products">
+    <div class="product">
+        <img src="https://via.placeholder.com/250x200.png?text=Headphone" alt="Headphone">
+        <h3>Headphone</h3>
+        <p>මිල: Rs. 2,500</p>
+        <button onclick="window.open('https://wa.me/0755997160?text=මම Headphone ගැන විස්තර අවශ්‍යයි')">කොන්ටැක් කරන්න</button>
+    </div>
+    <div class="product">
+        <img src="https://via.placeholder.com/250x200.png?text=Art+Set" alt="Art Set">
+        <h3>Art Set</h3>
+        <p>මිල: Rs. 5,000</p>
+        <button onclick="window.open('https://wa.me/0755997160?text=මම Art Set ගැන විස්තර අවශ්‍යයි')">කොන්ටැක් කරන්න</button>
+    </div>
+    <div class="product">
+        <img src="https://via.placeholder.com/250x200.png?text=Derma+Roller" alt="Derma Roller">
+        <h3>Derma Roller</h3>
+        <p>මිල: Rs. 1,200</p>
+        <button onclick="window.open('https://wa.me/0755997160?text=මම Derma Roller ගැන විස්තර අවශ්‍යයි')">කොන්ටැක් කරන්න</button>
+    </div>
+    <div class="product">
+        <img src="https://via.placeholder.com/250x200.png?text=Karaoke+Mic" alt="Karaoke Mic">
+        <h3>Karaoke Mic</h3>
+        <p>මිල: Rs. 3,500</p>
+        <button onclick="window.open('https://wa.me/0755997160?text=මම Karaoke Mic ගැන විස්තර අවශ්‍යයි')">කොන්ටැක් කරන්න</button>
+    </div>
+</section>
 
 <footer>
-  <a href="tel:0755997160" class="call-btn">📞 ඇමතුම – 075 599 7160</a>
-  <a href="https://www.facebook.com/profile.php?id=61556891643471" target="_blank" class="facebook-btn">📘 Facebook</a>
-  <a href="https://whatsapp.com/channel/0029Vb6K8BJCBtx6yFx9a21a" target="_blank" class="whatsapp-btn">💬 WhatsApp</a>
+    <p>&copy; 2025 KD ONLINE SHOP | <a href="https://www.facebook.com/profile.php?id=61556891643471&mibextid=ZbWKwL" style="color:white;">Facebook</a> | <a href="https://wa.me/0755997160" style="color:white;">WhatsApp</a></p>
 </footer>
 
 </body>
