@@ -159,10 +159,10 @@ footer {
 /* Snow ❄️ */
 .snowflake {
     position: fixed;
-    top: -2%;
+    top: -5%;
     z-index: 10000;
     user-select: none;
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #fff;
     pointer-events: none;
     animation-name: fall;
@@ -256,16 +256,27 @@ searchInput.addEventListener('input', () => {
     });
 });
 
-// Snow ❄️ generation - fewer, smaller, slower
-const snowCount = 10;
-for(let i=0;i<snowCount;i++){
+// Continuous Snow ❄️ generation
+const snowCount = 10; // small number of flakes
+function createSnowFlake() {
     const snow = document.createElement('div');
     snow.className = 'snowflake';
-    snow.style.left = Math.random()*100 + 'vw';
-    snow.style.animationDuration = (20 + Math.random()*10) + 's'; // slow
-    snow.style.fontSize = (8 + Math.random()*6) + 'px'; // small
+    snow.style.left = Math.random() * 100 + 'vw';
+    snow.style.fontSize = (6 + Math.random() * 6) + 'px';
+    snow.style.animationDuration = (20 + Math.random() * 15) + 's';
     snow.textContent = '❄️';
     document.body.appendChild(snow);
+
+    // Remove after animation to keep continuous effect
+    setTimeout(() => {
+        snow.remove();
+        createSnowFlake(); // recreate
+    }, parseFloat(snow.style.animationDuration) * 1000);
+}
+
+// Initialize snowflakes
+for (let i = 0; i < snowCount; i++) {
+    createSnowFlake();
 }
 </script>
 
