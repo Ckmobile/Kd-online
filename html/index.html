@@ -58,10 +58,32 @@ body {
     color: var(--accent);
 }
 
+/* SHOP NAME BANNER */
+.shop-banner {
+    background: linear-gradient(90deg, var(--secondary) 0%, #ff7043 100%);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    border-bottom: 3px solid var(--accent);
+}
+
+.shop-banner .tagline {
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    margin-top: 5px;
+    opacity: 0.9;
+}
+
 /* SEARCH BAR */
 .search-container {
     background: white;
-    padding: 20px 20px;  /* පොඩි padding */
+    padding: 25px 20px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
@@ -70,19 +92,19 @@ body {
 }
 
 .search-box {
-    max-width: 600px;  /* search box පොඩි */
+    max-width: 800px;
     margin: 0 auto;
     display: flex;
-    gap: 10px;
+    gap: 15px;
     align-items: center;
 }
 
 .search-box input {
     flex: 1;
-    padding: 12px 20px;  /* පොඩි padding */
+    padding: 16px 25px;
     border: 2px solid #e0e0e0;
     border-radius: 50px;
-    font-size: 15px;
+    font-size: 17px;
     font-family: 'Poppins', sans-serif;
     transition: var(--transition);
     box-shadow: 0 3px 10px rgba(0,0,0,0.05);
@@ -100,16 +122,16 @@ body {
     background: linear-gradient(45deg, var(--primary), var(--primary-light));
     color: white;
     border: none;
-    padding: 0 25px; /* පොඩි padding */
-    height: 44px;    /* පොඩි height */
+    padding: 0 35px;
+    height: 56px;
     border-radius: 50px;
     cursor: pointer;
     transition: var(--transition);
-    font-size: 15px;  /* පොඩි font-size */
+    font-size: 17px;
     font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
     white-space: nowrap;
 }
@@ -121,8 +143,7 @@ body {
 
 .clear-search {
     background: linear-gradient(45deg, #757575, #9e9e9e) !important;
-    padding: 0 20px !important;
-    height: 44px !important;
+    padding: 0 25px !important;
 }
 
 .clear-search:hover {
@@ -588,3 +609,558 @@ footer {
 }
 
 .whatsapp-contact {
+    background: linear-gradient(90deg, #25D366, #128C7E);
+    padding: 25px;
+    border-radius: 15px;
+    margin: 20px auto 30px;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-contact h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.whatsapp-contact p {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.whatsapp-contact a {
+    color: white;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 25px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    margin-top: 10px;
+    transition: var(--transition);
+}
+
+.whatsapp-contact a:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0 30px;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.social-icons a:hover {
+    background: var(--primary);
+    transform: translateY(-5px);
+}
+
+/* ANIMATIONS */
+@keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { 
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to { 
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(1.1); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulseWhatsapp {
+    0% { box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3); }
+    50% { box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5); }
+    100% { box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3); }
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px rgba(255, 214, 0, 0.5); }
+    to { text-shadow: 0 0 20px rgba(255, 214, 0, 0.8), 0 0 30px rgba(255, 214, 0, 0.4); }
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(-30px, -30px) rotate(360deg); }
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+    .hero p { font-size: 1.1rem; }
+    .products-header h2 { font-size: 2rem; }
+    .products { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+    nav a { margin: 0 10px; font-size: 14px; padding: 6px 12px; }
+    .shop-banner { font-size: 1.5rem; padding: 12px; }
+    .whatsapp-button { padding: 15px 30px; font-size: 18px; }
+    .search-box { flex-direction: column; }
+    .search-box button { 
+        padding: 15px; 
+        justify-content: center;
+        width: 100%;
+    }
+    .search-box .clear-search {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-bar">
+    <div><i class="fas fa-phone-alt"></i> 075 599 7160</div>
+    <div><i class="fas fa-globe"></i> kdonlineshop.lk</div>
+</div>
+
+<div class="shop-banner">
+    KD ONLINE SHOP
+    <div class="tagline">Your Trusted Dropshipping Partner</div>
+</div>
+
+<!-- SEARCH BAR -->
+<div class="search-container">
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search products by name, category, or keyword..." 
+               aria-label="Search products">
+        <button id="searchButton">
+            <i class="fas fa-search"></i> Search
+        </button>
+        <button id="clearSearch" class="clear-search" style="display: none;">
+            <i class="fas fa-times"></i> Clear Search
+        </button>
+    </div>
+    <div class="search-results" id="searchResults">
+        Type to search for products...
+    </div>
+</div>
+
+<nav>
+    <a href="#"><i class="fas fa-home"></i> Home</a>
+    <a href="#"><i class="fas fa-info-circle"></i> About</a>
+    <a href="#"><i class="fas fa-user-plus"></i> Join Us</a>
+    <a href="#"><i class="fas fa-shipping-fast"></i> Dropshipping</a>
+</nav>
+
+<div class="hero">
+    <div class="hero-content">
+        <h1>Safe & Faster <span>Drop-Shipping</span></h1>
+        <p>2000+ Premium Products to Help You Grow Your Online Sales</p>
+        <a href="https://wa.me/940755997160?text=Hello%20KD%20ONLINE%20SHOP!%20I'm%20interested%20in%20your%20products.%20Can%20you%20send%20me%20more%20information?" 
+           class="whatsapp-button" target="_blank">
+            <i class="fab fa-whatsapp"></i> Order on WhatsApp
+        </a>
+        <span class="phone-number"><i class="fas fa-phone"></i> 075 599 7160</span>
+    </div>
+</div>
+
+<!-- SEARCHED PRODUCTS SECTION (Only shows when searching) -->
+<div id="searchedProductsContainer" class="searched-products-container" style="display: none;">
+    <h3><i class="fas fa-search"></i> Search Results</h3>
+    <div class="products" id="searchedProductsGrid">
+        <!-- Searched products will appear here -->
+    </div>
+</div>
+
+<!-- ALL PRODUCTS SECTION -->
+<div class="products-container" id="allProductsContainer">
+    <div class="products-header">
+        <h2>All Products</h2>
+        <p>Browse our complete collection of premium products</p>
+    </div>
+
+    <div class="products" id="allProductsGrid">
+        <!-- All products will be loaded here by JavaScript -->
+    </div>
+</div>
+
+<section class="cta">
+    <h2>Become a Successful Seller</h2>
+    <p>Ready to unlock the world of hassle-free online sales? Join thousands of successful entrepreneurs who trust KD ONLINE SHOP!</p>
+    <button class="join-btn" onclick="window.open('https://wa.me/940755997160?text=Hello%20KD%20ONLINE%20SHOP!%20I%20want%20to%20become%20a%20seller.%20Please%20send%20me%20more%20information.', '_blank')">
+        <i class="fab fa-whatsapp"></i> Join on WhatsApp
+    </button>
+</section>
+
+<footer>
+    <div class="whatsapp-contact">
+        <h3><i class="fab fa-whatsapp"></i> WhatsApp Orders</h3>
+        <p>075 599 7160</p>
+        <p>24/7 Customer Support</p>
+        <a href="https://wa.me/940755997160?text=Hello%20KD%20ONLINE%20SHOP!%20I%20have%20a%20question%20about%20your%20products." 
+           target="_blank">
+            <i class="fab fa-whatsapp"></i> Chat with Us
+        </a>
+    </div>
+    
+    <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+        <a href="https://wa.me/940755997160" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    
+    <p><i class="fas fa-store"></i> <strong>KD ONLINE SHOP</strong> - Your Trusted Dropshipping Partner</p>
+    <p><i class="fas fa-phone-alt"></i> Get In Touch: 075 599 7160</p>
+    <p><i class="fas fa-envelope"></i> kdonlineshop.lk@gmail.com</p>
+    <p style="margin-top: 20px; color: rgba(255,255,255,0.7);">
+        © <span id="currentYear">2023</span> KD ONLINE SHOP. All Rights Reserved. | All prices in Sri Lankan Rupees (LKR)
+    </p>
+</footer>
+
+<script>
+// Product Data
+const products = [
+    {
+        id: 1,
+        name: "Smartphone X Pro",
+        description: "Latest smartphone with advanced features, 128GB storage, dual camera system, and premium design.",
+        category: "Electronics",
+        usdPrice: "$299.99",
+        lkrPrice: "98,000",
+        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        tags: ["phone", "smartphone", "mobile", "electronics", "tech"]
+    },
+    {
+        id: 2,
+        name: "Premium Smart Watch",
+        description: "Track your fitness and stay connected with this stylish smartwatch featuring heart rate monitor and GPS.",
+        category: "Wearables",
+        usdPrice: "$149.99",
+        lkrPrice: "49,500",
+        image: "https://images.unsplash.com/photo-1585386959984-a4155228f6b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        tags: ["watch", "smartwatch", "fitness", "wearable", "gadget"]
+    },
+    {
+        id: 3,
+        name: "Wireless Headphones",
+        description: "Noise-cancelling headphones with crystal clear audio quality and 30-hour battery life.",
+        category: "Audio",
+        usdPrice: "$89.99",
+        lkrPrice: "29,800",
+        image: "https://images.unsplash.com/photo-1585238342028-4bbc7c5e7a52?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        tags: ["headphones", "audio", "music", "wireless", "bluetooth"]
+    },
+    {
+        id: 4,
+        name: "Professional Camera",
+        description: "Capture stunning photos with this professional-grade camera featuring 24MP sensor and 4K video.",
+        category: "Photography",
+        usdPrice: "$499.99",
+        lkrPrice: "165,000",
+        image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        tags: ["camera", "photography", "dslr", "professional", "lens"]
+    },
+    {
+        id: 5,
+        name: "Bluetooth Speaker",
+        description: "Portable Bluetooth speaker with 360° sound, waterproof design, and 12-hour battery life.",
+        category: "Audio",
+        usdPrice: "$59.99",
+        lkrPrice: "19,800",
+        image: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        tags: ["speaker", "bluetooth", "audio", "portable", "music"]
+    },
+    {
+        id: 6,
+        name: "Laptop Pro",
+        description: "High-performance laptop with 16GB RAM, 512GB SSD, and 15-inch retina display for professionals.",
+        category: "Computers",
+        usdPrice: "$899.99",
+        lkrPrice: "295,000",
+        image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        tags: ["laptop", "computer", "tech", "notebook", "work"]
+    },
+    {
+        id: 7,
+        name: "Gaming Console",
+        description: "Next-gen gaming console with 1TB storage, 4K gaming, and wireless controller included.",
+        category: "Gaming",
+        usdPrice: "$399.99",
+        lkrPrice: "132,000",
+        image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        tags: ["gaming", "console", "play", "entertainment", "games"]
+    },
+    {
+        id: 8,
+        name: "Fitness Tracker",
+        description: "Advanced fitness tracker with sleep monitoring, step counter, and smartphone notifications.",
+        category: "Wearables",
+        usdPrice: "$79.99",
+        lkrPrice: "26,400",
+        image: "https://images.unsplash.com/photo-1576243345690-4e4b79b63288?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        tags: ["fitness", "tracker", "health", "wearable", "exercise"]
+    }
+];
+
+// Global variables
+let currentSearchTerm = '';
+let isSearching = false;
+
+// Initialize products on page load
+document.addEventListener('DOMContentLoaded', function() {
+    renderAllProducts();
+    setupSearch();
+    setupYear();
+    setupClearSearch();
+});
+
+// Render all products
+function renderAllProducts() {
+    const allProductsGrid = document.getElementById('allProductsGrid');
+    renderProductsToGrid(products, allProductsGrid);
+}
+
+// Render products to a specific grid
+function renderProductsToGrid(productsToRender, gridElement) {
+    gridElement.innerHTML = '';
+    
+    if (productsToRender.length === 0) {
+        gridElement.innerHTML = `
+            <div class="no-results">
+                <i class="fas fa-search"></i>
+                <h3>No products found</h3>
+                <p>Try different search terms or browse all products below</p>
+            </div>
+        `;
+        return;
+    }
+    
+    productsToRender.forEach(product => {
+        const productElement = document.createElement('div');
+        productElement.className = 'product';
+        productElement.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" class="product-img">
+            <div class="product-content">
+                <h3>${product.name}</h3>
+                <p class="description">${product.description}</p>
+                <div class="price-container">
+                    <span class="usd-price">${product.usdPrice}</span>
+                    <span class="lkr-price">${product.lkrPrice}</span>
+                </div>
+                <button class="order-btn" data-product="${product.name}" data-price="${product.lkrPrice.replace(',', '')}">
+                    <i class="fab fa-whatsapp"></i> Order Now on WhatsApp
+                </button>
+            </div>
+        `;
+        gridElement.appendChild(productElement);
+    });
+    
+    // Reattach WhatsApp order functionality
+    attachOrderButtons();
+}
+
+// Setup search functionality
+function setupSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+    const searchResults = document.getElementById('searchResults');
+    
+    // Search on button click
+    searchButton.addEventListener('click', performSearch);
+    
+    // Search on Enter key
+    searchInput.addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+            performSearch();
+        }
+    });
+    
+    // Real-time search as user types
+    let searchTimeout;
+    searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            if (this.value.length >= 2) {
+                performSearch();
+            } else if (this.value.length === 0) {
+                clearSearch();
+            }
+        }, 300);
+    });
+    
+    function performSearch() {
+        currentSearchTerm = searchInput.value.toLowerCase().trim();
+        
+        if (currentSearchTerm === '') {
+            clearSearch();
+            return;
+        }
+        
+        isSearching = true;
+        
+        const filteredProducts = products.filter(product => {
+            const searchIn = `${product.name} ${product.description} ${product.category} ${product.tags.join(' ')}`.toLowerCase();
+            return searchIn.includes(currentSearchTerm);
+        });
+        
+        // Show searched products container
+        const searchedContainer = document.getElementById('searchedProductsContainer');
+        const searchedGrid = document.getElementById('searchedProductsGrid');
+        const allContainer = document.getElementById('allProductsContainer');
+        
+        // Hide all products, show searched products
+        searchedContainer.style.display = 'block';
+        allContainer.style.display = 'none';
+        
+        // Render searched products
+        renderProductsToGrid(filteredProducts, searchedGrid);
+        
+        // Update search results message
+        searchResults.textContent = `Found ${filteredProducts.length} product${filteredProducts.length !== 1 ? 's' : ''} for "${currentSearchTerm}"`;
+        searchResults.style.color = 'var(--primary-dark)';
+        
+        // Show clear search button
+        document.getElementById('clearSearch').style.display = 'flex';
+        
+        // Scroll to searched products
+        setTimeout(() => {
+            searchedContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    }
+}
+
+// Setup clear search functionality
+function setupClearSearch() {
+    const clearSearchBtn = document.getElementById('clearSearch');
+    const searchInput = document.getElementById('searchInput');
+    
+    clearSearchBtn.addEventListener('click', function() {
+        clearSearch();
+    });
+    
+    function clearSearch() {
+        searchInput.value = '';
+        currentSearchTerm = '';
+        isSearching = false;
+        
+        // Hide searched products container
+        document.getElementById('searchedProductsContainer').style.display = 'none';
+        
+        // Show all products container
+        document.getElementById('allProductsContainer').style.display = 'block';
+        
+        // Update search results message
+        document.getElementById('searchResults').textContent = 'Type to search for products...';
+        document.getElementById('searchResults').style.color = '';
+        
+        // Hide clear search button
+        clearSearchBtn.style.display = 'none';
+        
+        // Scroll back to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+// Attach WhatsApp order functionality to buttons
+function attachOrderButtons() {
+    document.querySelectorAll('.order-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const productName = this.getAttribute('data-product');
+            const productPrice = this.getAttribute('data-price');
+            
+            // Create WhatsApp message
+            const message = `Hello KD ONLINE SHOP!%0A%0AI want to order:%0A📦 Product: ${productName}%0A💰 Price: Rs. ${productPrice}.00%0A%0APlease send me more details and how to proceed with the order.`;
+            
+            // Open WhatsApp
+            const whatsappURL = `https://wa.me/940755997160?text=${message}`;
+            window.open(whatsappURL, '_blank');
+            
+            // Button feedback animation
+            const originalHTML = this.innerHTML;
+            this.innerHTML = '<i class="fas fa-check"></i> Opening WhatsApp...';
+            this.style.background = 'linear-gradient(45deg, #4CAF50, #66BB6A)';
+            
+            setTimeout(() => {
+                this.innerHTML = originalHTML;
+                this.style.background = 'linear-gradient(45deg, var(--secondary), #ff8a65)';
+            }, 2000);
+        });
+    });
+}
+
+// Setup current year in footer
+function setupYear() {
+    const year = new Date().getFullYear();
+    document.getElementById('currentYear').textContent = year;
+}
+
+// Hero WhatsApp Button animation
+document.querySelector('.whatsapp-button').addEventListener('click', function(e) {
+    this.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+        this.style.transform = '';
+    }, 300);
+});
+
+// Join Button
+document.querySelector('.join-btn').addEventListener('click', function() {
+    const message = "Hello KD ONLINE SHOP!%0A%0AI want to become a seller and join your dropshipping program.%0APlease send me more information about how to get started.";
+    window.open(`https://wa.me/940755997160?text=${message}`, '_blank');
+});
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId && targetId !== '#') {
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 180,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    });
+});
+</script>
+
+</body>
+</html>
