@@ -42,10 +42,13 @@ header h1 {
     font-family: 'Baloo 2', cursive;
 }
 
+/* Bold, bigger, two-line subtext */
 .header-subtext {
     margin-top: 10px;
     color: silver;
-    font-size: 0.9rem;
+    font-size: 1.2rem; /* bigger font */
+    font-weight: bold;  /* bold text */
+    line-height: 1.4;   /* line spacing */
     display: inline-block;
     padding-top: 5px;
 }
@@ -149,7 +152,7 @@ footer {
     border: 2px solid #444;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    max-width: 1200px; /* same as products max-width */
+    max-width: 1200px;
     margin: 20px auto 40px auto;
 }
 
@@ -181,7 +184,7 @@ html {
 <header>
     <h1>KD ONLINE SHOP</h1>
     <div class="header-subtext">
-        A very valuable customer service from us.
+        A very valuable customer<br>service from us.
     </div>
     <div class="search-container" id="searchContainer">
         <input type="text" id="searchInput" placeholder="Search for products...">
