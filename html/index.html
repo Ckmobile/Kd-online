@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KD ONLINE SHOP</title>
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: url('https://files.catbox.moe/1hxuz4.webp') no-repeat center center/cover;
+            color: #333;
+            background-attachment: fixed; /* Background stays in place */
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            position: sticky;
+            top: 80px;
+            z-index: 999;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ff6600;
+        }
+
+        /* Search Box */
+        .search-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .search-container input {
+            width: 50%;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.85);
+            max-width: 1200px;
+            margin: auto;
+            border-radius: 15px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .product-info button {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .product-info button:hover {
+            background-color: #e65c00;
+            transform: scale(1.05);
+        }
+
+        /* Footer with small black box and outline */
+        footer {
+            text-align: center;
+            padding: 10px 20px;
+            background-color: #111;
+            color: #fff;
+            font-size: 0.8rem; /* small text */
+            border: 2px solid #444; /* outline effect */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            max-width: 400px;
+            margin: 20px auto 40px auto; /* centered */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>KD ONLINE SHOP</h1>
+    </header>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Products</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <!-- Search Box -->
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search for products...">
+    </div>
+
+    <section class="products" id="productGrid">
+        <div class="product-card">
+            <img src="https://files.catbox.moe/1hxuz4.webp" alt="Headphones">
+            <div class="product-info">
+                <h3>Headphones</h3>
+                <p>High quality sound</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="https://files.catbox.moe/1hxuz4.webp" alt="Art Set">
+            <div class="product-info">
+                <h3>Art Set</h3>
+                <p>150 pieces</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="https://files.catbox.moe/1hxuz4.webp" alt="Derma Roller">
+            <div class="product-info">
+                <h3>Derma Roller</h3>
+                <p>Skin care tool</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="https://files.catbox.moe/1hxuz4.webp" alt="Karaoke Mic">
+            <div class="product-info">
+                <h3>Karaoke Mic</h3>
+                <p>Portable & Wireless</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2025 KD ONLINE SHOP. All rights reserved.
+    </footer>
+
+    <script>
+        // Product Search Filter
+        const searchInput = document.getElementById('searchInput');
+        const products = document.querySelectorAll('.product-card');
+
+        searchInput.addEventListener('input', () => {
+            const filter = searchInput.value.toLowerCase();
+            products.forEach(product => {
+                const title = product.querySelector('h3').textContent.toLowerCase();
+                if(title.includes(filter)) {
+                    product.style.display = '';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
