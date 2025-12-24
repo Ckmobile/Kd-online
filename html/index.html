@@ -21,14 +21,14 @@ body {
     color: #000;
 }
 
-/* Header - more compact */
+/* Header - compact black box */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background-color: #000; 
-    padding: 10px 20px 60px 20px; /* more compact */
+    padding: 10px 20px 60px 20px; 
     text-align: center;
     z-index: 1000;
 }
@@ -41,7 +41,7 @@ header h1 {
 }
 
 .header-subtext {
-    margin-top: 5px; /* less space */
+    margin-top: 5px; 
     color: silver; 
     font-size: 0.95rem;
     display: inline-block;
@@ -49,7 +49,7 @@ header h1 {
     margin-bottom: 15px;
 }
 
-/* Search Box */
+/* Search Box - attached to header but separate shadow */
 .search-container {
     position: absolute;
     bottom: 10px; 
@@ -69,7 +69,7 @@ header h1 {
     outline: none;
     background-color: #fff; 
     color: #333;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* only for search box */
     transition: all 0.3s ease;
 }
 
@@ -83,23 +83,24 @@ header h1 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    padding: 140px 40px 40px 40px; /* adjusted for smaller header */
+    padding: 140px 40px 40px 40px; 
     max-width: 1200px;
     margin: auto;
 }
 
-/* Product Cards with shadow */
+/* Product Cards - separate shadow & border, not connected to header */
 .product-card {
     background: #fff;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+    border: 1px solid #000; /* black border around each product */
     transition: all 0.3s ease;
 }
 
 .product-card:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 0 5px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
 .product-card img {
