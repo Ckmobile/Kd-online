@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KD ONLINE SHOP</title>
 
+<!-- Google Fonts: Baloo 2 for rounded "ball" style -->
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
 
 <style>
@@ -18,8 +19,8 @@
 body {
     background-color: #ffffff;
     color: #000;
-    overflow-x: hidden; /* prevent horizontal scroll from snow */
     position: relative;
+    overflow-x: hidden;
 }
 
 /* Header fixed at top */
@@ -29,7 +30,7 @@ header {
     left: 0;
     width: 100%;
     background-color: #000;
-    padding: 20px 20px 80px 20px;
+    padding: 20px 20px 60px 20px;
     text-align: center;
     z-index: 1000;
 }
@@ -37,25 +38,26 @@ header {
 header h1 {
     font-size: 2rem;
     letter-spacing: 3px;
-    color: #ffffff;
+    color: #fff;
     font-family: 'Baloo 2', cursive;
 }
 
 .header-subtext {
-    margin-top: 5px;
+    margin-top: 10px;
     color: silver;
     font-size: 0.9rem;
     display: inline-block;
+    padding-top: 5px;
 }
 
-/* Search Box */
+/* Search Box attached to bottom of header */
 .search-container {
     position: absolute;
     bottom: 5px;
     left: 50%;
     transform: translateX(-50%);
-    width: 75%;
-    max-width: 380px;
+    width: 70%;
+    max-width: 350px;
     z-index: 1001;
 }
 
@@ -82,7 +84,7 @@ header h1 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    padding: 200px 40px 40px 40px;
+    padding: 200px 40px 60px 40px; /* space for header + search */
     max-width: 1200px;
     margin: auto;
 }
@@ -137,42 +139,18 @@ header h1 {
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
 }
 
-/* Footer */
+/* Footer aligned with products */
 footer {
     text-align: center;
-    padding: 15px 25px;
+    padding: 15px 20px;
     background-color: #111;
     color: #fff;
     font-size: 0.9rem;
+    border: 2px solid #444;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    max-width: 500px;
-    margin: 30px auto 50px auto;
-}
-
-/* Snow animation */
-.snowflake {
-    position: fixed;
-    top: -50px;
-    z-index: 2000;
-    user-select: none;
-    font-size: 1.2rem;
-    pointer-events: none;
-    animation-name: fall;
-    animation-duration: 10s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-}
-
-@keyframes fall {
-    0% {
-        transform: translateY(-50px) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0.8;
-    }
+    max-width: 1200px; /* same as products max-width */
+    margin: 20px auto 40px auto;
 }
 
 @media (max-width:600px){
@@ -183,6 +161,18 @@ footer {
 
 html {
     scroll-behavior: smooth;
+}
+
+/* Snowflake style */
+.snowflake {
+    position: fixed;
+    top: -10px;
+    font-size: 12px;
+    color: #fff;
+    user-select: none;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.8;
 }
 </style>
 </head>
@@ -250,23 +240,36 @@ searchInput.addEventListener('input',()=>{
     });
 });
 
-// Snowflake animation
-function createSnowflake() {
+// Snowflake effect
+function createSnowflake(){
     const snowflake = document.createElement('div');
     snowflake.classList.add('snowflake');
     snowflake.textContent = '❄️';
     snowflake.style.left = Math.random() * window.innerWidth + 'px';
-    snowflake.style.fontSize = (Math.random() * 24 + 12) + 'px';
-    snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    snowflake.style.fontSize = (8 + Math.random() * 8) + 'px';
+    snowflake.style.opacity = Math.random();
     document.body.appendChild(snowflake);
-    
-    setTimeout(() => {
-        snowflake.remove();
-    }, 10000);
+
+    let fallSpeed = 1 + Math.random() * 2;
+    let horizontalMove = Math.random() * 2 - 1;
+    let posY = -10;
+    let posX = parseFloat(snowflake.style.left);
+
+    function animate(){
+        posY += fallSpeed;
+        posX += horizontalMove;
+        snowflake.style.top = posY + 'px';
+        snowflake.style.left = posX + 'px';
+        if(posY < window.innerHeight){
+            requestAnimationFrame(animate);
+        } else {
+            snowflake.remove();
+        }
+    }
+    animate();
 }
 
-// Generate snowflakes every 300ms
-setInterval(createSnowflake, 300);
+setInterval(createSnowflake, 800);
 </script>
 
 </body>
