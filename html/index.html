@@ -33,6 +33,7 @@
         nav {
             background-color: rgba(255, 255, 255, 0.9);
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             padding: 10px 0;
         }
@@ -46,6 +47,20 @@
 
         nav a:hover {
             color: #ff6600;
+        }
+
+        /* Search Box */
+        .search-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .search-container input {
+            width: 50%;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
         }
 
         .products {
@@ -95,10 +110,12 @@
             padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
+            transition: transform 0.2s;
         }
 
         .product-info button:hover {
             background-color: #e65c00;
+            transform: scale(1.05);
         }
 
         footer {
@@ -121,7 +138,12 @@
         <a href="#">Contact</a>
     </nav>
 
-    <section class="products">
+    <!-- Search Box -->
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search for products...">
+    </div>
+
+    <section class="products" id="productGrid">
         <div class="product-card">
             <img src="https://files.catbox.moe/1hxuz4.webp" alt="Headphones">
             <div class="product-info">
@@ -159,5 +181,23 @@
     <footer>
         &copy; 2025 KD ONLINE SHOP. All rights reserved.
     </footer>
+
+    <script>
+        // Product Search Filter
+        const searchInput = document.getElementById('searchInput');
+        const products = document.querySelectorAll('.product-card');
+
+        searchInput.addEventListener('input', () => {
+            const filter = searchInput.value.toLowerCase();
+            products.forEach(product => {
+                const title = product.querySelector('h3').textContent.toLowerCase();
+                if(title.includes(filter)) {
+                    product.style.display = '';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
