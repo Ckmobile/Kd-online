@@ -22,28 +22,37 @@ header {
     top: 0;
     z-index: 1000;
     background-color: #000; /* header black */
-    padding: 15px 20px;
+    padding: 20px 20px 80px 20px; /* bottom padding වැඩි කරලා search box + subtext ට තැන */
     text-align: center;
 }
 
 header h1 {
-    font-size: 1.5rem; /* header text search box තරමට පොඩි */
-    letter-spacing: 1px;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: #fff;
 }
 
+.header-subtext {
+    margin-top: 10px;
+    color: #00ff00; /* lime green text */
+    font-size: 0.9rem;
+    border-top: 1px solid #fff; /* white line මැද */
+    display: inline-block;
+    padding-top: 5px;
+}
+
 /* Fixed Search Box */
 .search-container {
-    position: fixed;
-    top: 120px;
+    position: absolute; /* header අගට attach කරන්න */
+    top: 100%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1001;
-    width: 80%;       /* width ටිකක් පොඩි කරමින් දෙපැත්තෙන් margin දාලා */
-    max-width: 400px; /* max-width සීමා */
+    width: 80%;       /* width ටිකක් පොඩි කරමින් දෙපැත්තෙන් margin */
+    max-width: 400px;
     transition: all 0.5s ease;
 }
 
@@ -74,7 +83,7 @@ header h1 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    padding: 200px 40px 40px 40px; /* header + search box spacing */
+    padding: 220px 40px 40px 40px; /* header + search box spacing */
     max-width: 1200px;
     margin: auto;
 }
@@ -157,6 +166,9 @@ html {
 
 <header>
     <h1>KD ONLINE SHOP</h1>
+    <div class="header-subtext">
+        A very valuable customer service from us.
+    </div>
 </header>
 
 <div class="search-container" id="searchContainer">
