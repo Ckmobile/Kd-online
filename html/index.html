@@ -12,7 +12,7 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, sans-serif;
+    font-family:Arial,sans-serif;
 }
 
 body{
@@ -27,61 +27,61 @@ header{
     left:0;
     width:100%;
     background:#000;
-    padding:10px 20px 52px; /* ⬇️ header height more compact */
+    padding:10px 20px 52px;
     text-align:center;
     z-index:1000;
+    box-shadow:0 6px 18px rgba(0,0,0,0.45);
 }
 
 header h1{
+    font-family:'Baloo 2', cursive;
     color:#fff;
     font-size:2rem;
     letter-spacing:3px;
-    font-family:'Baloo 2', cursive;
 }
 
-/* SILVER TEXT – VERY VERY CLOSE */
 .header-subtext{
-    margin-top:-14px;   /* ⬆️ more up */
-    margin-bottom:4px; /* ⬇️ closer to search */
+    margin-top:-6px;
+    margin-bottom:22px;
     color:silver;
-    font-size:0.85rem;
+    font-size:0.9rem;
 }
 
-/* SEARCH BOX – ULTRA CLOSE */
+/* SEARCH */
 .search-container{
     position:absolute;
-    bottom:0px;       /* ⬆️ touching edge */
+    bottom:12px;
     left:50%;
     transform:translateX(-50%);
     width:70%;
-    max-width:330px;
+    max-width:340px;
 }
 
 .search-container input{
     width:100%;
-    padding:9px 14px;
+    padding:12px 15px;
     border-radius:25px;
     border:2px solid #000;
-    font-size:0.9rem;
+    font-size:1rem;
     outline:none;
-    box-shadow:0 4px 12px rgba(0,0,0,0.35);
+    box-shadow:0 8px 18px rgba(0,0,0,0.35);
 }
 
 /* PRODUCTS */
 .products{
+    padding:170px 30px 40px;
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:20px;
-    padding:150px 40px 40px; /* header overlap fix */
     max-width:1200px;
     margin:auto;
 }
 
 .product-card{
     background:#fff;
-    border-radius:10px;
+    border-radius:12px;
     overflow:hidden;
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    box-shadow:0 5px 15px rgba(0,0,0,0.25);
     transition:0.3s;
 }
 
@@ -100,34 +100,38 @@ header h1{
     text-align:center;
 }
 
-.product-info h3{
-    margin-bottom:6px;
-}
-
-.product-info p{
-    margin-bottom:10px;
-    color:#555;
-}
-
 .product-info button{
     background:#ff6600;
-    color:#fff;
     border:none;
+    color:#fff;
     padding:10px 15px;
-    border-radius:5px;
+    border-radius:6px;
     cursor:pointer;
 }
 
-/* FOOTER */
+/* FOOTER – FIXED SIZE BOX */
 footer{
-    text-align:center;
-    margin:30px auto;
-    padding:10px;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    margin:40px 0;
+}
+
+.footer-box{
+    width:420px;              /* 🔹 box ලොකු */
+    max-width:90%;            /* 🔹 mobile safe */
+    padding:16px 20px;
     background:#111;
     color:#fff;
-    max-width:400px;
-    border-radius:10px;
-    font-size:0.8rem;
+    text-align:center;
+    font-size:0.85rem;
+    border-radius:14px;
+    box-shadow:0 0 15px rgba(0,0,0,0.6);
+}
+
+/* PREVENT HORIZONTAL SCROLL */
+html,body{
+    overflow-x:hidden;
 }
 </style>
 </head>
@@ -136,13 +140,11 @@ footer{
 
 <header>
     <h1>KD ONLINE SHOP</h1>
-
     <div class="header-subtext">
         A very valuable customer service from us.
     </div>
-
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search for products...">
+        <input type="text" placeholder="Search for products...">
     </div>
 </header>
 
@@ -185,20 +187,10 @@ footer{
 </section>
 
 <footer>
-    © 2025 KD ONLINE SHOP. All rights reserved.
+    <div class="footer-box">
+        © 2025 KD ONLINE SHOP. All rights reserved.
+    </div>
 </footer>
-
-<script>
-const searchInput = document.getElementById("searchInput");
-const products = document.querySelectorAll(".product-card");
-
-searchInput.addEventListener("input",()=>{
-    const value = searchInput.value.toLowerCase();
-    products.forEach(p=>{
-        p.style.display = p.innerText.toLowerCase().includes(value) ? "" : "none";
-    });
-});
-</script>
 
 </body>
 </html>
