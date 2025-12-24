@@ -5,137 +5,167 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KD ONLINE SHOP</title>
 
+<!-- Google Fonts: Baloo 2 -->
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-body{
-    background:#fff;
-    color:#000;
+body {
+    background-color: #ffffff;
+    color: #000;
 }
 
-/* HEADER */
-header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    background:#000;
-    padding:10px 20px 52px;
-    text-align:center;
-    z-index:1000;
-    box-shadow:0 6px 18px rgba(0,0,0,0.45);
+/* Header fixed at top */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000; 
+    padding: 20px 20px 80px 20px; /* enough space for search box */
+    text-align: center;
+    z-index: 1000;
 }
 
-header h1{
-    font-family:'Baloo 2', cursive;
-    color:#fff;
-    font-size:2rem;
-    letter-spacing:3px;
+header h1 {
+    font-size: 2rem;
+    letter-spacing: 3px;
+    color: #fff; 
+    font-family: 'Baloo 2', cursive;
 }
 
-.header-subtext{
-    margin-top:-6px;
-    margin-bottom:22px;
-    color:silver;
-    font-size:0.9rem;
+.header-subtext {
+    margin-top: 10px;
+    color: silver; 
+    font-size: 1rem;
+    display: inline-block;
+    padding-top: 5px;
+    margin-bottom: 20px;
 }
 
-/* SEARCH */
-.search-container{
-    position:absolute;
-    bottom:12px;
-    left:50%;
-    transform:translateX(-50%);
-    width:70%;
-    max-width:340px;
+/* Search Box */
+.search-container {
+    position: absolute;
+    bottom: 10px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75%;
+    max-width: 350px; 
+    z-index: 1001;
 }
 
-.search-container input{
-    width:100%;
-    padding:12px 15px;
-    border-radius:25px;
-    border:2px solid #000;
-    font-size:1rem;
-    outline:none;
-    box-shadow:0 8px 18px rgba(0,0,0,0.35);
+.search-container input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 25px;
+    border: 2px solid #000;
+    font-size: 1rem;
+    outline: none;
+    background-color: #fff; 
+    color: #333;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
 }
 
-/* PRODUCTS */
-.products{
-    padding:170px 30px 40px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    max-width:1200px;
-    margin:auto;
+.search-container input:focus {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
-.product-card{
-    background:#fff;
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 5px 15px rgba(0,0,0,0.25);
-    transition:0.3s;
+/* Products Section */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 180px 40px 40px 40px; /* enough padding for header + search */
+    max-width: 1200px;
+    margin: auto;
 }
 
-.product-card:hover{
-    transform:scale(1.05);
+/* Product Cards with hover outline */
+.product-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #000;  /* base black line */
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+    transition: all 0.3s ease;
 }
 
-.product-card img{
-    width:100%;
-    height:200px;
-    object-fit:cover;
+.product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 5px rgba(0,0,0,0.2); /* outline effect */
 }
 
-.product-info{
-    padding:15px;
-    text-align:center;
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
 }
 
-.product-info button{
-    background:#ff6600;
-    border:none;
-    color:#fff;
-    padding:10px 15px;
-    border-radius:6px;
-    cursor:pointer;
+.product-info {
+    padding: 15px;
+    text-align: center;
 }
 
-/* FOOTER – FIXED SIZE BOX */
-footer{
-    width:100%;
-    display:flex;
-    justify-content:center;
-    margin:40px 0;
+.product-info h3 {
+    margin-bottom: 10px;
+    color: #333;
 }
 
-.footer-box{
-    width:420px;              /* 🔹 box ලොකු */
-    max-width:90%;            /* 🔹 mobile safe */
-    padding:16px 20px;
-    background:#111;
-    color:#fff;
-    text-align:center;
-    font-size:0.85rem;
-    border-radius:14px;
-    box-shadow:0 0 15px rgba(0,0,0,0.6);
+.product-info p {
+    margin-bottom: 10px;
+    color: #555;
 }
 
-/* PREVENT HORIZONTAL SCROLL */
-html,body{
-    overflow-x:hidden;
+.product-info button {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-info button:hover {
+    background-color: #e65c00;
+    transform: scale(1.05);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px 20px;
+    background-color: #111;
+    color: #fff;
+    font-size: 0.9rem;
+    border: 2px solid #444;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    max-width: 400px;
+    margin: 20px auto 40px auto;
+}
+
+/* Responsive */
+@media (max-width:600px){
+    .search-container input{
+        width:100%;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
 }
 </style>
 </head>
-
 <body>
 
 <header>
@@ -143,41 +173,38 @@ html,body{
     <div class="header-subtext">
         A very valuable customer service from us.
     </div>
-    <div class="search-container">
-        <input type="text" placeholder="Search for products...">
+    <div class="search-container" id="searchContainer">
+        <input type="text" id="searchInput" placeholder="Search for products...">
     </div>
 </header>
 
-<section class="products">
+<section class="products" id="productGrid">
     <div class="product-card">
-        <img src="https://files.catbox.moe/1hxuz4.webp">
+        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Headphones">
         <div class="product-info">
             <h3>Headphones</h3>
             <p>High quality sound</p>
             <button>Add to Cart</button>
         </div>
     </div>
-
     <div class="product-card">
-        <img src="https://files.catbox.moe/1hxuz4.webp">
+        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Art Set">
         <div class="product-info">
             <h3>Art Set</h3>
             <p>150 pieces</p>
             <button>Add to Cart</button>
         </div>
     </div>
-
     <div class="product-card">
-        <img src="https://files.catbox.moe/1hxuz4.webp">
+        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Derma Roller">
         <div class="product-info">
             <h3>Derma Roller</h3>
             <p>Skin care tool</p>
             <button>Add to Cart</button>
         </div>
     </div>
-
     <div class="product-card">
-        <img src="https://files.catbox.moe/1hxuz4.webp">
+        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Karaoke Mic">
         <div class="product-info">
             <h3>Karaoke Mic</h3>
             <p>Portable & Wireless</p>
@@ -187,10 +214,22 @@ html,body{
 </section>
 
 <footer>
-    <div class="footer-box">
-        © 2025 KD ONLINE SHOP. All rights reserved.
-    </div>
+    &copy; 2025 KD ONLINE SHOP. All rights reserved.
 </footer>
+
+<script>
+// Product Search Filter
+const searchInput = document.getElementById('searchInput');
+const products = document.querySelectorAll('.product-card');
+
+searchInput.addEventListener('input',()=>{
+    const filter = searchInput.value.toLowerCase();
+    products.forEach(product=>{
+        const title = product.querySelector('h3').textContent.toLowerCase();
+        product.style.display = title.includes(filter)?'':'none';
+    });
+});
+</script>
 
 </body>
 </html>
