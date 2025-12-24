@@ -36,21 +36,20 @@ header {
 }
 
 header h1 {
-    font-size: 2.8rem;
+    font-size: 2rem; /* පොඩි කරලා */
     color: #fff;
     font-family: 'Orbitron', sans-serif;
-    display: inline-block;
-    vertical-align: middle;
+    display: block; /* තනි ලයින් එකකට */
+    margin-bottom: 5px;
 }
 
 .header-subtext {
-    display: inline-block;
+    display: block;
     color: silver;
     font-size: 1.2rem;
     font-weight: bold;
     line-height: 1.4;
-    margin-left: 15px;
-    vertical-align: middle;
+    margin-top: 5px;
     font-family: 'Baloo 2', cursive;
 }
 
@@ -259,7 +258,7 @@ searchInput.addEventListener('input', () => {
 });
 
 // Snow ❄️ generation
-const snowCount = 50; // number of flakes
+const snowCount = 50;
 for(let i=0;i<snowCount;i++){
     const snow = document.createElement('div');
     snow.className = 'snowflake';
