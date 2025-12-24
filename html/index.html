@@ -1,251 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KD ONLINE SHOP</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KD ONLINE SHOP</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
 
-        body {
-            background: url('https://files.catbox.moe/1hxuz4.webp') no-repeat center center/cover;
-            color: #fff;
-            background-attachment: fixed;
-        }
+body {
+    background: url('https://files.catbox.moe/1hxuz4.webp') no-repeat center center/cover;
+    color: #fff;
+    background-attachment: fixed;
+}
 
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            text-align: center;
-        }
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(0,0,0,0.7);
+    padding: 20px;
+    text-align: center;
+}
 
-        header h1 {
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-        }
+header h1 {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+}
 
-        nav {
-            position: sticky;
-            top: 80px;
-            z-index: 999;
-            background-color: transparent;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 10px 0;
-        }
+/* Fixed Search Box */
+.search-container {
+    position: fixed;
+    top: 146px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1001;
+    width: 97%;
+    max-width: 470px;
+    transition: all 0.5s ease;
+}
 
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-        }
+.search-container.hide {
+    opacity: 0;
+}
 
-        nav a:hover {
-            color: #ff6600;
-        }
+.search-container input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 25px;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+    background-color: rgba(255,255,255,0.95);
+    color: #333;
+    box-shadow: 0 0 0 2px #000 inset;
+    transition: all 0.3s ease;
+}
 
-        /* Fixed Search Box with fade effect */
-        .search-container {
-            position: fixed;
-            top: 148px; /* 2px less than before */
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1001;
-            width: 95%; /* slightly longer than before */
-            max-width: 450px; /* increased max width */
-            opacity: 1;
-            transition: opacity 0.5s ease;
-        }
+/* Floating/dynamic outline effect on focus */
+.search-container input:focus {
+    box-shadow: 0 0 12px 4px #000 inset;
+    transform: scale(1.02);
+}
 
-        .search-container.hide {
-            opacity: 0; /* fade out when scrolling down */
-        }
+/* Products Section */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 60px 40px 40px 40px;
+    max-width: 1200px;
+    margin: auto;
+}
 
-        .search-container input {
-            width: 100%;
-            padding: 12px 15px;
-            border-radius: 25px;
-            border: 2px solid #ff6600;
-            font-size: 1rem;
-            outline: none;
-            background-color: rgba(255, 255, 255, 0.95);
-            color: #333;
-        }
+.product-card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+}
 
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 220px 40px 40px 40px;
-            max-width: 1200px;
-            margin: auto;
-        }
+.product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
 
-        .product-card {
-            background-color: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
-        }
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
 
-        .product-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
+.product-info {
+    padding: 15px;
+    text-align: center;
+}
 
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
+.product-info h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
 
-        .product-info {
-            padding: 15px;
-            text-align: center;
-        }
+.product-info p {
+    margin-bottom: 10px;
+    color: #555;
+}
 
-        .product-info h3 {
-            margin-bottom: 10px;
-            color: #333;
-        }
+.product-info button {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
 
-        .product-info p {
-            margin-bottom: 10px;
-            color: #555;
-        }
+.product-info button:hover {
+    background-color: #e65c00;
+    transform: scale(1.05);
+}
 
-        .product-info button {
-            background-color: #ff6600;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
+footer {
+    text-align: center;
+    padding: 10px 20px;
+    background-color: #111;
+    color: #fff;
+    font-size: 0.8rem;
+    border: 2px solid #444;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    max-width: 400px;
+    margin: 20px auto 40px auto;
+}
 
-        .product-info button:hover {
-            background-color: #e65c00;
-            transform: scale(1.05);
-        }
+@media (max-width:600px){
+    .search-container input{
+        width:100%;
+    }
+}
 
-        footer {
-            text-align: center;
-            padding: 10px 20px;
-            background-color: #111;
-            color: #fff;
-            font-size: 0.8rem;
-            border: 2px solid #444;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            max-width: 400px;
-            margin: 20px auto 40px auto;
-        }
-
-        @media (max-width: 600px) {
-            .search-container input {
-                width: 100%;
-            }
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+html {
+    scroll-behavior: smooth;
+}
+</style>
 </head>
 <body>
-    <header>
-        <h1>KD ONLINE SHOP</h1>
-    </header>
 
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Products</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-    </nav>
+<header>
+    <h1>KD ONLINE SHOP</h1>
+</header>
 
-    <!-- Fixed Search Box -->
-    <div class="search-container" id="searchContainer">
-        <input type="text" id="searchInput" placeholder="Search for products...">
+<div class="search-container" id="searchContainer">
+    <input type="text" id="searchInput" placeholder="Search for products...">
+</div>
+
+<section class="products" id="productGrid">
+    <div class="product-card">
+        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Headphones">
+        <div class="product-info">
+            <h3>Headphones</h3>
+            <p>High quality sound</p>
+            <button>Add to Cart</button>
+        </div>
     </div>
-
-    <section class="products" id="productGrid">
-        <div class="product-card">
-            <img src="https://files.catbox.moe/1hxuz4.webp" alt="Headphones">
-            <div class="product-info">
-                <h3>Headphones</h3>
-                <p>High quality sound</p>
-                <button>Add to Cart</button>
-            </div>
+    <div class="product-card">
+        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Art Set">
+        <div class="product-info">
+            <h3>Art Set</h3>
+            <p>150 pieces</p>
+            <button>Add to Cart</button>
         </div>
-        <div class="product-card">
-            <img src="https://files.catbox.moe/1hxuz4.webp" alt="Art Set">
-            <div class="product-info">
-                <h3>Art Set</h3>
-                <p>150 pieces</p>
-                <button>Add to Cart</button>
-            </div>
+    </div>
+    <div class="product-card">
+        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Derma Roller">
+        <div class="product-info">
+            <h3>Derma Roller</h3>
+            <p>Skin care tool</p>
+            <button>Add to Cart</button>
         </div>
-        <div class="product-card">
-            <img src="https://files.catbox.moe/1hxuz4.webp" alt="Derma Roller">
-            <div class="product-info">
-                <h3>Derma Roller</h3>
-                <p>Skin care tool</p>
-                <button>Add to Cart</button>
-            </div>
+    </div>
+    <div class="product-card">
+        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Karaoke Mic">
+        <div class="product-info">
+            <h3>Karaoke Mic</h3>
+            <p>Portable & Wireless</p>
+            <button>Add to Cart</button>
         </div>
-        <div class="product-card">
-            <img src="https://files.catbox.moe/1hxuz4.webp" alt="Karaoke Mic">
-            <div class="product-info">
-                <h3>Karaoke Mic</h3>
-                <p>Portable & Wireless</p>
-                <button>Add to Cart</button>
-            </div>
-        </div>
-    </section>
+    </div>
+</section>
 
-    <footer>
-        &copy; 2025 KD ONLINE SHOP. All rights reserved.
-    </footer>
+<footer>
+    &copy; 2025 KD ONLINE SHOP. All rights reserved.
+</footer>
 
-    <script>
-        // Product Search Filter
-        const searchInput = document.getElementById('searchInput');
-        const products = document.querySelectorAll('.product-card');
+<script>
+// Product Search Filter
+const searchInput = document.getElementById('searchInput');
+const products = document.querySelectorAll('.product-card');
 
-        searchInput.addEventListener('input', () => {
-            const filter = searchInput.value.toLowerCase();
-            products.forEach(product => {
-                const title = product.querySelector('h3').textContent.toLowerCase();
-                product.style.display = title.includes(filter) ? '' : 'none';
-            });
-        });
+searchInput.addEventListener('input',()=>{
+    const filter = searchInput.value.toLowerCase();
+    products.forEach(product=>{
+        const title = product.querySelector('h3').textContent.toLowerCase();
+        product.style.display = title.includes(filter)?'':'none';
+    });
+});
 
-        // Fade in/out search box on scroll
-        const searchContainer = document.getElementById('searchContainer');
-        let lastScrollTop = 0;
+// Fade search box on scroll
+const searchContainer=document.getElementById('searchContainer');
+let lastScrollTop=0;
+window.addEventListener('scroll',()=>{
+    let st=window.pageYOffset||document.documentElement.scrollTop;
+    if(st>lastScrollTop){
+        searchContainer.classList.add('hide');
+    }else{
+        searchContainer.classList.remove('hide');
+    }
+    lastScrollTop=st<=0?0:st;
+});
+</script>
 
-        window.addEventListener('scroll', () => {
-            let st = window.pageYOffset || document.documentElement.scrollTop;
-            if(st > lastScrollTop){
-                searchContainer.classList.add('hide');
-            } else {
-                searchContainer.classList.remove('hide');
-            }
-            lastScrollTop = st <= 0 ? 0 : st;
-        });
-    </script>
 </body>
 </html>
