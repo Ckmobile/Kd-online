@@ -1,111 +1,163 @@
 <!DOCTYPE html>
-<html lang="si">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KD ONLINE SHOP</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f8f8f8;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KD ONLINE SHOP</title>
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-    header {
-      background-color: #1e90ff;
-      color: white;
-      padding: 15px;
-      text-align: center;
-    }
+        body {
+            background: url('https://images.unsplash.com/photo-1560185127-6a9c9c3d4f5f') no-repeat center center/cover;
+            color: #333;
+        }
 
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 30px;
-    }
+        header {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
 
-    .product-card {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      padding: 15px;
-      transition: 0.3s;
-    }
+        header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+        }
 
-    .product-card:hover {
-      transform: translateY(-5px);
-    }
+        nav {
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
 
-    .product-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
 
-    h3 {
-      margin: 10px 0 5px;
-      color: #333;
-    }
+        nav a:hover {
+            color: #ff6600;
+        }
 
-    p {
-      color: #555;
-    }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
 
-    .btn {
-      display: inline-block;
-      background-color: #1e90ff;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 5px;
-      text-decoration: none;
-      margin-top: 10px;
-    }
+        .product-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
 
-    .btn:hover {
-      background-color: #0b6ed2;
-    }
-  </style>
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .product-info button {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .product-info button:hover {
+            background-color: #e65c00;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0,0,0,0.6);
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>KD ONLINE SHOP</h1>
+    </header>
 
-  <header>
-    <h1>KD ONLINE SHOP</h1>
-    <p>සියලුම භාණ්ඩ එකම තැනකින්!</p>
-  </header>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Products</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </nav>
 
-  <div class="product-grid">
-    <div class="product-card">
-      <img src="https://via.placeholder.com/250x180?text=Headphone" alt="Headphone">
-      <h3>Headphone</h3>
-      <p>High-quality wireless sound</p>
-      <a href="#" class="btn">Buy Now</a>
-    </div>
+    <section class="products">
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1512499617640-c2f999b5a3b0" alt="Headphones">
+            <div class="product-info">
+                <h3>Headphones</h3>
+                <p>High quality sound</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1580894908361-89b2d195c64d" alt="Art Set">
+            <div class="product-info">
+                <h3>Art Set</h3>
+                <p>150 pieces</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1598032891684-d2d6b3e3dc27" alt="Derma Roller">
+            <div class="product-info">
+                <h3>Derma Roller</h3>
+                <p>Skin care tool</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1581404917874-62f417b38e63" alt="Karaoke Mic">
+            <div class="product-info">
+                <h3>Karaoke Mic</h3>
+                <p>Portable & Wireless</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+    </section>
 
-    <div class="product-card">
-      <img src="https://via.placeholder.com/250x180?text=Art+Set" alt="Art Set">
-      <h3>Art Set</h3>
-      <p>Everything you need to paint!</p>
-      <a href="#" class="btn">Buy Now</a>
-    </div>
-
-    <div class="product-card">
-      <img src="https://via.placeholder.com/250x180?text=Derma+Roller" alt="Derma Roller">
-      <h3>Derma Roller</h3>
-      <p>Skin care made simple</p>
-      <a href="#" class="btn">Buy Now</a>
-    </div>
-
-    <div class="product-card">
-      <img src="https://via.placeholder.com/250x180?text=Karaoke+Mic" alt="Karaoke Mic">
-      <h3>Karaoke Mic</h3>
-      <p>Sing anywhere, anytime!</p>
-      <a href="#" class="btn">Buy Now</a>
-    </div>
-  </div>
-
+    <footer>
+        &copy; 2025 KD ONLINE SHOP. All rights reserved.
+    </footer>
 </body>
 </html>
