@@ -1,22 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KD ONLINE SHOP</title>
+
+<!-- Google Fonts: Baloo 2 for rounded "ball" style -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: #000;
+}
+
 /* Header fixed at top */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #000; 
-    padding: 20px 20px 40px 20px; /* bottom padding slightly reduce */
+    background-color: #000; /* black header */
+    padding: 20px 20px 40px 20px; /* reduce bottom padding for search box */
     text-align: center;
     z-index: 1000;
+}
+
+header h1 {
+    font-size: 2rem;
+    letter-spacing: 3px;
+    color: #ffffff; /* Shop name white */
+    font-family: 'Baloo 2', cursive; /* Ball/happy font */
+}
+
+.header-subtext {
+    margin-top: 10px;
+    color: silver; /* Subtext silver */
+    font-size: 0.9rem;
+    display: inline-block;
+    padding-top: 5px;
 }
 
 /* Search Box attached to bottom of header */
 .search-container {
     position: absolute;
-    bottom: 0; /* header bottom edge එකට attach */
+    bottom: 0; /* attach to header bottom edge */
     left: 50%;
     transform: translateX(-50%);
-    width: 70%; 
-    max-width: 350px; 
+    width: 70%; /* slightly smaller */
+    max-width: 350px;
     z-index: 1001;
 }
+
+.search-container input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 25px;
+    border: 2px solid #000;
+    font-size: 1rem;
+    outline: none;
+    background-color: #fff; /* visible white box */
+    color: #333;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.search-container input:focus {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Products Section */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 160px 40px 40px 40px; /* enough padding for header + search box */
+    max-width: 1200px;
+    margin: auto;
+}
+
+.product-card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 15px;
+    text-align: center;
+}
+
+.product-info h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.product-info p {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.product-info button {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-info button:hover {
+    background-color: #e65c00;
+    transform: scale(1.05);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+
+footer {
+    text-align: center;
+    padding: 10px 20px;
+    background-color: #111;
+    color: #fff;
+    font-size: 0.8rem;
+    border: 2px solid #444;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    max-width: 400px;
+    margin: 20px auto 40px auto;
+}
+
+@media (max-width:600px){
+    .search-container input{
+        width:100%;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>KD ONLINE SHOP</h1>
+    <div class="header-subtext">
+        A very valuable customer service from us.
+    </div>
+    <div class="search-container" id="searchContainer">
+        <input type="text" id="searchInput" placeholder="Search for products...">
+    </div>
+</header>
+
+<section class="products" id="productGrid">
+    <div class="product-card">
+        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Headphones">
+        <div class="product-info">
+            <h3>Headphones</h3>
+            <p>High quality sound</p>
+            <button>Add to Cart</button>
+        </div>
+    </div>
+    <div class="product-card">
+        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Art Set">
+        <div class="product-info">
+            <h3>Art Set</h3>
+            <p>150 pieces</p>
+            <button>Add to Cart</button>
+        </div>
+    </div>
+    <div class="product-card">
+        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Derma Roller">
+        <div class="product-info">
+            <h3>Derma Roller</h3>
+            <p>Skin care tool</p>
+            <button>Add to Cart</button>
+        </div>
+    </div>
+    <div class="product-card">
+        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Karaoke Mic">
+        <div class="product-info">
+            <h3>Karaoke Mic</h3>
+            <p>Portable & Wireless</p>
+            <button>Add to Cart</button>
+        </div>
+    </div>
+</section>
+
+<footer>
+    &copy; 2025 KD ONLINE SHOP. All rights reserved.
+</footer>
+
+<script>
+// Product Search Filter
+const searchInput = document.getElementById('searchInput');
+const products = document.querySelectorAll('.product-card');
+
+searchInput.addEventListener('input',()=>{
+    const filter = searchInput.value.toLowerCase();
+    products.forEach(product=>{
+        const title = product.querySelector('h3').textContent.toLowerCase();
+        product.style.display = title.includes(filter)?'':'none';
+    });
+});
+</script>
+
+</body>
+</html>
