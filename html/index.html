@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KD ONLINE SHOP</title>
+
+<!-- Google Fonts: Baloo 2 for rounded "ball" style -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+
 <style>
 * {
     margin: 0;
@@ -19,7 +23,7 @@ body {
 
 /* Header fixed at top */
 header {
-    position: fixed; /* fixed so it doesn't move */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -30,16 +34,16 @@ header {
 }
 
 header h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     letter-spacing: 3px;
     color: #ffffff; /* Shop name white */
+    font-family: 'Baloo 2', cursive; /* Ball/happy font */
 }
 
 .header-subtext {
     margin-top: 10px;
     color: silver; /* Subtext silver */
     font-size: 0.9rem;
-    border-top: 1px solid #fff;
     display: inline-block;
     padding-top: 5px;
 }
@@ -47,11 +51,11 @@ header h1 {
 /* Search Box attached to bottom of header */
 .search-container {
     position: absolute;
-    bottom: 0; /* attached to bottom of header */
+    bottom: 5px; /* slightly raised from header bottom */
     left: 50%;
     transform: translateX(-50%);
-    width: 80%;
-    max-width: 400px;
+    width: 70%; /* slightly smaller */
+    max-width: 350px; /* slightly smaller */
     z-index: 1001;
 }
 
