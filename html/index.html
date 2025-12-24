@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KD ONLINE SHOP</title>
 
-<!-- Google Fonts: Baloo 2 -->
+<!-- Google Fonts: Baloo 2 for rounded "ball" style -->
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
 
 <style>
@@ -21,14 +21,14 @@ body {
     color: #000;
 }
 
-/* Header - compact black box */
+/* Header fixed at top */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #000; 
-    padding: 10px 20px 60px 20px; 
+    background-color: #000; /* black header */
+    padding: 20px 20px 80px 20px; /* bottom padding for search box */
     text-align: center;
     z-index: 1000;
 }
@@ -36,27 +36,25 @@ header {
 header h1 {
     font-size: 2rem;
     letter-spacing: 3px;
-    color: #fff; 
-    font-family: 'Baloo 2', cursive;
+    color: #ffffff; /* Shop name white */
+    font-family: 'Baloo 2', cursive; /* Ball/happy font */
 }
 
 .header-subtext {
-    margin-top: 5px; 
-    color: silver; 
-    font-size: 0.95rem;
+    margin-top: 5px; /* adjusted upwards */
+    color: silver; /* Subtext silver */
+    font-size: 0.9rem;
     display: inline-block;
-    padding-top: 3px;
-    margin-bottom: 15px;
 }
 
-/* Search Box - attached to header but separate shadow */
+/* Search Box attached to bottom of header */
 .search-container {
     position: absolute;
-    bottom: 10px; 
+    bottom: 5px; /* slightly raised from header bottom */
     left: 50%;
     transform: translateX(-50%);
-    width: 75%;
-    max-width: 350px; 
+    width: 75%; /* slightly bigger */
+    max-width: 380px;
     z-index: 1001;
 }
 
@@ -67,9 +65,9 @@ header h1 {
     border: 2px solid #000;
     font-size: 1rem;
     outline: none;
-    background-color: #fff; 
+    background-color: #fff;
     color: #333;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* only for search box */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     transition: all 0.3s ease;
 }
 
@@ -83,24 +81,22 @@ header h1 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    padding: 140px 40px 40px 40px; 
+    padding: 200px 40px 40px 40px; /* more space between header and products */
     max-width: 1200px;
     margin: auto;
 }
 
-/* Product Cards - separate shadow & border, not connected to header */
 .product-card {
-    background: #fff;
-    border-radius: 12px;
+    background-color: #fff;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
-    border: 1px solid #000; /* black border around each product */
-    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* shadow at bottom */
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .product-card:hover {
     transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
 .product-card img {
@@ -143,15 +139,14 @@ header h1 {
 /* Footer */
 footer {
     text-align: center;
-    padding: 15px 20px;
+    padding: 15px 25px;
     background-color: #111;
     color: #fff;
     font-size: 0.9rem;
-    border: 2px solid #444;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    max-width: 400px;
-    margin: 20px auto 40px auto;
+    max-width: 500px;
+    margin: 30px auto 50px auto;
 }
 
 /* Responsive */
@@ -161,6 +156,7 @@ footer {
     }
 }
 
+/* Smooth scroll */
 html {
     scroll-behavior: smooth;
 }
