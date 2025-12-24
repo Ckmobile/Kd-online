@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KD ONLINE SHOP</title>
 
-<!-- Google Fonts: Baloo 2 for rounded "ball" style -->
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Baloo+2:wght@600&display=swap" rel="stylesheet">
 
 <style>
 * {
@@ -23,7 +23,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Header fixed at top */
+/* Header */
 header {
     position: fixed;
     top: 0;
@@ -35,12 +35,10 @@ header {
     z-index: 1000;
 }
 
-/* Shop name inline with subtext */
 header h1 {
-    font-size: 2rem;
-    letter-spacing: 3px;
+    font-size: 2.8rem;
     color: #fff;
-    font-family: 'Baloo 2', cursive;
+    font-family: 'Orbitron', sans-serif;
     display: inline-block;
     vertical-align: middle;
 }
@@ -51,11 +49,12 @@ header h1 {
     font-size: 1.2rem;
     font-weight: bold;
     line-height: 1.4;
-    margin-left: 15px; /* space between shop name and subtext */
+    margin-left: 15px;
     vertical-align: middle;
+    font-family: 'Baloo 2', cursive;
 }
 
-/* Search Box attached to bottom of header */
+/* Search Box */
 .search-container {
     position: absolute;
     bottom: 5px;
@@ -89,7 +88,7 @@ header h1 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    padding: 160px 40px 60px 40px; /* space for header + search */
+    padding: 220px 40px 60px 40px;
     max-width: 1200px;
     margin: auto;
 }
@@ -144,7 +143,7 @@ header h1 {
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
 }
 
-/* Footer aligned with products */
+/* Footer */
 footer {
     text-align: center;
     padding: 15px 20px;
@@ -158,14 +157,40 @@ footer {
     margin: 20px auto 40px auto;
 }
 
+/* Snow ❄️ */
+.snowflake {
+    position: fixed;
+    top: -2%;
+    z-index: 10000;
+    user-select: none;
+    font-size: 1.2rem; /* small flakes */
+    color: #fff;
+    pointer-events: none;
+    animation-name: fall;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.8;
+    }
+}
+
 @media (max-width:600px){
     .search-container input{
         width:100%;
     }
-}
-
-html {
-    scroll-behavior: smooth;
+    header h1, .header-subtext{
+        display: block;
+        margin-left: 0;
+    }
 }
 </style>
 </head>
@@ -176,12 +201,12 @@ html {
     <div class="header-subtext">
         A very valuable customer service from us.
     </div>
-    <div class="search-container" id="searchContainer">
-        <input type="text" id="searchInput" placeholder="Search for products...">
+    <div class="search-container">
+        <input type="text" placeholder="Search for products...">
     </div>
 </header>
 
-<section class="products" id="productGrid">
+<section class="products">
     <div class="product-card">
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Headphones">
         <div class="product-info">
@@ -222,16 +247,28 @@ html {
 
 <script>
 // Product Search Filter
-const searchInput = document.getElementById('searchInput');
+const searchInput = document.querySelector('.search-container input');
 const products = document.querySelectorAll('.product-card');
 
-searchInput.addEventListener('input',()=>{
+searchInput.addEventListener('input', () => {
     const filter = searchInput.value.toLowerCase();
-    products.forEach(product=>{
+    products.forEach(product => {
         const title = product.querySelector('h3').textContent.toLowerCase();
-        product.style.display = title.includes(filter)?'':'none';
+        product.style.display = title.includes(filter) ? '' : 'none';
     });
 });
+
+// Snow ❄️ generation
+const snowCount = 50; // number of flakes
+for(let i=0;i<snowCount;i++){
+    const snow = document.createElement('div');
+    snow.className = 'snowflake';
+    snow.style.left = Math.random()*100 + 'vw';
+    snow.style.animationDuration = (5 + Math.random()*10) + 's';
+    snow.style.fontSize = (10 + Math.random()*10) + 'px';
+    snow.textContent = '❄️';
+    document.body.appendChild(snow);
+}
 </script>
 
 </body>
