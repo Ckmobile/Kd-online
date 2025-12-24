@@ -14,7 +14,7 @@
 
 body {
     background-color: #ffffff; /* Pure white background */
-    color: #000; /* Text color dark for contrast */
+    color: #000; /* Default dark text */
 }
 
 header {
@@ -22,28 +22,28 @@ header {
     top: 0;
     z-index: 1000;
     background-color: #000; /* header black */
-    padding: 20px;
+    padding: 15px 20px;
     text-align: center;
 }
 
 header h1 {
-    font-size: 2.5rem;
-    letter-spacing: 2px;
+    font-size: 1.5rem; /* header text search box තරමට පොඩි */
+    letter-spacing: 1px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #fff; /* Header text white */
+    color: #fff;
 }
 
 /* Fixed Search Box */
 .search-container {
     position: fixed;
-    top: 146px;
+    top: 120px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1001;
-    width: 97%;
-    max-width: 470px;
+    width: 80%;       /* width ටිකක් පොඩි කරමින් දෙපැත්තෙන් margin දාලා */
+    max-width: 400px; /* max-width සීමා */
     transition: all 0.5s ease;
 }
 
@@ -74,7 +74,7 @@ header h1 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    padding: 220px 40px 40px 40px; /* search box + header spacing */
+    padding: 200px 40px 40px 40px; /* header + search box spacing */
     max-width: 1200px;
     margin: auto;
 }
