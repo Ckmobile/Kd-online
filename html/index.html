@@ -1,258 +1,206 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>A2Z Dropshipping</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KD ONLINE SHOP</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f5f5f5;
-      color: #333;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f4f4;
+}
 
-    /* Top Bar */
-    .top-bar {
-      background: #111;
-      color: #fff;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 14px;
-    }
+/* Header */
+header {
+  background: #000;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+}
 
-    .top-bar a {
-      color: #fff;
-      text-decoration: none;
-    }
+/* Products */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
 
-    /* Navigation */
-    nav {
-      background: #000;
-      padding: 10px 0;
-    }
+.product {
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      margin: 0;
-      padding: 0;
-    }
+.product img {
+  width: 100%;
+  border-radius: 5px;
+}
 
-    nav ul li {
-      margin: 0 15px;
-    }
+.product h3 {
+  margin: 10px 0 5px;
+}
 
-    nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-    }
+.price {
+  font-weight: bold;
+  color: #007bff;
+}
 
-    /* Hero Section */
-    .hero {
-      background: linear-gradient(to right, #007bff, #00c6ff);
-      color: #fff;
-      padding: 60px 20px;
-      text-align: center;
-    }
+/* Buttons */
+.btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border: none;
+  color: #fff;
+  font-size: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-    .hero h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
+.order-btn {
+  background: orange;
+}
 
-    .hero h1 span {
-      color: #ffcc00;
-    }
+.whatsapp-btn {
+  background: green;
+}
 
-    .hero p {
-      font-size: 18px;
-      margin-bottom: 25px;
-    }
+/* Popup */
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
 
-    .btn {
-      background: #28a745;
-      color: #fff;
-      padding: 12px 30px;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      display: inline-block;
-    }
+.popup-content {
+  background: #fff;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 8px;
+}
 
-    /* Stats */
-    .stats {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 40px 20px;
-      background: #fff;
-    }
+.popup-content h2 {
+  text-align: center;
+}
 
-    .stat-box {
-      background: #f9f9f9;
-      padding: 20px 30px;
-      border-radius: 8px;
-      text-align: center;
-      min-width: 200px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    }
+.popup-content input {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0;
+}
 
-    .stat-box h2 {
-      margin: 0;
-      color: #007bff;
-    }
+.send-btn {
+  background: green;
+  color: #fff;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+}
 
-    /* Sections */
-    section {
-      padding: 50px 20px;
-      text-align: center;
-      background: #fff;
-      margin-top: 10px;
-    }
-
-    section h2 {
-      margin-bottom: 15px;
-    }
-
-    /* Products */
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    .product-card {
-      background: #f9f9f9;
-      border-radius: 8px;
-      padding: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    }
-
-    .product-card img {
-      width: 100%;
-      border-radius: 5px;
-    }
-
-    .product-card p {
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    /* Seller Section */
-    .seller {
-      background: #eef6ff;
-    }
-
-    /* Footer */
-    footer {
-      background: #111;
-      color: #fff;
-      text-align: center;
-      padding: 15px;
-      font-size: 14px;
-    }
-
-    @media (max-width: 768px) {
-      .stats {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-  </style>
+.close {
+  text-align: right;
+  cursor: pointer;
+  color: red;
+}
+</style>
 </head>
+
 <body>
 
-  <!-- Top Bar -->
-  <div class="top-bar">
-    <div>📞 076 726 7087 | <a href="#">azzdropshipping.lk</a></div>
+<header>KD ONLINE SHOP</header>
+
+<section class="products">
+
+  <div class="product">
+    <img src="https://via.placeholder.com/300x200">
+    <h3>Smart Watch</h3>
+    <p class="price">Rs. 4500</p>
+    <button class="btn order-btn" onclick="openPopup('Smart Watch','4500')">Order Now</button>
+    <button class="btn whatsapp-btn" onclick="directWhatsApp('Smart Watch','4500')">WhatsApp</button>
   </div>
 
-  <!-- Navigation -->
-  <nav>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Join Us</a></li>
-      <li><a href="#">Dropshipping</a></li>
-    </ul>
-  </nav>
-
-  <!-- Hero -->
-  <div class="hero">
-    <h1>Safe & Faster <span>Drop-Shipping</span></h1>
-    <p>2000+ Products to Help You Grow Your Online Sales</p>
-    <a href="#" class="btn">Register Now</a>
+  <div class="product">
+    <img src="https://via.placeholder.com/300x200">
+    <h3>Wireless Earbuds</h3>
+    <p class="price">Rs. 3500</p>
+    <button class="btn order-btn" onclick="openPopup('Wireless Earbuds','3500')">Order Now</button>
+    <button class="btn whatsapp-btn" onclick="directWhatsApp('Wireless Earbuds','3500')">WhatsApp</button>
   </div>
 
-  <!-- Stats -->
-  <div class="stats">
-    <div class="stat-box">
-      <h2>10000+</h2>
-      <p>Happy Sellers</p>
-    </div>
-    <div class="stat-box">
-      <h2>5000+</h2>
-      <p>Best Products</p>
-    </div>
-    <div class="stat-box">
-      <h2>200000+</h2>
-      <p>Completed Orders</p>
-    </div>
+</section>
+
+<!-- Popup Form -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <div class="close" onclick="closePopup()">✖</div>
+    <h2>Order Details</h2>
+
+    <input type="text" id="customerName" placeholder="Customer Name">
+    <input type="text" id="address" placeholder="Address">
+    <input type="text" id="phone1" placeholder="Contact Number 1">
+    <input type="text" id="phone2" placeholder="Contact Number 2">
+
+    <button class="send-btn" onclick="sendWhatsApp()">Send Order</button>
   </div>
+</div>
 
-  <!-- About -->
-  <section>
-    <h2>About A2Z Dropshipping</h2>
-    <p>
-      At A2Z Dropshipping, we're committed to revolutionizing the way you do online business.
-    </p>
-  </section>
+<script>
+let productName = "";
+let productPrice = "";
 
-  <!-- Products -->
-  <section>
-    <h2>Our Products</h2>
-    <div class="products">
-      <div class="product-card">
-        <img src="https://via.placeholder.com/300x200" alt="Product 1">
-        <p>Product 1</p>
-      </div>
-      <div class="product-card">
-        <img src="https://via.placeholder.com/300x200" alt="Product 2">
-        <p>Product 2</p>
-      </div>
-      <div class="product-card">
-        <img src="https://via.placeholder.com/300x200" alt="Product 3">
-        <p>Product 3</p>
-      </div>
-      <div class="product-card">
-        <img src="https://via.placeholder.com/300x200" alt="Product 4">
-        <p>Product 4</p>
-      </div>
-    </div>
-  </section>
+function openPopup(name, price) {
+  productName = name;
+  productPrice = price;
+  document.getElementById("popup").style.display = "flex";
+}
 
-  <!-- Seller Section -->
-  <section class="seller">
-    <h2>Become a Seller</h2>
-    <p>
-      Ready to unlock the world of hassle-free online sales? Join A2Z Dropshipping today!
-    </p>
-    <a href="#" class="btn">Request to Register</a>
-  </section>
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
 
-  <!-- Footer -->
-  <footer>
-    📞 Get In Touch: 076 726 7087 <br/>
-    © A2Z Dropshipping. All Rights Reserved.
-  </footer>
+function sendWhatsApp() {
+  let name = document.getElementById("customerName").value;
+  let address = document.getElementById("address").value;
+  let phone1 = document.getElementById("phone1").value;
+  let phone2 = document.getElementById("phone2").value;
+
+  let message =
+`New Order - KD ONLINE SHOP
+
+Product: ${productName}
+Price: Rs.${productPrice}
+
+Customer Name: ${name}
+Address: ${address}
+Contact 1: ${phone1}
+Contact 2: ${phone2}`;
+
+  let url = "https://wa.me/94755997160?text=" + encodeURIComponent(message);
+  window.open(url, "_blank");
+}
+
+function directWhatsApp(name, price) {
+  let msg = `Hello, I want to order\nProduct: ${name}\nPrice: Rs.${price}`;
+  let url = "https://wa.me/94755997160?text=" + encodeURIComponent(msg);
+  window.open(url, "_blank");
+}
+</script>
 
 </body>
 </html>
