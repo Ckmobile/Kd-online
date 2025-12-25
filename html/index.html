@@ -25,9 +25,9 @@ header h1{color:#fff;font-family:'Orbitron';margin-bottom:5px}
 /* Products */
 .products{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    padding:220px 40px 60px;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+    padding:220px 20px 60px;
     max-width:1200px;
     margin:auto
 }
@@ -37,7 +37,7 @@ header h1{color:#fff;font-family:'Orbitron';margin-bottom:5px}
     position:relative;transition:.3s
 }
 .product-card:hover{transform:scale(1.05)}
-.product-card img{width:100%;height:200px;object-fit:cover;cursor:pointer}
+.product-card img{width:100%;height:180px;object-fit:cover;cursor:pointer}
 
 .product-info{text-align:center;padding:15px}
 .product-price{font-weight:bold}
@@ -105,7 +105,7 @@ footer{
 </header>
 
 <section class="products"></section>
-<button id="add-order-btn">Add Order</button>
+<button id="add-order-btn">Add Product</button>
 
 <!-- Order Form Modal -->
 <div id="order-modal" class="modal">
@@ -143,17 +143,11 @@ footer{
 <footer>© 2025 KD ONLINE SHOP</footer>
 
 <script>
-const PASSWORD = "Kkk111";
 const STORAGE_KEY = "kd_products";
 const whatsappNumber = "9475597160";
 const DEFAULT_IMG = "https://via.placeholder.com/400x250?text=Product";
 
-// Password check
-function checkPassword(){  
-    return prompt("Enter password:") === PASSWORD;  
-}
-
-// Save products
+// Save products to localStorage
 function saveProducts(){  
     const products=[];  
     document.querySelectorAll(".product-card").forEach(card=>{  
@@ -201,18 +195,20 @@ function createProduct(name,desc,price,img,save=true){
         <div class="product-info">
             <h3>${name}</h3>
             <p>${desc || ""}</p>
-            <p class="product-price" data-price="${price}">Price: LKR ${price}</p>
+            <p class="product-price" data-price="${price}">Price: LKR ${Number(price).toLocaleString()}</p>
             <div class="btn-container">
                 <button class="order-btn">Order Now</button>
                 <button class="whatsapp-btn">WhatsApp</button>
             </div>
         </div>`;  
-    document.querySelector(".products").appendChild(card);  
+    const section=document.querySelector(".products");
+    section.appendChild(card);  
     attachEvents(card);  
+    card.scrollIntoView({behavior:"smooth"});
     if(save) saveProducts();  
 }
 
-// Attach events
+// Attach events to product card
 function attachEvents(card){  
     const menu = card.querySelector(".menu-content");
     const modal = document.getElementById("order-modal");
@@ -236,21 +232,22 @@ function attachEvents(card){
         if (!card.contains(e.target)) menu.style.display = "none";
     });
 
-    // Edit
+    // Edit product
     card.querySelector(".edit-btn").onclick=()=>{
-        if(!checkPassword())return;
-        card.querySelector("h3").textContent = prompt("Name:",card.querySelector("h3").textContent);
-        card.querySelector(".product-info p").textContent = prompt("Description:",card.querySelector(".product-info p").textContent);
-        const price = prompt("Price:",card.querySelector(".product-price").dataset.price);
-        if(isNaN(price)) return alert("Invalid price");
-        card.querySelector(".product-price").dataset.price = price;
-        card.querySelector(".product-price").textContent = "Price: LKR "+price;
+        const newName = prompt("Name:", card.querySelector("h3").textContent);
+        if(newName) card.querySelector("h3").textContent = newName;
+        const newDesc = prompt("Description:", card.querySelector(".product-info p").textContent);
+        if(newDesc!==null) card.querySelector(".product-info p").textContent = newDesc;
+        const newPrice = prompt("Price:", card.querySelector(".product-price").dataset.price);
+        if(newPrice && !isNaN(newPrice)){
+            card.querySelector(".product-price").dataset.price = newPrice;
+            card.querySelector(".product-price").textContent = "Price: LKR "+Number(newPrice).toLocaleString();
+        }
         saveProducts();
     };
 
-    // Delete
+    // Delete product
     card.querySelector(".delete-btn").onclick=()=>{
-        if(!checkPassword())return;
         card.remove(); saveProducts();
     };
 
@@ -259,7 +256,7 @@ function attachEvents(card){
         window.open(`https://wa.me/${whatsappNumber}?text=Order: ${card.querySelector("h3").textContent}`);
     };
 
-    // Order Now popup
+    // Order Now modal
     card.querySelector(".order-btn").onclick=()=>{
         modalName.textContent = "Product: " + card.querySelector("h3").textContent;
         modalPrice.textContent = "Price: LKR " + card.querySelector(".product-price").dataset.price;
@@ -281,12 +278,6 @@ function attachEvents(card){
         };
     };
 
-    // Close modals
-    closeModal.onclick = ()=>modal.style.display="none";
-    addProductModal.onclick = e => { if(e.target===addProductModal) addProductModal.style.display="none"; };
-    modal.onclick = e => { if(e.target===modal) modal.style.display="none"; };
-    imgModal.onclick = e => { if(e.target===imgModal) imgModal.style.display="none"; };
-
     // Image click to enlarge
     card.querySelector("img").onclick = ()=>{
         modalImg.src = card.querySelector("img").src;
@@ -297,7 +288,6 @@ function attachEvents(card){
 // Add product modal
 const addProductModal = document.getElementById("add-product-modal");
 document.getElementById("add-order-btn").onclick = () => {
-    if(!checkPassword()) return;
     addProductModal.style.display = "flex";
     // Clear inputs
     document.getElementById("new-product-name").value = "";
@@ -323,7 +313,19 @@ document.getElementById("close-add-product-modal").onclick = () => {
     addProductModal.style.display = "none";
 };
 
-// Search
+// Close order modal
+document.getElementById("close-modal").onclick = () => {
+    document.getElementById("order-modal").style.display = "none";
+};
+
+// Close modals when clicking outside
+window.onclick = e => {
+    if(e.target === addProductModal) addProductModal.style.display = "none";
+    if(e.target === document.getElementById("order-modal")) document.getElementById("order-modal").style.display = "none";
+    if(e.target === document.getElementById("img-modal")) document.getElementById("img-modal").style.display = "none";
+};
+
+// Search products
 document.querySelector(".search-container input").oninput=e=>{  
     const v=e.target.value.toLowerCase();  
     document.querySelectorAll(".product-card").forEach(c=>{  
@@ -331,7 +333,7 @@ document.querySelector(".search-container input").oninput=e=>{
     });  
 };
 
-window.onload=loadProducts;
+window.onload = loadProducts;
 </script>
 </body>
 </html>
