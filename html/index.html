@@ -6,98 +6,38 @@
 <title>KD PANTA | Items Market</title>
 
 <style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#f4f4f4;
-}
-
-/* HEADER */
-header{
-  background:#000;
-  color:#fff;
-  padding:15px;
-  text-align:center;
-}
-
-/* ADD BUTTON */
+body{margin:0;font-family:Arial;background:#f4f4f4}
+header{background:#000;color:#fff;padding:15px;text-align:center}
 .add-btn{
-  background:#28a745;
-  color:#fff;
-  border:none;
-  padding:10px;
-  width:95%;
-  margin:10px auto;
-  display:block;
-  border-radius:8px;
-  font-size:16px;
+  background:#28a745;color:#fff;border:none;
+  padding:10px;width:95%;margin:10px auto;
+  display:block;border-radius:8px;font-size:16px
 }
-
-/* PRODUCTS */
 .products{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
-  gap:15px;
-  padding:15px;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:15px;padding:15px
 }
-
-.product{
-  background:#fff;
-  border-radius:10px;
-  overflow:hidden;
+.product{background:#fff;border-radius:10px;overflow:hidden}
+.product img{width:100%;height:200px;object-fit:cover}
+.info{padding:10px;text-align:center}
+.info p{color:green;font-weight:bold}
+.info button{
+  width:100%;padding:8px;border:none;
+  background:#000;color:#fff;border-radius:6px
 }
-
-.product img{
-  width:100%;
-  height:200px;
-  object-fit:cover;
-}
-
-.product .info{
-  padding:10px;
-  text-align:center;
-}
-
-.product button{
-  width:100%;
-  padding:8px;
-  background:#000;
-  color:#fff;
-  border:none;
-  border-radius:6px;
-}
-
-/* POPUP COMMON */
 .popup{
-  display:none;
-  position:fixed;
-  top:0; left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.6);
-  justify-content:center;
-  align-items:center;
+  display:none;position:fixed;top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,.6);
+  justify-content:center;align-items:center
 }
-
 .box{
-  background:#fff;
-  width:90%;
-  max-width:350px;
-  padding:15px;
-  border-radius:10px;
+  background:#fff;width:90%;max-width:350px;
+  padding:15px;border-radius:10px
 }
-
-.box input{
-  width:100%;
-  padding:8px;
-  margin:6px 0;
-}
-
-.close{
-  text-align:right;
-  font-weight:bold;
-  cursor:pointer;
-}
+.box input{width:100%;padding:8px;margin:6px 0}
+.close{text-align:right;font-weight:bold;cursor:pointer}
 </style>
 </head>
 
@@ -112,19 +52,19 @@ header{
 
 <div class="products" id="productList"></div>
 
-<!-- ADD PRODUCT POPUP -->
+<!-- ADD PRODUCT -->
 <div class="popup" id="addPopup">
   <div class="box">
     <div class="close" onclick="closeAdd()">X</div>
-    <h3>Add New Product</h3>
+    <h3>Add Product</h3>
     <input id="pname" placeholder="Product Name">
     <input id="pprice" placeholder="Price">
     <input id="pimg" placeholder="Image URL">
-    <button onclick="addProduct()">Add</button>
+    <button onclick="addProduct()">Save Product</button>
   </div>
 </div>
 
-<!-- ORDER POPUP -->
+<!-- ORDER -->
 <div class="popup" id="orderPopup">
   <div class="box">
     <div class="close" onclick="closeOrder()">X</div>
@@ -137,13 +77,17 @@ header{
 </div>
 
 <script>
-let products = [];
+let products = JSON.parse(localStorage.getItem("kd_panta_products")) || [];
 let current = "";
+
+function saveData(){
+  localStorage.setItem("kd_panta_products", JSON.stringify(products));
+}
 
 function render(){
   const list = document.getElementById("productList");
   list.innerHTML="";
-  products.forEach(p=>{
+  products.forEach((p,i)=>{
     list.innerHTML += `
     <div class="product">
       <img src="${p.img}">
@@ -156,27 +100,30 @@ function render(){
   });
 }
 
-function openAdd(){ document.getElementById("addPopup").style.display="flex"; }
-function closeAdd(){ document.getElementById("addPopup").style.display="none"; }
+render();
+
+function openAdd(){addPopup.style.display="flex"}
+function closeAdd(){addPopup.style.display="none"}
 
 function addProduct(){
+  if(!pname.value || !pprice.value || !pimg.value) return;
   products.push({
     name:pname.value,
     price:pprice.value,
     img:pimg.value
   });
+  saveData();
+  render();
   pname.value=pprice.value=pimg.value="";
   closeAdd();
-  render();
 }
 
 function order(name,price){
   current = name+" - "+price;
-  document.getElementById("oname").innerText=current;
-  document.getElementById("orderPopup").style.display="flex";
+  oname.innerText=current;
+  orderPopup.style.display="flex";
 }
-
-function closeOrder(){ document.getElementById("orderPopup").style.display="none"; }
+function closeOrder(){orderPopup.style.display="none"}
 
 function sendOrder(){
   let msg = `Order KD PANTA%0A${current}%0AName:${cname.value}%0AAddress:${caddress.value}%0APhone:${cphone.value}`;
