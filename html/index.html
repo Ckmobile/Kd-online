@@ -37,7 +37,7 @@ header h1{color:#fff;font-family:'Orbitron';margin-bottom:5px}
     position:relative;transition:.3s
 }
 .product-card:hover{transform:scale(1.05)}
-.product-card img{width:100%;height:200px;object-fit:cover}
+.product-card img{width:100%;height:200px;object-fit:cover;cursor:pointer}
 
 .product-info{text-align:center;padding:15px}
 .product-price{font-weight:bold}
@@ -85,6 +85,16 @@ header h1{color:#fff;font-family:'Orbitron';margin-bottom:5px}
 .modal-content input{width:100%;margin:5px 0;padding:8px}
 .modal-content button{margin-top:10px;cursor:pointer}
 
+/* Image modal */
+#image-modal img{
+    display:block;
+    margin:auto;
+    max-width:90%;
+    max-height:90%;
+    border-radius:10px;
+    cursor:zoom-out;
+}
+
 /* Footer */
 footer{
     text-align:center;background:#111;color:#fff;
@@ -130,6 +140,12 @@ footer{
     <button id="save-product-btn" style="background:#ffcc00;color:#000;width:100%;border:none;border-radius:5px;">Add Product</button>
     <span id="close-add-product-modal" style="position:absolute;top:5px;right:10px;cursor:pointer;font-weight:bold;">✖</span>
   </div>
+</div>
+
+<!-- Image Modal -->
+<div id="image-modal" class="modal">
+  <span id="close-image-modal" style="position:absolute;top:10px;right:20px;font-size:30px;color:#fff;cursor:pointer;">✖</span>
+  <img id="image-modal-content" src="">
 </div>
 
 <footer>© 2025 KD ONLINE SHOP</footer>
@@ -269,7 +285,6 @@ const addProductModal = document.getElementById("add-product-modal");
 document.getElementById("add-order-btn").onclick = () => {
     if(!checkPassword()) return;
     addProductModal.style.display = "flex";
-    // Clear inputs
     document.getElementById("new-product-name").value = "";
     document.getElementById("new-product-desc").value = "";
     document.getElementById("new-product-price").value = "";
@@ -292,6 +307,21 @@ document.getElementById("save-product-btn").onclick = () => {
 document.getElementById("close-add-product-modal").onclick = () => {
     addProductModal.style.display = "none";
 };
+
+// Image modal
+const imageModal = document.getElementById("image-modal");
+const imageModalContent = document.getElementById("image-modal-content");
+const closeImageModal = document.getElementById("close-image-modal");
+
+document.querySelector(".products").addEventListener("click", e=>{
+    const img = e.target.closest("img");
+    if(img && img.closest(".product-card")){
+        imageModalContent.src = img.src;
+        imageModal.style.display = "flex";
+    }
+});
+closeImageModal.onclick = ()=>{ imageModal.style.display="none"; }
+imageModal.onclick = (e)=>{ if(e.target===imageModal) imageModal.style.display="none"; }
 
 // Search
 document.querySelector(".search-container input").oninput=e=>{  
