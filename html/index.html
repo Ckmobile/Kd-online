@@ -90,6 +90,7 @@ header h1 {
     padding: 220px 40px 60px 40px;
     max-width: 1200px;
     margin: auto;
+    position: relative;
 }
 
 .product-card {
@@ -98,6 +99,7 @@ header h1 {
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
 }
 
 .product-card:hover {
@@ -185,6 +187,46 @@ footer {
     max-width: 1200px;
     margin: 20px auto 40px auto;
 }
+
+/* Three dots menu */
+.menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.menu-btn {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #555;
+}
+
+.menu-content {
+    display: none;
+    position: absolute;
+    top: 25px;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    z-index: 100;
+    flex-direction: column;
+}
+
+.menu-content button {
+    padding: 10px 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+}
+
+.menu-content button:hover {
+    background-color: #eee;
+}
 </style>
 </head>
 <body>
@@ -200,7 +242,16 @@ footer {
 </header>
 
 <section class="products">
+
+    <!-- Product 1 -->
     <div class="product-card">
+        <div class="menu">
+            <span class="menu-btn">&#x22EE;</span>
+            <div class="menu-content">
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+            </div>
+        </div>
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Headphones">
         <div class="product-info">
             <h3>Headphones</h3>
@@ -213,7 +264,15 @@ footer {
         </div>
     </div>
 
+    <!-- Product 2 -->
     <div class="product-card">
+        <div class="menu">
+            <span class="menu-btn">&#x22EE;</span>
+            <div class="menu-content">
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+            </div>
+        </div>
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Art Set">
         <div class="product-info">
             <h3>Art Set</h3>
@@ -226,7 +285,15 @@ footer {
         </div>
     </div>
 
+    <!-- Product 3 -->
     <div class="product-card">
+        <div class="menu">
+            <span class="menu-btn">&#x22EE;</span>
+            <div class="menu-content">
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+            </div>
+        </div>
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Derma Roller">
         <div class="product-info">
             <h3>Derma Roller</h3>
@@ -239,7 +306,15 @@ footer {
         </div>
     </div>
 
+    <!-- Product 4 -->
     <div class="product-card">
+        <div class="menu">
+            <span class="menu-btn">&#x22EE;</span>
+            <div class="menu-content">
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+            </div>
+        </div>
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Karaoke Mic">
         <div class="product-info">
             <h3>Karaoke Mic</h3>
@@ -251,6 +326,7 @@ footer {
             </div>
         </div>
     </div>
+
 </section>
 
 <footer>
@@ -290,7 +366,6 @@ orderButtons.forEach(btn => {
         const productName = productCard.querySelector('h3').textContent;
         const productPrice = productCard.querySelector('.product-price').textContent;
 
-        // Get customer details
         const customerName = prompt("Enter your name:");
         if(!customerName) return alert("Name is required!");
 
@@ -300,14 +375,48 @@ orderButtons.forEach(btn => {
         const customerPhone = prompt("Enter your phone number:");
         if(!customerPhone) return alert("Phone number is required!");
 
-        // Construct message
         const message = `Order Details:\n\nProduct: ${productName}\nPrice: ${productPrice}\n\nCustomer Name: ${customerName}\nAddress: ${customerAddress}\nPhone: ${customerPhone}`;
 
-        const whatsappNumber = '94755997160'; // Sri Lanka number without 0
+        const whatsappNumber = '94755997160';
         const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
-        // Open WhatsApp chat
         window.open(url, '_blank');
+    });
+});
+
+// Three-dot menu toggle
+document.querySelectorAll('.menu-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const menu = btn.nextElementSibling;
+        menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    });
+});
+
+// Edit button
+document.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const productCard = btn.closest('.product-card');
+        const productName = productCard.querySelector('h3').textContent;
+        const productPrice = productCard.querySelector('.product-price').textContent;
+
+        const newName = prompt("Edit product name:", productName);
+        if(newName) productCard.querySelector('h3').textContent = newName;
+
+        const newPrice = prompt("Edit product price:", productPrice);
+        if(newPrice) productCard.querySelector('.product-price').textContent = newPrice;
+
+        // Hide menu after editing
+        productCard.querySelector('.menu-content').style.display = 'none';
+    });
+});
+
+// Delete button
+document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const productCard = btn.closest('.product-card');
+        if(confirm("Are you sure you want to delete this product?")) {
+            productCard.remove();
+        }
     });
 });
 </script>
