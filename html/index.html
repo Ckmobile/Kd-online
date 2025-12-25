@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KD PANTA | Items Market</title>
+
+<style>
+*{
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body{
+  margin:0;
+  background:#f4f4f4;
+}
+
+/* HEADER */
+header{
+  background:#000;
+  color:#fff;
+  padding:15px;
+  text-align:center;
+}
+
+header h1{
+  margin:0;
+  letter-spacing:2px;
+}
+
+/* PRODUCTS */
+.products{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px,1fr));
+  gap:15px;
+  padding:15px;
+}
+
+.product{
+  background:#fff;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+.product img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+}
+
+.product .info{
+  padding:10px;
+  text-align:center;
+}
+
+.product h3{
+  margin:5px 0;
+  font-size:16px;
+}
+
+.product p{
+  margin:5px 0;
+  color:green;
+  font-weight:bold;
+}
+
+.product button{
+  width:100%;
+  padding:10px;
+  border:none;
+  background:#000;
+  color:#fff;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* POPUP */
+.popup{
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  justify-content:center;
+  align-items:center;
+}
+
+.popup-content{
+  background:#fff;
+  width:90%;
+  max-width:350px;
+  padding:15px;
+  border-radius:10px;
+}
+
+.popup-content h2{
+  margin-top:0;
+}
+
+.popup-content input{
+  width:100%;
+  padding:8px;
+  margin:8px 0;
+}
+
+.popup-content button{
+  width:100%;
+  padding:10px;
+  border:none;
+  background:#000;
+  color:#fff;
+  border-radius:6px;
+}
+
+.close{
+  text-align:right;
+  cursor:pointer;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>KD PANTA</h1>
+  <p>Online Items Market</p>
+</header>
+
+<div class="products" id="productList"></div>
+
+<!-- ORDER POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <div class="close" onclick="closePopup()">X</div>
+    <h2 id="pName"></h2>
+    <p id="pPrice"></p>
+
+    <input type="text" id="name" placeholder="Your Name">
+    <input type="text" id="address" placeholder="Address">
+    <input type="tel" id="phone" placeholder="Phone Number">
+
+    <button onclick="sendOrder()">Send Order</button>
+  </div>
+</div>
+
+<script>
+const products = [
+  {
+    name:"KD Pant Black",
+    price:"Rs. 2500",
+    img:"https://via.placeholder.com/400x300?text=KD+Pant+Black"
+  },
+  {
+    name:"KD Pant Blue",
+    price:"Rs. 2800",
+    img:"https://via.placeholder.com/400x300?text=KD+Pant+Blue"
+  },
+  {
+    name:"KD Pant Grey",
+    price:"Rs. 2600",
+    img:"https://via.placeholder.com/400x300?text=KD+Pant+Grey"
+  }
+];
+
+const list = document.getElementById("productList");
+const popup = document.getElementById("popup");
+
+let currentProduct = "";
+
+products.forEach(p=>{
+  list.innerHTML += `
+    <div class="product">
+      <img src="${p.img}">
+      <div class="info">
+        <h3>${p.name}</h3>
+        <p>${p.price}</p>
+        <button onclick="openPopup('${p.name}','${p.price}')">
+          Order Now
+        </button>
+      </div>
+    </div>
+  `;
+});
+
+function openPopup(name,price){
+  document.getElementById("pName").innerText = name;
+  document.getElementById("pPrice").innerText = price;
+  currentProduct = name + " - " + price;
+  popup.style.display="flex";
+}
+
+function closePopup(){
+  popup.style.display="none";
+}
+
+function sendOrder(){
+  const name = document.getElementById("name").value;
+  const address = document.getElementById("address").value;
+  const phone = document.getElementById("phone").value;
+
+  const msg = `Order From KD PANTA%0A
+Product: ${currentProduct}%0A
+Name: ${name}%0A
+Address: ${address}%0A
+Phone: ${phone}`;
+
+  window.open(`https://wa.me/94XXXXXXXXX?text=${msg}`,"_blank");
+}
+</script>
+
+</body>
+</html>
