@@ -1,245 +1,353 @@
 <!DOCTYPE html>
-<html lang="si">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ඔන්ලයින් මාකට්ප්ලේස්</title>
-    <style>
-        /* ===== General ===== */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #0d1b2a; /* dark blue night background */
-            overflow-x: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KD ONLINE SHOP</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#fff;color:#000;overflow-x:hidden;position:relative}
 
-        header {
-            background: rgba(76, 175, 80, 0.9);
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
+/* Header */
+header{
+    position:fixed;top:0;left:0;width:100%;
+    background:#000;padding:20px 20px 60px;
+    text-align:center;z-index:1000
+}
+header h1{color:#fff;font-family:'Orbitron';margin-bottom:5px}
+.header-subtext{
+    color: silver;
+    font-size: 1.1rem;
+    font-family: 'Baloo 2';
+    white-space: nowrap; 
+    display: inline-block; 
+}
+.search-container{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:70%;max-width:350px}
+.search-container input{
+    width:100%;padding:12px 15px;border-radius:25px;border:2px solid #000
+}
 
-        #search {
-            width: 80%;
-            padding: 0.5rem;
-            margin-top: 0.5rem;
-            border-radius: 4px;
-            border: none;
-        }
+/* Products */
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:220px 40px 60px;
+    max-width:1200px;
+    margin:auto
+}
+.product-card{
+    background:#fff;border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    position:relative;transition:.3s
+}
+.product-card:hover{transform:scale(1.05)}
+.product-card img{width:100%;height:200px;object-fit:cover}
 
-        #products {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 1rem;
-            position: relative;
-            z-index: 1; /* above snowflakes */
-        }
+.product-info{text-align:center;padding:15px}
+.product-price{font-weight:bold}
 
-        .product {
-            background: white;
-            margin: 1rem;
-            padding: 1rem;
-            width: 200px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+/* Buttons */
+.btn-container{display:flex;justify-content:center;gap:10px}
+.order-btn{background:#ffcc00;border:none;padding:10px 15px;border-radius:25px;cursor:pointer}
+.whatsapp-btn{background:#25D366;color:#fff;border:none;padding:10px 15px;border-radius:25px}
 
-        .product:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
+/* Menu */
+.menu{position:absolute;top:10px;right:10px}
+.menu-btn{cursor:pointer;font-size:1.5rem}
+.menu-content{
+    display:none;
+    flex-direction:column;
+    position:absolute;
+    top:25px;right:0;
+    background:#fff;border-radius:8px;
+    box-shadow:0 5px 10px rgba(0,0,0,.2)
+}
+.menu-content button{padding:10px;border:none;background:none;cursor:pointer}
+.menu-content button:hover{background:#eee}
 
-        .product img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-        }
+/* Add Button */
+#add-order-btn{
+    position:fixed;bottom:20px;right:20px;
+    background:#ffcc00;border:none;
+    padding:15px 20px;border-radius:50px;
+    font-weight:bold;cursor:pointer;z-index:1000
+}
 
-        button {
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 0.5rem;
-            margin-top: 0.5rem;
-            cursor: pointer;
-            border-radius: 4px;
-        }
+/* Modals */
+.modal {
+    display:none;
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    background:rgba(0,0,0,0.5);
+    justify-content:center;
+    align-items:center;
+    z-index:2000;
+}
+.modal-content {
+    background:#fff;padding:20px;border-radius:10px;width:300px;position:relative;
+}
+.modal-content h3{margin-bottom:10px}
+.modal-content input{width:100%;margin:5px 0;padding:8px}
+.modal-content button{margin-top:10px;cursor:pointer}
 
-        button.whatsapp {
-            background: #25D366;
-            margin-left: 0.5rem;
-        }
+/* Footer */
+footer{
+    text-align:center;background:#111;color:#fff;
+    padding:15px;margin:20px auto;max-width:1200px;border-radius:10px
+}
 
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            margin-top: 2rem;
-            position: relative;
-            z-index: 1;
-        }
+/* Snow Effect */
+.snowflake {
+    position: fixed;
+    top: -2em;
+    color: #fff;
+    font-size: 1em;
+    z-index: 9999;
+    user-select: none;
+    pointer-events: none;
+    opacity: 0.8;
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
 
-        @media (max-width: 600px) {
-            .product {
-                width: 90%;
-            }
-            #search {
-                width: 95%;
-            }
-        }
-
-        /* ===== Snowflakes Animation ===== */
-        .snowflakes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 0; /* behind content */
-        }
-
-        .snowflake {
-            position: absolute;
-            top: -2em;
-            color: white;
-            font-size: 1em;
-            opacity: 0.8;
-            animation-name: fall;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
-        }
-
-        .snowflake:nth-child(1) { left: 5%; animation-duration: 8s; font-size: 1.2em; }
-        .snowflake:nth-child(2) { left: 15%; animation-duration: 12s; font-size: 0.9em; }
-        .snowflake:nth-child(3) { left: 25%; animation-duration: 10s; font-size: 1em; }
-        .snowflake:nth-child(4) { left: 35%; animation-duration: 14s; font-size: 1.1em; }
-        .snowflake:nth-child(5) { left: 45%; animation-duration: 9s; font-size: 0.8em; }
-        .snowflake:nth-child(6) { left: 55%; animation-duration: 11s; font-size: 1em; }
-        .snowflake:nth-child(7) { left: 65%; animation-duration: 13s; font-size: 1.2em; }
-        .snowflake:nth-child(8) { left: 75%; animation-duration: 10s; font-size: 0.9em; }
-        .snowflake:nth-child(9) { left: 85%; animation-duration: 12s; font-size: 1em; }
-        .snowflake:nth-child(10) { left: 95%; animation-duration: 9s; font-size: 1.1em; }
-
-        @keyframes fall {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(100vh) rotate(360deg); }
-        }
-    </style>
+@keyframes fall {
+    0% { transform: translateY(-2em) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+}
+</style>
 </head>
 <body>
-
-    <!-- Animated Snowflakes Background -->
-    <div class="snowflakes" aria-hidden="true">
-        <div class="snowflake">❄</div>
-        <div class="snowflake">❄</div>
-        <div class="snowflake">❄</div>
-        <div class="snowflake">❄</div>
-        <div class="snowflake">❄</div>
-        <div class="snowflake">❄</div>
-        <div class="snowflake">❄</div>
-        <div class="snowflake">❄</div>
-        <div class="snowflake">❄</div>
-        <div class="snowflake">❄</div>
+<header>
+    <h1>KD ONLINE SHOP</h1>
+    <div class="header-subtext">A very valuable customer service from us.</div>
+    <div class="search-container">
+        <input type="text" placeholder="Search products...">
     </div>
+</header>
 
-    <header>
-        <h1>🛒 අපේ ඔන්ලයින් මාකට්ප්ලේස්</h1>
-        <nav>
-            <input type="text" id="search" placeholder="ප්‍රොඩක්ට් හොයන්න...">
-        </nav>
-    </header>
+<section class="products"></section>
+<button id="add-order-btn">Add Order</button>
 
-    <main>
-        <section id="products">
-            <!-- Products dynamically displayed here -->
-        </section>
-    </main>
+<!-- Order Form Modal -->
+<div id="order-modal" class="modal">
+  <div class="modal-content">
+    <h3>Place Order</h3>
+    <p id="modal-product-name"></p>
+    <p id="modal-product-price"></p>
+    <p id="modal-product-desc"></p>
+    <input type="text" id="order-name" placeholder="Your Name">
+    <input type="text" id="order-address" placeholder="Address">
+    <input type="text" id="order-phone" placeholder="Phone">
+    <button id="send-order-btn" style="background:#25D366;color:#fff;width:100%;border:none;border-radius:5px;">Send via WhatsApp</button>
+    <span id="close-modal" style="position:absolute;top:5px;right:10px;cursor:pointer;font-weight:bold;">✖</span>
+  </div>
+</div>
 
-    <footer>
-        <p>© 2025 ඔන්ලයින් මාකට්ප්ලේස්</p>
-    </footer>
+<!-- Add Product Modal -->
+<div id="add-product-modal" class="modal">
+  <div class="modal-content">
+    <h3>Add New Product</h3>
+    <input type="text" id="new-product-name" placeholder="Product Name">
+    <input type="text" id="new-product-desc" placeholder="Description">
+    <input type="text" id="new-product-price" placeholder="Price">
+    <input type="text" id="new-product-img" placeholder="Image URL">
+    <button id="save-product-btn" style="background:#ffcc00;color:#000;width:100%;border:none;border-radius:5px;">Add Product</button>
+    <span id="close-add-product-modal" style="position:absolute;top:5px;right:10px;cursor:pointer;font-weight:bold;">✖</span>
+  </div>
+</div>
 
-    <script>
-        const products = [
-            {
-                name: "නිෂ්පාදනය 1",
-                price: "Rs.500",
-                code: "P001",
-                image: "https://via.placeholder.com/200x150?text=Product+1"
-            },
-            {
-                name: "නිෂ්පාදනය 2",
-                price: "Rs.1200",
-                code: "P002",
-                image: "https://via.placeholder.com/200x150?text=Product+2"
-            },
-            {
-                name: "නිෂ්පාදනය 3",
-                price: "Rs.750",
-                code: "P003",
-                image: "https://via.placeholder.com/200x150?text=Product+3"
-            },
-            {
-                name: "නිෂ්පාදනය 4",
-                price: "Rs.1500",
-                code: "P004",
-                image: "https://via.placeholder.com/200x150?text=Product+4"
-            },
-            {
-                name: "නිෂ්පාදනය 5",
-                price: "Rs.900",
-                code: "P005",
-                image: "https://via.placeholder.com/200x150?text=Product+5"
-            }
-        ];
+<footer>© 2025 KD ONLINE SHOP</footer>
 
-        const productsContainer = document.getElementById('products');
+<script>
+const PASSWORD = "Kkkqqq";
+const STORAGE_KEY = "kd_products";
+const whatsappNumber = "94755997160";
+const DEFAULT_IMG = "https://via.placeholder.com/400x250?text=Product";
 
-        function displayProducts(items) {
-            productsContainer.innerHTML = '';
-            items.forEach(product => {
-                const div = document.createElement('div');
-                div.className = 'product';
-                div.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}">
-                    <h3>${product.name}</h3>
-                    <p>මිල: ${product.price}</p>
-                    <p>කෝඩ්: ${product.code}</p>
-                    <button onclick="orderNow('${product.name}')">Order Now</button>
-                    <button class="whatsapp" onclick="whatsapp('${product.name}')">WhatsApp</button>
-                `;
-                productsContainer.appendChild(div);
-            });
-        }
+// Password check
+function checkPassword(){  
+    return prompt("Enter password:") === PASSWORD;  
+}
 
-        function orderNow(productName) {
-            alert(`${productName} සඳහා order කරන ලදී!`);
-        }
+// Save products
+function saveProducts(){  
+    const products=[];  
+    document.querySelectorAll(".product-card").forEach(card=>{  
+        products.push({  
+            name:card.querySelector("h3").textContent,  
+            desc:card.querySelector(".product-info p").textContent,  
+            price:card.querySelector(".product-price").dataset.price,  
+            img:card.querySelector("img").src  
+        });  
+    });  
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(products));  
+}
 
-        function whatsapp(productName) {
-            const number = "0755997160";
-            window.open(`https://wa.me/${number}?text=මම ${productName} ගැන විස්තර අවශ්‍යයි`, "_blank");
-        }
+// Load products
+function loadProducts(){  
+    const data=JSON.parse(localStorage.getItem(STORAGE_KEY));  
+    if(!data)return;  
+    const section=document.querySelector(".products");  
+    section.innerHTML="";  
+    data.forEach(p=>createProduct(p.name,p.desc,p.price,p.img,false));  
+}
 
-        // Initial display
-        displayProducts(products);
+// Create product card
+function createProduct(name,desc,price,img,save=true){  
+    if(!name || !price) return;
+    if(isNaN(price)) return alert("Price must be a number");
 
-        // Search functionality
-        document.getElementById('search').addEventListener('input', (e) => {
-            const filtered = products.filter(p => p.name.toLowerCase().includes(e.target.value.toLowerCase()));
-            displayProducts(filtered);
-        });
-    </script>
+    const card=document.createElement("div");  
+    card.className="product-card";  
+    card.innerHTML=`
+        <div class="menu">
+            <span class="menu-btn">&#x22EE;</span>
+            <div class="menu-content">
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+            </div>
+        </div>
+        <img src="${img || DEFAULT_IMG}">
+        <div class="product-info">
+            <h3>${name}</h3>
+            <p>${desc || ""}</p>
+            <p class="product-price" data-price="${price}">Price: LKR ${price}</p>
+            <div class="btn-container">
+                <button class="order-btn">Order Now</button>
+                <button class="whatsapp-btn">WhatsApp</button>
+            </div>
+        </div>`;  
+    document.querySelector(".products").appendChild(card);  
+    attachEvents(card);  
+    if(save) saveProducts();  
+}
+
+// Attach events
+function attachEvents(card){  
+    const menu = card.querySelector(".menu-content");
+    const modal = document.getElementById("order-modal");
+    const modalName = document.getElementById("modal-product-name");
+    const modalPrice = document.getElementById("modal-product-price");
+    const modalDesc = document.getElementById("modal-product-desc");
+    const orderName = document.getElementById("order-name");
+    const orderAddress = document.getElementById("order-address");
+    const orderPhone = document.getElementById("order-phone");
+    const sendBtn = document.getElementById("send-order-btn");
+    const closeModal = document.getElementById("close-modal");
+
+    card.querySelector(".menu-btn").onclick=e=>{
+        e.stopPropagation();
+        menu.style.display = menu.style.display==="flex" ? "none":"flex";
+    };
+    document.addEventListener("click", e => {
+        if (!card.contains(e.target)) menu.style.display = "none";
+    });
+
+    card.querySelector(".edit-btn").onclick=()=>{
+        if(!checkPassword())return;
+        card.querySelector("h3").textContent = prompt("Name:",card.querySelector("h3").textContent);
+        card.querySelector(".product-info p").textContent = prompt("Description:",card.querySelector(".product-info p").textContent);
+        const price = prompt("Price:",card.querySelector(".product-price").dataset.price);
+        if(isNaN(price)) return alert("Invalid price");
+        card.querySelector(".product-price").dataset.price = price;
+        card.querySelector(".product-price").textContent = "Price: LKR "+price;
+        saveProducts();
+    };
+
+    card.querySelector(".delete-btn").onclick=()=>{
+        if(!checkPassword())return;
+        card.remove(); saveProducts();
+    };
+
+    card.querySelector(".whatsapp-btn").onclick=()=>{
+        window.open(`https://wa.me/${whatsappNumber}?text=Order: ${card.querySelector("h3").textContent}`);
+    };
+
+    // Order Now popup
+    card.querySelector(".order-btn").onclick=()=>{
+        modalName.textContent = "Product: " + card.querySelector("h3").textContent;
+        modalPrice.textContent = "Price: LKR " + card.querySelector(".product-price").dataset.price;
+        modalDesc.textContent = "Description: " + card.querySelector(".product-info p").textContent;
+        orderName.value = "";
+        orderAddress.value = "";
+        orderPhone.value = "";
+        modal.style.display = "flex";
+
+        sendBtn.onclick = ()=>{
+            const n = orderName.value.trim();
+            const a = orderAddress.value.trim();
+            const p = orderPhone.value.trim();
+            if(!n||!a||!p){ alert("Please fill all fields"); return; }
+
+            const msg = `${modalName.textContent}\n${modalPrice.textContent}\n${modalDesc.textContent}\nName: ${n}\nAddress: ${a}\nPhone: ${p}`;
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`);
+            modal.style.display = "none";
+        };
+    };
+
+    closeModal.onclick = ()=>modal.style.display="none";
+}
+
+// Add product modal
+const addProductModal = document.getElementById("add-product-modal");
+document.getElementById("add-order-btn").onclick = () => {
+    if(!checkPassword()) return;
+    addProductModal.style.display = "flex";
+    document.getElementById("new-product-name").value = "";
+    document.getElementById("new-product-desc").value = "";
+    document.getElementById("new-product-price").value = "";
+    document.getElementById("new-product-img").value = "";
+};
+
+document.getElementById("save-product-btn").onclick = () => {
+    const name = document.getElementById("new-product-name").value.trim();
+    const desc = document.getElementById("new-product-desc").value.trim();
+    const price = document.getElementById("new-product-price").value.trim();
+    const img = document.getElementById("new-product-img").value.trim() || DEFAULT_IMG;
+
+    if(!name || !price){ alert("Product name and price required"); return; }
+    if(isNaN(price)){ alert("Price must be a number"); return; }
+
+    createProduct(name, desc, price, img, true);
+    addProductModal.style.display = "none";
+};
+
+document.getElementById("close-add-product-modal").onclick = () => {
+    addProductModal.style.display = "none";
+};
+
+// Search
+document.querySelector(".search-container input").oninput=e=>{  
+    const v=e.target.value.toLowerCase();  
+    document.querySelectorAll(".product-card").forEach(c=>{  
+        const name = c.querySelector("h3").textContent.toLowerCase();
+        const desc = c.querySelector(".product-info p").textContent.toLowerCase();
+        c.style.display = (name.includes(v) || desc.includes(v)) ? "" : "none";  
+    });  
+};
+
+window.onload=loadProducts;
+
+// Snow Effect
+const snowCount = 20;
+for(let i = 0; i < snowCount; i++){
+    const snow = document.createElement("div");
+    snow.className = "snowflake";
+    snow.textContent = "❄️";
+    snow.style.left = Math.random() * 100 + "vw";
+    snow.style.fontSize = (Math.random()*1.5 + 0.5) + "em";
+    snow.style.animationDuration = (Math.random()*5 + 8) + "s";
+    snow.style.opacity = Math.random() * 0.5 + 0.5;
+    document.body.appendChild(snow);
+}
+
+// Close modals when clicking outside
+window.onclick = function(e) {
+    if(e.target === addProductModal) addProductModal.style.display = "none";
+    if(e.target === document.getElementById("order-modal")) document.getElementById("order-modal").style.display = "none";
+};
+</script>
 </body>
-</html>
+    </html>
