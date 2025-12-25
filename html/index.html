@@ -5,457 +5,151 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KD ONLINE SHOP</title>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Baloo+2:wght@600&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background-color: #ffffff;
-    color: #000;
-    position: relative;
-    overflow-x: hidden;
-}
-
-/* Header */
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #000;
-    padding: 20px 20px 60px 20px;
-    text-align: center;
-    z-index: 1000;
-}
-
-header h1 {
-    font-size: 2rem;
-    color: #fff;
-    font-family: 'Orbitron', sans-serif;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.header-subtext {
-    display: block;
-    color: silver;
-    font-size: 1.2rem;
-    font-weight: bold;
-    line-height: 1.4;
-    margin-top: 5px;
-    font-family: 'Baloo 2', cursive;
-}
-
-/* Search Box */
-.search-container {
-    position: absolute;
-    bottom: 5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70%;
-    max-width: 350px;
-    z-index: 1001;
-}
-
-.search-container input {
-    width: 100%;
-    padding: 12px 15px;
-    border-radius: 25px;
-    border: 2px solid #000;
-    font-size: 1rem;
-    outline: none;
-    background-color: #fff;
-    color: #333;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-}
-
-.search-container input:focus {
-    transform: scale(1.02);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-}
-
-/* Products Section */
-.products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 220px 40px 60px 40px;
-    max-width: 1200px;
-    margin: auto;
-    position: relative;
-}
-
-.product-card {
-    background-color: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
-    position: relative;
-}
-
-.product-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-}
-
-.product-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.product-info {
-    padding: 15px;
-    text-align: center;
-}
-
-.product-info h3 {
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.product-info p {
-    margin-bottom: 10px;
-    color: #555;
-}
-
-/* Price */
-.product-price {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-/* Button container */
-.btn-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-/* Order Now button */
-.product-info .order-btn {
-    background-color: #ffcc00; /* yellow */
-    color: black;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.product-info .order-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-}
-
-/* WhatsApp button */
-.product-info .whatsapp-btn {
-    background-color: #25D366;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.product-info .whatsapp-btn:hover {
-    background-color: #128C7E;
-    transform: scale(1.05);
-    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 15px 20px;
-    background-color: #111;
-    color: #fff;
-    font-size: 0.9rem;
-    border: 2px solid #444;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    max-width: 1200px;
-    margin: 20px auto 40px auto;
-}
-
-/* Three dots menu */
-.menu {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
-.menu-btn {
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: #555;
-}
-
-.menu-content {
-    display: none;
-    position: absolute;
-    top: 25px;
-    right: 0;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    z-index: 100;
-    flex-direction: column;
-}
-
-.menu-content button {
-    padding: 10px 15px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    width: 100%;
-}
-
-.menu-content button:hover {
-    background-color: #eee;
-}
-
-/* Add Order Button */
-#add-order-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #ffcc00;
-    color: black;
-    border: none;
-    padding: 15px 20px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-    z-index: 1000;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-#add-order-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.4);
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#fff}
+header{position:fixed;top:0;width:100%;background:#000;color:#fff;text-align:center;padding:20px 20px 60px;z-index:1000}
+header h1{font-family:Orbitron}
+.header-subtext{color:silver;font-family:"Baloo 2"}
+.search-container{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:300px}
+.search-container input{width:100%;padding:10px;border-radius:20px}
+.products{padding:220px 30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.product-card{background:#fff;border-radius:10px;box-shadow:0 5px 10px rgba(0,0,0,.2);position:relative}
+.product-card img{width:100%;height:200px;object-fit:cover}
+.product-info{text-align:center;padding:10px}
+.product-price{font-weight:bold}
+.btn-container{display:flex;justify-content:center;gap:10px}
+.order-btn{background:#ffcc00;border:none;padding:8px 14px;border-radius:20px}
+.whatsapp-btn{background:#25D366;border:none;padding:8px 14px;border-radius:20px;color:#fff}
+.menu{position:absolute;top:10px;right:10px}
+.menu-btn{cursor:pointer}
+.menu-content{display:none;position:absolute;right:0;background:#fff;border-radius:6px}
+.menu-content button{display:block;width:100%;border:none;padding:8px}
+#add-product{position:fixed;bottom:20px;right:20px;background:#ffcc00;border:none;padding:15px 20px;border-radius:30px;font-weight:bold}
+footer{text-align:center;padding:15px;background:#111;color:#fff}
 </style>
 </head>
+
 <body>
 
 <header>
-    <h1>KD ONLINE SHOP</h1>
-    <div class="header-subtext">
-        A very valuable customer service from us.
-    </div>
-    <div class="search-container">
-        <input type="text" placeholder="Search for products...">
-    </div>
+<h1>KD ONLINE SHOP</h1>
+<div class="header-subtext">A very valuable customer service from us.</div>
+<div class="search-container">
+<input type="text" placeholder="Search..." id="search">
+</div>
 </header>
 
-<section class="products">
+<section class="products" id="products"></section>
 
-    <!-- Product 1 -->
-    <div class="product-card">
-        <div class="menu">
-            <span class="menu-btn">&#x22EE;</span>
-            <div class="menu-content">
-                <button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button>
-            </div>
-        </div>
-        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Headphones">
-        <div class="product-info">
-            <h3>Headphones</h3>
-            <p>High quality sound</p>
-            <p class="product-price">Price: LKR 3500</p>
-            <div class="btn-container">
-                <button class="order-btn">Order Now</button>
-                <button class="whatsapp-btn">WhatsApp</button>
-            </div>
-        </div>
-    </div>
+<button id="add-product">Add Product</button>
 
-    <!-- Product 2 -->
-    <div class="product-card">
-        <div class="menu">
-            <span class="menu-btn">&#x22EE;</span>
-            <div class="menu-content">
-                <button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button>
-            </div>
-        </div>
-        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Art Set">
-        <div class="product-info">
-            <h3>Art Set</h3>
-            <p>150 pieces</p>
-            <p class="product-price">Price: LKR 4500</p>
-            <div class="btn-container">
-                <button class="order-btn">Order Now</button>
-                <button class="whatsapp-btn">WhatsApp</button>
-            </div>
-        </div>
-    </div>
-
-</section>
-
-<!-- Add Product Button -->
-<button id="add-order-btn">Add Product</button>
-
-<footer>
-    &copy; 2025 KD ONLINE SHOP. All rights reserved.
-</footer>
+<footer>© 2025 KD ONLINE SHOP</footer>
 
 <script>
-const PASSWORD = 'Kkk111';
+const PASSWORD="Kkk111";
+const STORAGE_KEY="kd_products";
 
-// Password check
-function checkPassword() {
-    const pass = prompt("Enter password:");
-    if(pass !== PASSWORD) {
-        alert("Incorrect password!");
-        return false;
-    }
-    return true;
+// Default products (first load only)
+const defaultProducts=[
+ {name:"Headphones",desc:"High quality sound",price:3500,img:"https://files.catbox.moe/1hxuz4.webp"},
+ {name:"Art Set",desc:"150 pieces",price:4500,img:"https://files.catbox.moe/1hxuz4.webp"}
+];
+
+let products = JSON.parse(localStorage.getItem(STORAGE_KEY)) || defaultProducts;
+saveProducts();
+
+function saveProducts(){
+ localStorage.setItem(STORAGE_KEY,JSON.stringify(products));
 }
 
-// Search filter
-const searchInput = document.querySelector('.search-container input');
-const products = document.querySelectorAll('.product-card');
-searchInput.addEventListener('input', () => {
-    const filter = searchInput.value.toLowerCase();
-    document.querySelectorAll('.product-card').forEach(product => {
-        const title = product.querySelector('h3').textContent.toLowerCase();
-        const desc = Array.from(product.querySelectorAll('p')).map(p => p.textContent.toLowerCase()).join(' ');
-        product.style.display = (title + desc).includes(filter) ? '' : 'none';
-    });
-});
-
-// Function to attach events to product cards
-function attachProductCardEvents(card) {
-    // Menu toggle
-    card.querySelector('.menu-btn').addEventListener('click', () => {
-        document.querySelectorAll('.menu-content').forEach(menu => {
-            if(menu !== card.querySelector('.menu-content')) menu.style.display = 'none';
-        });
-        const menu = card.querySelector('.menu-content');
-        menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-    });
-
-    // Edit button
-    card.querySelector('.edit-btn').addEventListener('click', () => {
-        if(!checkPassword()) return;
-        const productNameElem = card.querySelector('h3');
-        const productPriceElem = card.querySelector('.product-price');
-        const productDescElem = card.querySelector('p');
-
-        const newName = prompt("Edit product name:", productNameElem.textContent);
-        if(newName) productNameElem.textContent = newName;
-
-        const newPrice = prompt("Edit product price:", productPriceElem.textContent.replace(/[^\d]/g,''));
-        if(newPrice) productPriceElem.textContent = `Price: LKR ${newPrice}`;
-
-        const newDesc = prompt("Edit product description:", productDescElem.textContent);
-        if(newDesc) productDescElem.textContent = newDesc;
-
-        card.querySelector('.menu-content').style.display = 'none';
-    });
-
-    // Delete button
-    card.querySelector('.delete-btn').addEventListener('click', () => {
-        if(!checkPassword()) return;
-        if(confirm("Are you sure you want to delete this product?")) {
-            card.remove();
-        }
-    });
-
-    // WhatsApp button
-    card.querySelector('.whatsapp-btn').addEventListener('click', () => {
-        const productName = card.querySelector('h3').textContent;
-        const message = `Hello, I want to order: ${productName}`;
-        const whatsappNumber = '94755997160';
-        const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
-    });
-
-    // Order Now button
-    card.querySelector('.order-btn').addEventListener('click', () => {
-        const productName = card.querySelector('h3').textContent;
-        const productPrice = card.querySelector('.product-price').textContent;
-
-        const customerName = prompt("Enter your name:");
-        if(!customerName) return alert("Name is required!");
-
-        const customerAddress = prompt("Enter your address:");
-        if(!customerAddress) return alert("Address is required!");
-
-        const customerPhone = prompt("Enter your phone number:");
-        if(!customerPhone) return alert("Phone number is required!");
-
-        const message = `Order Details:\n\nProduct: ${productName}\nPrice: ${productPrice}\n\nCustomer Name: ${customerName}\nAddress: ${customerAddress}\nPhone: ${customerPhone}`;
-
-        const whatsappNumber = '94755997160';
-        const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
-    });
+function checkPassword(){
+ const p=prompt("Enter password");
+ return p===PASSWORD;
 }
 
-// Attach events to existing products
-document.querySelectorAll('.product-card').forEach(card => attachProductCardEvents(card));
+function renderProducts(){
+ const box=document.getElementById("products");
+ box.innerHTML="";
+ products.forEach((p,i)=>{
+ box.innerHTML+=`
+ <div class="product-card">
+  <div class="menu">
+   <span class="menu-btn">⋮</span>
+   <div class="menu-content">
+    <button onclick="editProduct(${i})">Edit</button>
+    <button onclick="deleteProduct(${i})">Delete</button>
+   </div>
+  </div>
+  <img src="${p.img}">
+  <div class="product-info">
+   <h3>${p.name}</h3>
+   <p>${p.desc}</p>
+   <p class="product-price">Price: LKR ${p.price}</p>
+   <div class="btn-container">
+    <button class="order-btn" onclick="orderNow(${i})">Order Now</button>
+    <button class="whatsapp-btn" onclick="whatsapp(${i})">WhatsApp</button>
+   </div>
+  </div>
+ </div>`;
+ });
+ document.querySelectorAll(".menu-btn").forEach(b=>{
+  b.onclick=()=>b.nextElementSibling.style.display=
+  b.nextElementSibling.style.display==="block"?"none":"block";
+ });
+}
 
-// Add Product button functionality
-document.getElementById('add-order-btn').addEventListener('click', () => {
-    if(!checkPassword()) return;
+function addProduct(){
+ if(!checkPassword())return alert("Wrong password");
+ const name=prompt("Product name");
+ const desc=prompt("Description");
+ const price=prompt("Price");
+ const img=prompt("Image URL");
+ products.push({name,desc,price,img});
+ saveProducts();
+ renderProducts();
+}
 
-    const productName = prompt("Enter product name:");
-    if (!productName) return alert("Product name is required!");
+function editProduct(i){
+ if(!checkPassword())return alert("Wrong password");
+ products[i].name=prompt("Name",products[i].name);
+ products[i].desc=prompt("Desc",products[i].desc);
+ products[i].price=prompt("Price",products[i].price);
+ saveProducts();
+ renderProducts();
+}
 
-    const productPrice = prompt("Enter product price (LKR):");
-    if (!productPrice) return alert("Product price is required!");
+function deleteProduct(i){
+ if(!checkPassword())return alert("Wrong password");
+ products.splice(i,1);
+ saveProducts();
+ renderProducts();
+}
 
-    const productDescription = prompt("Enter product description:");
-    if (!productDescription) return alert("Product description is required!");
+function orderNow(i){
+ const c=prompt("Your name");
+ const a=prompt("Address");
+ const p=prompt("Phone");
+ const m=`Order\n${products[i].name}\nLKR ${products[i].price}\n${c}\n${a}\n${p}`;
+ window.open(`https://wa.me/94755997160?text=${encodeURIComponent(m)}`);
+}
 
-    const productImg = prompt("Enter product image URL:");
-    if (!productImg) return alert("Product image URL is required!");
+function whatsapp(i){
+ window.open(`https://wa.me/94755997160?text=I want ${products[i].name}`);
+}
 
-    // Create new product card
-    const productsSection = document.querySelector('.products');
-    const productCard = document.createElement('div');
-    productCard.className = 'product-card';
-    productCard.innerHTML = `
-        <div class="menu">
-            <span class="menu-btn">&#x22EE;</span>
-            <div class="menu-content">
-                <button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button>
-            </div>
-        </div>
-        <img src="${productImg}" alt="${productName}">
-        <div class="product-info">
-            <h3>${productName}</h3>
-            <p>${productDescription}</p>
-            <p class="product-price">Price: LKR ${productPrice}</p>
-            <div class="btn-container">
-                <button class="order-btn">Order Now</button>
-                <button class="whatsapp-btn">WhatsApp</button>
-            </div>
-        </div>
-    `;
-    productsSection.appendChild(productCard);
-    attachProductCardEvents(productCard);
-});
+document.getElementById("add-product").onclick=addProduct;
+
+document.getElementById("search").oninput=e=>{
+ const t=e.target.value.toLowerCase();
+ document.querySelectorAll(".product-card").forEach(c=>{
+  c.style.display=c.innerText.toLowerCase().includes(t)?"":"none";
+ });
+};
+
+renderProducts();
 </script>
 
 </body>
