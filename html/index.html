@@ -6,13 +6,9 @@
 <title>KD PANTA | Items Market</title>
 
 <style>
-*{
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
 body{
   margin:0;
+  font-family:Arial;
   background:#f4f4f4;
 }
 
@@ -24,15 +20,23 @@ header{
   text-align:center;
 }
 
-header h1{
-  margin:0;
-  letter-spacing:2px;
+/* ADD BUTTON */
+.add-btn{
+  background:#28a745;
+  color:#fff;
+  border:none;
+  padding:10px;
+  width:95%;
+  margin:10px auto;
+  display:block;
+  border-radius:8px;
+  font-size:16px;
 }
 
 /* PRODUCTS */
 .products{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
   gap:15px;
   padding:15px;
 }
@@ -41,7 +45,6 @@ header h1{
   background:#fff;
   border-radius:10px;
   overflow:hidden;
-  box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
 .product img{
@@ -55,28 +58,16 @@ header h1{
   text-align:center;
 }
 
-.product h3{
-  margin:5px 0;
-  font-size:16px;
-}
-
-.product p{
-  margin:5px 0;
-  color:green;
-  font-weight:bold;
-}
-
 .product button{
   width:100%;
-  padding:10px;
-  border:none;
+  padding:8px;
   background:#000;
   color:#fff;
+  border:none;
   border-radius:6px;
-  cursor:pointer;
 }
 
-/* POPUP */
+/* POPUP COMMON */
 .popup{
   display:none;
   position:fixed;
@@ -88,7 +79,7 @@ header h1{
   align-items:center;
 }
 
-.popup-content{
+.box{
   background:#fff;
   width:90%;
   max-width:350px;
@@ -96,29 +87,16 @@ header h1{
   border-radius:10px;
 }
 
-.popup-content h2{
-  margin-top:0;
-}
-
-.popup-content input{
+.box input{
   width:100%;
   padding:8px;
-  margin:8px 0;
-}
-
-.popup-content button{
-  width:100%;
-  padding:10px;
-  border:none;
-  background:#000;
-  color:#fff;
-  border-radius:6px;
+  margin:6px 0;
 }
 
 .close{
   text-align:right;
-  cursor:pointer;
   font-weight:bold;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -130,84 +108,78 @@ header h1{
   <p>Online Items Market</p>
 </header>
 
+<button class="add-btn" onclick="openAdd()">➕ Add Product</button>
+
 <div class="products" id="productList"></div>
 
+<!-- ADD PRODUCT POPUP -->
+<div class="popup" id="addPopup">
+  <div class="box">
+    <div class="close" onclick="closeAdd()">X</div>
+    <h3>Add New Product</h3>
+    <input id="pname" placeholder="Product Name">
+    <input id="pprice" placeholder="Price">
+    <input id="pimg" placeholder="Image URL">
+    <button onclick="addProduct()">Add</button>
+  </div>
+</div>
+
 <!-- ORDER POPUP -->
-<div class="popup" id="popup">
-  <div class="popup-content">
-    <div class="close" onclick="closePopup()">X</div>
-    <h2 id="pName"></h2>
-    <p id="pPrice"></p>
-
-    <input type="text" id="name" placeholder="Your Name">
-    <input type="text" id="address" placeholder="Address">
-    <input type="tel" id="phone" placeholder="Phone Number">
-
+<div class="popup" id="orderPopup">
+  <div class="box">
+    <div class="close" onclick="closeOrder()">X</div>
+    <h3 id="oname"></h3>
+    <input id="cname" placeholder="Your Name">
+    <input id="caddress" placeholder="Address">
+    <input id="cphone" placeholder="Phone">
     <button onclick="sendOrder()">Send Order</button>
   </div>
 </div>
 
 <script>
-const products = [
-  {
-    name:"KD Pant Black",
-    price:"Rs. 2500",
-    img:"https://via.placeholder.com/400x300?text=KD+Pant+Black"
-  },
-  {
-    name:"KD Pant Blue",
-    price:"Rs. 2800",
-    img:"https://via.placeholder.com/400x300?text=KD+Pant+Blue"
-  },
-  {
-    name:"KD Pant Grey",
-    price:"Rs. 2600",
-    img:"https://via.placeholder.com/400x300?text=KD+Pant+Grey"
-  }
-];
+let products = [];
+let current = "";
 
-const list = document.getElementById("productList");
-const popup = document.getElementById("popup");
-
-let currentProduct = "";
-
-products.forEach(p=>{
-  list.innerHTML += `
+function render(){
+  const list = document.getElementById("productList");
+  list.innerHTML="";
+  products.forEach(p=>{
+    list.innerHTML += `
     <div class="product">
       <img src="${p.img}">
       <div class="info">
-        <h3>${p.name}</h3>
+        <h4>${p.name}</h4>
         <p>${p.price}</p>
-        <button onclick="openPopup('${p.name}','${p.price}')">
-          Order Now
-        </button>
+        <button onclick="order('${p.name}','${p.price}')">Order</button>
       </div>
-    </div>
-  `;
-});
-
-function openPopup(name,price){
-  document.getElementById("pName").innerText = name;
-  document.getElementById("pPrice").innerText = price;
-  currentProduct = name + " - " + price;
-  popup.style.display="flex";
+    </div>`;
+  });
 }
 
-function closePopup(){
-  popup.style.display="none";
+function openAdd(){ document.getElementById("addPopup").style.display="flex"; }
+function closeAdd(){ document.getElementById("addPopup").style.display="none"; }
+
+function addProduct(){
+  products.push({
+    name:pname.value,
+    price:pprice.value,
+    img:pimg.value
+  });
+  pname.value=pprice.value=pimg.value="";
+  closeAdd();
+  render();
 }
+
+function order(name,price){
+  current = name+" - "+price;
+  document.getElementById("oname").innerText=current;
+  document.getElementById("orderPopup").style.display="flex";
+}
+
+function closeOrder(){ document.getElementById("orderPopup").style.display="none"; }
 
 function sendOrder(){
-  const name = document.getElementById("name").value;
-  const address = document.getElementById("address").value;
-  const phone = document.getElementById("phone").value;
-
-  const msg = `Order From KD PANTA%0A
-Product: ${currentProduct}%0A
-Name: ${name}%0A
-Address: ${address}%0A
-Phone: ${phone}`;
-
+  let msg = `Order KD PANTA%0A${current}%0AName:${cname.value}%0AAddress:${caddress.value}%0APhone:${cphone.value}`;
   window.open(`https://wa.me/94XXXXXXXXX?text=${msg}`,"_blank");
 }
 </script>
