@@ -227,6 +227,29 @@ footer {
 .menu-content button:hover {
     background-color: #eee;
 }
+
+/* Add Order Button */
+#add-order-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ffcc00;
+    color: black;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#add-order-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+}
 </style>
 </head>
 <body>
@@ -329,6 +352,9 @@ footer {
 
 </section>
 
+<!-- Add Order Button -->
+<button id="add-order-btn">Add Order</button>
+
 <footer>
     &copy; 2025 KD ONLINE SHOP. All rights reserved.
 </footer>
@@ -358,7 +384,7 @@ whatsappButtons.forEach(btn => {
     });
 });
 
-// Order Now button (WhatsApp only with prompts)
+// Order Now button
 const orderButtons = document.querySelectorAll('.order-btn');
 orderButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -377,11 +403,36 @@ orderButtons.forEach(btn => {
 
         const message = `Order Details:\n\nProduct: ${productName}\nPrice: ${productPrice}\n\nCustomer Name: ${customerName}\nAddress: ${customerAddress}\nPhone: ${customerPhone}`;
 
-        const whatsappNumber = '94755997160'; // International format
+        const whatsappNumber = '94755997160';
         const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
         window.open(url, '_blank');
     });
+});
+
+// Add Order Button functionality
+document.getElementById('add-order-btn').addEventListener('click', () => {
+    const productName = prompt("Enter product name:");
+    if(!productName) return alert("Product name is required!");
+
+    const productPrice = prompt("Enter product price:");
+    if(!productPrice) return alert("Product price is required!");
+
+    const customerName = prompt("Enter your name:");
+    if(!customerName) return alert("Name is required!");
+
+    const customerAddress = prompt("Enter your address:");
+    if(!customerAddress) return alert("Address is required!");
+
+    const customerPhone = prompt("Enter your phone number:");
+    if(!customerPhone) return alert("Phone number is required!");
+
+    const message = `Order Details:\n\nProduct: ${productName}\nPrice: ${productPrice}\n\nCustomer Name: ${customerName}\nAddress: ${customerAddress}\nPhone: ${customerPhone}`;
+
+    const whatsappNumber = '94755997160';
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(url, '_blank');
 });
 
 // Three-dot menu toggle
@@ -405,7 +456,6 @@ document.querySelectorAll('.edit-btn').forEach(btn => {
         const newPrice = prompt("Edit product price:", productPrice);
         if(newPrice) productCard.querySelector('.product-price').textContent = newPrice;
 
-        // Hide menu after editing
         productCard.querySelector('.menu-content').style.display = 'none';
     });
 });
