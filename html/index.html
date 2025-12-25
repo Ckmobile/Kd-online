@@ -126,6 +126,12 @@ header h1 {
     color: #555;
 }
 
+/* Price */
+.product-price {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 /* Button container */
 .btn-container {
     display: flex;
@@ -133,19 +139,15 @@ header h1 {
     gap: 10px;
 }
 
-/* Buttons */
-.product-info .order-btn,
-.product-info .whatsapp-btn {
+/* Order Now button */
+.product-info .order-btn {
+    background-color: #ffcc00; /* yellow */
+    color: black;
+    border: none;
     padding: 10px 15px;
     border-radius: 25px;
-    border: none;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.product-info .order-btn {
-    background-color: #ffcc00;
-    color: black;
 }
 
 .product-info .order-btn:hover {
@@ -153,9 +155,15 @@ header h1 {
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
 }
 
+/* WhatsApp button */
 .product-info .whatsapp-btn {
     background-color: #25D366;
     color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .product-info .whatsapp-btn:hover {
@@ -197,6 +205,7 @@ footer {
         <div class="product-info">
             <h3>Headphones</h3>
             <p>High quality sound</p>
+            <p class="product-price">Price: LKR 3500</p>
             <div class="btn-container">
                 <button class="order-btn">Order Now</button>
                 <button class="whatsapp-btn">WhatsApp</button>
@@ -209,6 +218,7 @@ footer {
         <div class="product-info">
             <h3>Art Set</h3>
             <p>150 pieces</p>
+            <p class="product-price">Price: LKR 4500</p>
             <div class="btn-container">
                 <button class="order-btn">Order Now</button>
                 <button class="whatsapp-btn">WhatsApp</button>
@@ -221,6 +231,7 @@ footer {
         <div class="product-info">
             <h3>Derma Roller</h3>
             <p>Skin care tool</p>
+            <p class="product-price">Price: LKR 1500</p>
             <div class="btn-container">
                 <button class="order-btn">Order Now</button>
                 <button class="whatsapp-btn">WhatsApp</button>
@@ -233,6 +244,7 @@ footer {
         <div class="product-info">
             <h3>Karaoke Mic</h3>
             <p>Portable & Wireless</p>
+            <p class="product-price">Price: LKR 5000</p>
             <div class="btn-container">
                 <button class="order-btn">Order Now</button>
                 <button class="whatsapp-btn">WhatsApp</button>
@@ -253,45 +265,48 @@ searchInput.addEventListener('input', () => {
     const filter = searchInput.value.toLowerCase();
     products.forEach(product => {
         const title = product.querySelector('h3').textContent.toLowerCase();
-        product.style.display = title.includes(filter) ? '' : 'none';
+        const desc = product.querySelector('p').textContent.toLowerCase();
+        product.style.display = (title + desc).includes(filter) ? '' : 'none';
     });
 });
 
-// WhatsApp button (just sends product name)
+// WhatsApp button
 const whatsappButtons = document.querySelectorAll('.whatsapp-btn');
 whatsappButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         const productName = btn.closest('.product-card').querySelector('h3').textContent;
         const message = `Hello, I want to order: ${productName}`;
-        const whatsappNumber = '94755997160';
+        const whatsappNumber = '94755997160'; // Sri Lanka number without 0
         const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
         window.open(url, '_blank');
     });
 });
 
-// Order Now button (sends full customer info)
+// Order Now button
 const orderButtons = document.querySelectorAll('.order-btn');
 orderButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         const productCard = btn.closest('.product-card');
         const productName = productCard.querySelector('h3').textContent;
-        const productPrice = prompt("Enter the product price:");
+        const productPrice = productCard.querySelector('.product-price').textContent;
 
-        const customerName = prompt("Enter your full name:");
+        // Get customer details
+        const customerName = prompt("Enter your name:");
+        if(!customerName) return alert("Name is required!");
+
         const customerAddress = prompt("Enter your address:");
-        const phone1 = prompt("Enter your first phone number:");
-        const phone2 = prompt("Enter your second phone number (optional):");
+        if(!customerAddress) return alert("Address is required!");
 
-        let message = `Order Details:%0A`;
-        message += `Product: ${productName}%0A`;
-        message += `Price: ${productPrice}%0A`;
-        message += `Name: ${customerName}%0A`;
-        message += `Address: ${customerAddress}%0A`;
-        message += `Phone 1: ${phone1}%0A`;
-        if(phone2) message += `Phone 2: ${phone2}%0A`;
+        const customerPhone = prompt("Enter your phone number:");
+        if(!customerPhone) return alert("Phone number is required!");
 
-        const whatsappNumber = '94755997160';
-        const url = `https://wa.me/${whatsappNumber}?text=${message}`;
+        // Construct message
+        const message = `Order Details:\n\nProduct: ${productName}\nPrice: ${productPrice}\n\nCustomer Name: ${customerName}\nAddress: ${customerAddress}\nPhone: ${customerPhone}`;
+
+        const whatsappNumber = '94755997160'; // Sri Lanka number without 0
+        const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+        // Open WhatsApp chat
         window.open(url, '_blank');
     });
 });
