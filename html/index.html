@@ -93,6 +93,7 @@ header h1 {
 }
 
 .product-card {
+    position: relative; /* Important for menu */
     background-color: #fff;
     border-radius: 10px;
     overflow: hidden;
@@ -126,20 +127,64 @@ header h1 {
     color: #555;
 }
 
-.product-info button {
-    background-color: #ff6600;
-    color: white;
+/* Add to Cart Button */
+.product-info button.add-to-cart {
+    background-color: yellow;
+    color: #000;
     border: none;
     padding: 10px 15px;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.product-info button:hover {
-    background-color: #e65c00;
+.product-info button.add-to-cart:hover {
+    background-color: gold;
     transform: scale(1.05);
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+
+/* Three-dot Menu */
+.product-menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.menu-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.menu-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 25px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+.menu-content button {
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+
+.menu-content button:hover {
+    background-color: #f0f0f0;
+}
+
+.product-menu.show .menu-content {
+    display: block;
 }
 
 /* Footer */
@@ -154,26 +199,6 @@ footer {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     max-width: 1200px;
     margin: 20px auto 40px auto;
-}
-
-/* Add Product Button */
-#add-product-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    background-color: yellow;
-    border: none;
-    border-radius: 50%;
-    font-size: 2rem;
-    cursor: pointer;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-    transition: transform 0.2s;
-    z-index: 10000;
-}
-#add-product-btn:hover {
-    transform: scale(1.1);
 }
 
 /* Snow ❄️ */
@@ -191,24 +216,13 @@ footer {
 }
 
 @keyframes fall {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0.8;
-    }
+    0% {transform: translateY(0) rotate(0deg); opacity:1;}
+    100% {transform: translateY(110vh) rotate(360deg); opacity:0.8;}
 }
 
 @media (max-width:600px){
-    .search-container input{
-        width:100%;
-    }
-    header h1, .header-subtext{
-        display: block;
-        margin-left: 0;
-    }
+    .search-container input{ width:100%; }
+    header h1, .header-subtext{ display:block; margin-left:0; }
 }
 </style>
 </head>
@@ -225,42 +239,67 @@ footer {
 </header>
 
 <section class="products">
+    <!-- Product Card Example -->
     <div class="product-card">
+        <div class="product-menu">
+            <button class="menu-btn">⋮</button>
+            <div class="menu-content">
+                <button class="edit-btn">Edit</button>
+            </div>
+        </div>
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Headphones">
         <div class="product-info">
             <h3>Headphones</h3>
             <p>High quality sound</p>
-            <button>Add to Cart</button>
+            <button class="add-to-cart">Add to Cart</button>
         </div>
     </div>
+
     <div class="product-card">
+        <div class="product-menu">
+            <button class="menu-btn">⋮</button>
+            <div class="menu-content">
+                <button class="edit-btn">Edit</button>
+            </div>
+        </div>
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Art Set">
         <div class="product-info">
             <h3>Art Set</h3>
             <p>150 pieces</p>
-            <button>Add to Cart</button>
+            <button class="add-to-cart">Add to Cart</button>
         </div>
     </div>
+
     <div class="product-card">
+        <div class="product-menu">
+            <button class="menu-btn">⋮</button>
+            <div class="menu-content">
+                <button class="edit-btn">Edit</button>
+            </div>
+        </div>
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Derma Roller">
         <div class="product-info">
             <h3>Derma Roller</h3>
             <p>Skin care tool</p>
-            <button>Add to Cart</button>
+            <button class="add-to-cart">Add to Cart</button>
         </div>
     </div>
+
     <div class="product-card">
+        <div class="product-menu">
+            <button class="menu-btn">⋮</button>
+            <div class="menu-content">
+                <button class="edit-btn">Edit</button>
+            </div>
+        </div>
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Karaoke Mic">
         <div class="product-info">
             <h3>Karaoke Mic</h3>
             <p>Portable & Wireless</p>
-            <button>Add to Cart</button>
+            <button class="add-to-cart">Add to Cart</button>
         </div>
     </div>
 </section>
-
-<!-- Add Product Button -->
-<button id="add-product-btn">+</button>
 
 <footer>
     &copy; 2025 KD ONLINE SHOP. All rights reserved.
@@ -279,7 +318,40 @@ searchInput.addEventListener('input', () => {
     });
 });
 
-// Continuous Snow ❄️ generation
+// Three-dot menu toggle
+document.querySelectorAll('.menu-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const menu = btn.parentElement;
+        menu.classList.toggle('show');
+    });
+});
+
+// Edit Button functionality with password
+const OWNER_PASSWORD = "Kkk1234";
+document.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const password = prompt("Enter password to edit product:");
+        if(password === OWNER_PASSWORD){
+            const card = btn.closest('.product-card');
+            const currentName = card.querySelector('h3').textContent;
+            const currentDesc = card.querySelector('p').textContent;
+            const currentImg = card.querySelector('img').src;
+
+            const newName = prompt("Edit product name:", currentName);
+            const newDesc = prompt("Edit product description:", currentDesc);
+            const newImg = prompt("Edit product image URL:", currentImg);
+
+            if(newName) card.querySelector('h3').textContent = newName;
+            if(newDesc) card.querySelector('p').textContent = newDesc;
+            if(newImg) card.querySelector('img').src = newImg;
+        } else {
+            alert("Wrong password! Access denied.");
+        }
+        btn.closest('.product-menu').classList.remove('show'); // close menu
+    });
+});
+
+// Snow ❄️ generation
 const snowCount = 10;
 function createSnowFlake() {
     const snow = document.createElement('div');
@@ -294,39 +366,10 @@ function createSnowFlake() {
         createSnowFlake();
     }, parseFloat(snow.style.animationDuration) * 1000);
 }
+
 for (let i = 0; i < snowCount; i++) {
     createSnowFlake();
 }
-
-// Owner-only Add Product button with password on click
-const OWNER_PASSWORD = "Kkk1234";
-const addProductBtn = document.getElementById('add-product-btn');
-
-addProductBtn.addEventListener('click', () => {
-    const enteredPassword = prompt("Enter secret code to access Add Product:");
-    if (enteredPassword === OWNER_PASSWORD) {
-        const productName = prompt("Enter product name:");
-        const productDesc = prompt("Enter product description:");
-        const productImage = prompt("Enter product image URL:");
-
-        if (productName && productDesc && productImage) {
-            const productSection = document.querySelector('.products');
-            const newCard = document.createElement('div');
-            newCard.className = 'product-card';
-            newCard.innerHTML = `
-                <img src="${productImage}" alt="${productName}">
-                <div class="product-info">
-                    <h3>${productName}</h3>
-                    <p>${productDesc}</p>
-                    <button>Add to Cart</button>
-                </div>
-            `;
-            productSection.appendChild(newCard);
-        }
-    } else {
-        alert("Access denied! Wrong password.");
-    }
-});
 </script>
 
 </body>
