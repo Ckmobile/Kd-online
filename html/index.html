@@ -245,6 +245,7 @@ footer {
             <button class="menu-btn">⋮</button>
             <div class="menu-content">
                 <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
             </div>
         </div>
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Headphones">
@@ -260,6 +261,7 @@ footer {
             <button class="menu-btn">⋮</button>
             <div class="menu-content">
                 <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
             </div>
         </div>
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Art Set">
@@ -275,6 +277,7 @@ footer {
             <button class="menu-btn">⋮</button>
             <div class="menu-content">
                 <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
             </div>
         </div>
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Derma Roller">
@@ -290,6 +293,7 @@ footer {
             <button class="menu-btn">⋮</button>
             <div class="menu-content">
                 <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
             </div>
         </div>
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Karaoke Mic">
@@ -326,8 +330,10 @@ document.querySelectorAll('.menu-btn').forEach(btn => {
     });
 });
 
-// Edit Button functionality with password
+// Edit & Delete Buttons with password protection
 const OWNER_PASSWORD = "Kkk1234";
+
+// Edit
 document.querySelectorAll('.edit-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         const password = prompt("Enter password to edit product:");
@@ -347,7 +353,21 @@ document.querySelectorAll('.edit-btn').forEach(btn => {
         } else {
             alert("Wrong password! Access denied.");
         }
-        btn.closest('.product-menu').classList.remove('show'); // close menu
+        btn.closest('.product-menu').classList.remove('show'); 
+    });
+});
+
+// Delete
+document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const password = prompt("Enter password to delete product:");
+        if(password === OWNER_PASSWORD){
+            const card = btn.closest('.product-card');
+            card.remove();
+        } else {
+            alert("Wrong password! Access denied.");
+        }
+        btn.closest('.product-menu').classList.remove('show'); 
     });
 });
 
