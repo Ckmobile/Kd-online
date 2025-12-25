@@ -10,20 +10,25 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background: #f5f5f5;
+            background: #0d1b2a; /* dark blue night background */
+            overflow-x: hidden;
         }
 
         header {
-            background: #4CAF50;
+            background: rgba(76, 175, 80, 0.9);
             color: white;
             padding: 1rem;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         #search {
             width: 80%;
             padding: 0.5rem;
             margin-top: 0.5rem;
+            border-radius: 4px;
+            border: none;
         }
 
         #products {
@@ -31,6 +36,8 @@
             flex-wrap: wrap;
             justify-content: center;
             padding: 1rem;
+            position: relative;
+            z-index: 1; /* above snowflakes */
         }
 
         .product {
@@ -40,12 +47,13 @@
             width: 200px;
             border-radius: 8px;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .product:hover {
             transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .product img {
@@ -76,6 +84,8 @@
             text-align: center;
             padding: 1rem;
             margin-top: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         @media (max-width: 600px) {
@@ -86,9 +96,63 @@
                 width: 95%;
             }
         }
+
+        /* ===== Snowflakes Animation ===== */
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0; /* behind content */
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -2em;
+            color: white;
+            font-size: 1em;
+            opacity: 0.8;
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        .snowflake:nth-child(1) { left: 5%; animation-duration: 8s; font-size: 1.2em; }
+        .snowflake:nth-child(2) { left: 15%; animation-duration: 12s; font-size: 0.9em; }
+        .snowflake:nth-child(3) { left: 25%; animation-duration: 10s; font-size: 1em; }
+        .snowflake:nth-child(4) { left: 35%; animation-duration: 14s; font-size: 1.1em; }
+        .snowflake:nth-child(5) { left: 45%; animation-duration: 9s; font-size: 0.8em; }
+        .snowflake:nth-child(6) { left: 55%; animation-duration: 11s; font-size: 1em; }
+        .snowflake:nth-child(7) { left: 65%; animation-duration: 13s; font-size: 1.2em; }
+        .snowflake:nth-child(8) { left: 75%; animation-duration: 10s; font-size: 0.9em; }
+        .snowflake:nth-child(9) { left: 85%; animation-duration: 12s; font-size: 1em; }
+        .snowflake:nth-child(10) { left: 95%; animation-duration: 9s; font-size: 1.1em; }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
     </style>
 </head>
 <body>
+
+    <!-- Animated Snowflakes Background -->
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❄</div>
+    </div>
+
     <header>
         <h1>🛒 අපේ ඔන්ලයින් මාකට්ප්ලේස්</h1>
         <nav>
@@ -112,31 +176,31 @@
                 name: "නිෂ්පාදනය 1",
                 price: "Rs.500",
                 code: "P001",
-                image: "https://files.catbox.moe/fgkdy1.webp"
+                image: "https://via.placeholder.com/200x150?text=Product+1"
             },
             {
                 name: "නිෂ්පාදනය 2",
                 price: "Rs.1200",
                 code: "P002",
-                image: "https://files.catbox.moe/fgkdy1.webp"
+                image: "https://via.placeholder.com/200x150?text=Product+2"
             },
             {
                 name: "නිෂ්පාදනය 3",
                 price: "Rs.750",
                 code: "P003",
-                image: "https://files.catbox.moe/fgkdy1.webp"
+                image: "https://via.placeholder.com/200x150?text=Product+3"
             },
             {
                 name: "නිෂ්පාදනය 4",
                 price: "Rs.1500",
                 code: "P004",
-                image: "https://files.catbox.moe/fgkdy1.webp"
+                image: "https://via.placeholder.com/200x150?text=Product+4"
             },
             {
                 name: "නිෂ්පාදනය 5",
                 price: "Rs.900",
                 code: "P005",
-                image: "https://files.catbox.moe/fgkdy1.webp"
+                image: "https://via.placeholder.com/200x150?text=Product+5"
             }
         ];
 
