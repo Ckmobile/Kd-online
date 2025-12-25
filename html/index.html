@@ -171,7 +171,6 @@ footer {
     box-shadow: 0 3px 6px rgba(0,0,0,0.3);
     transition: transform 0.2s;
     z-index: 10000;
-    display: none;
 }
 #add-product-btn:hover {
     transform: scale(1.1);
@@ -299,36 +298,33 @@ for (let i = 0; i < snowCount; i++) {
     createSnowFlake();
 }
 
-// Owner-only Add Product button
+// Owner-only Add Product button with password on click
 const OWNER_PASSWORD = "Kkk1234";
-let enteredPassword = prompt("Enter secret code to access Add Product:");
 const addProductBtn = document.getElementById('add-product-btn');
 
-if (enteredPassword === OWNER_PASSWORD) {
-    addProductBtn.style.display = 'block';
-} else {
-    alert("Access denied! You are not authorized.");
-}
-
-// Add Product functionality
 addProductBtn.addEventListener('click', () => {
-    const productName = prompt("Enter product name:");
-    const productDesc = prompt("Enter product description:");
-    const productImage = prompt("Enter product image URL:");
+    const enteredPassword = prompt("Enter secret code to access Add Product:");
+    if (enteredPassword === OWNER_PASSWORD) {
+        const productName = prompt("Enter product name:");
+        const productDesc = prompt("Enter product description:");
+        const productImage = prompt("Enter product image URL:");
 
-    if (productName && productDesc && productImage) {
-        const productSection = document.querySelector('.products');
-        const newCard = document.createElement('div');
-        newCard.className = 'product-card';
-        newCard.innerHTML = `
-            <img src="${productImage}" alt="${productName}">
-            <div class="product-info">
-                <h3>${productName}</h3>
-                <p>${productDesc}</p>
-                <button>Add to Cart</button>
-            </div>
-        `;
-        productSection.appendChild(newCard);
+        if (productName && productDesc && productImage) {
+            const productSection = document.querySelector('.products');
+            const newCard = document.createElement('div');
+            newCard.className = 'product-card';
+            newCard.innerHTML = `
+                <img src="${productImage}" alt="${productName}">
+                <div class="product-info">
+                    <h3>${productName}</h3>
+                    <p>${productDesc}</p>
+                    <button>Add to Cart</button>
+                </div>
+            `;
+            productSection.appendChild(newCard);
+        }
+    } else {
+        alert("Access denied! Wrong password.");
     }
 });
 </script>
