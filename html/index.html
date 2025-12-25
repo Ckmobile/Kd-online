@@ -9,268 +9,205 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Baloo+2:wght@600&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background-color: #ffffff;
-    color: #000;
-    position: relative;
-    overflow-x: hidden;
-}
-
-/* Header */
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #000;
-    padding: 20px 20px 60px 20px;
-    text-align: center;
-    z-index: 1000;
-}
-
-header h1 {
-    font-size: 2rem;
-    color: #fff;
-    font-family: 'Orbitron', sans-serif;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.header-subtext {
-    display: block;
-    color: silver;
-    font-size: 1.2rem;
-    font-weight: bold;
-    line-height: 1.4;
-    margin-top: 5px;
-    font-family: 'Baloo 2', cursive;
-}
-
-/* Search Box */
-.search-container {
-    position: absolute;
-    bottom: 5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70%;
-    max-width: 350px;
-    z-index: 1001;
-}
-
-.search-container input {
-    width: 100%;
-    padding: 12px 15px;
-    border-radius: 25px;
-    border: 2px solid #000;
-    font-size: 1rem;
-    outline: none;
-    background-color: #fff;
-    color: #333;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-}
-
-.search-container input:focus {
-    transform: scale(1.02);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-}
-
-/* Products Section */
-.products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 220px 40px 60px 40px;
-    max-width: 1200px;
-    margin: auto;
-}
-
-.product-card {
-    background-color: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.product-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-}
-
-.product-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.product-info {
-    padding: 15px;
-    text-align: center;
-}
-
-.product-info h3 {
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.product-info p {
-    margin-bottom: 10px;
-    color: #555;
-}
-
-/* Button container */
-.btn-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-/* Order Now button */
-.product-info .order-btn {
-    background-color: #ffcc00; /* yellow */
-    color: black;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.product-info .order-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-}
-
-/* WhatsApp button */
-.product-info .whatsapp-btn {
-    background-color: #25D366;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.product-info .whatsapp-btn:hover {
-    background-color: #128C7E;
-    transform: scale(1.05);
-    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 15px 20px;
-    background-color: #111;
-    color: #fff;
-    font-size: 0.9rem;
-    border: 2px solid #444;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    max-width: 1200px;
-    margin: 20px auto 40px auto;
-}
+* {margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{background:#fff;color:#000;position:relative;overflow-x:hidden;}
+header{position:fixed;top:0;left:0;width:100%;background:#000;padding:20px 20px 60px 20px;text-align:center;z-index:1000;}
+header h1{font-size:2rem;color:#fff;font-family:'Orbitron',sans-serif;margin-bottom:5px;}
+.header-subtext{display:block;color:silver;font-size:1.2rem;font-weight:bold;line-height:1.4;margin-top:5px;font-family:'Baloo 2',cursive;}
+.search-container{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:70%;max-width:350px;z-index:1001;}
+.search-container input{width:100%;padding:12px 15px;border-radius:25px;border:2px solid #000;font-size:1rem;outline:none;background:#fff;color:#333;box-shadow:0 5px 15px rgba(0,0,0,0.2);transition:all 0.3s ease;}
+.search-container input:focus{transform:scale(1.02);box-shadow:0 8px 20px rgba(0,0,0,0.3);}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:220px 40px 60px 40px;max-width:1200px;margin:auto;}
+.product-card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;position:relative;}
+.product-card:hover{transform:scale(1.05);box-shadow:0 10px 20px rgba(0,0,0,0.3);}
+.product-card img{width:100%;height:200px;object-fit:cover;}
+.product-info{padding:15px;text-align:center;}
+.product-info h3{margin-bottom:10px;color:#333;}
+.product-info p{margin-bottom:10px;color:#555;}
+.product-info button{background:#ff6600;color:white;border:none;padding:10px 15px;border-radius:5px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;margin-right:5px;}
+.product-info button:hover{background:#e65c00;transform:scale(1.05);box-shadow:0 5px 10px rgba(0,0,0,0.3);}
+.edit-btn, .delete-btn{display:none;position:absolute;top:10px;right:10px;margin-left:5px;padding:5px 8px;border:none;border-radius:5px;cursor:pointer;font-size:0.8rem;}
+.edit-btn{background:orange;color:#fff;}
+.delete-btn{background:red;color:#fff;}
+.dots{position:absolute;top:10px;right:10px;cursor:pointer;font-size:1.5rem;}
+footer{text-align:center;padding:15px 20px;background:#111;color:#fff;font-size:0.9rem;border:2px solid #444;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.5);max-width:1200px;margin:20px auto 40px auto;}
+.snowflake{position:fixed;top:-5%;z-index:10000;user-select:none;font-size:1rem;color:#fff;pointer-events:none;animation-name:fall;animation-iteration-count:infinite;animation-timing-function:linear;}
+@keyframes fall{0%{transform:translateY(0) rotate(0deg);opacity:1;}100%{transform:translateY(110vh) rotate(360deg);opacity:0.8;}}
+.order-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;z-index:10000;}
+.order-content{background:#fff;padding:20px;border-radius:10px;width:300px;position:relative;text-align:center;}
+.close-order{position:absolute;top:10px;right:10px;cursor:pointer;font-weight:bold;}
+.order-content input{width:90%;padding:8px;margin:5px 0;border-radius:5px;border:1px solid #ccc;}
+.order-content button{padding:8px 12px;margin-top:10px;border:none;border-radius:5px;background:green;color:white;cursor:pointer;}
+.whatsapp-btn{background:#25D366;color:white;padding:8px 12px;border:none;border-radius:5px;cursor:pointer;margin-left:5px;}
+@media(max-width:600px){.search-container input{width:100%;}header h1,.header-subtext{display:block;margin-left:0;}}
 </style>
 </head>
 <body>
 
 <header>
-    <h1>KD ONLINE SHOP</h1>
-    <div class="header-subtext">
-        A very valuable customer service from us.
-    </div>
-    <div class="search-container">
-        <input type="text" placeholder="Search for products...">
-    </div>
+<h1>KD ONLINE SHOP</h1>
+<div class="header-subtext">A very valuable customer service from us.</div>
+<div class="search-container"><input type="text" placeholder="Search for products..."></div>
 </header>
 
-<section class="products">
-    <div class="product-card">
-        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Headphones">
-        <div class="product-info">
-            <h3>Headphones</h3>
-            <p>High quality sound</p>
-            <div class="btn-container">
-                <button class="order-btn">Order Now</button>
-                <button class="whatsapp-btn">WhatsApp</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="product-card">
-        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Art Set">
-        <div class="product-info">
-            <h3>Art Set</h3>
-            <p>150 pieces</p>
-            <div class="btn-container">
-                <button class="order-btn">Order Now</button>
-                <button class="whatsapp-btn">WhatsApp</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="product-card">
-        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Derma Roller">
-        <div class="product-info">
-            <h3>Derma Roller</h3>
-            <p>Skin care tool</p>
-            <div class="btn-container">
-                <button class="order-btn">Order Now</button>
-                <button class="whatsapp-btn">WhatsApp</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="product-card">
-        <img src="https://files.catbox.moe/1hxuz4.webp" alt="Karaoke Mic">
-        <div class="product-info">
-            <h3>Karaoke Mic</h3>
-            <p>Portable & Wireless</p>
-            <div class="btn-container">
-                <button class="order-btn">Order Now</button>
-                <button class="whatsapp-btn">WhatsApp</button>
-            </div>
-        </div>
-    </div>
+<section class="products" id="product-section">
+    <!-- Example products -->
 </section>
 
-<footer>
-    &copy; 2025 KD ONLINE SHOP. All rights reserved.
-</footer>
+<footer>&copy; 2025 KD ONLINE SHOP. All rights reserved.</footer>
+
+<!-- Order Modal -->
+<div class="order-modal" id="order-modal">
+<div class="order-content">
+<span class="close-order" id="close-order">X</span>
+<h3>Place Your Order</h3>
+<input type="text" id="cust-name" placeholder="Your Name">
+<input type="text" id="cust-address" placeholder="Address">
+<input type="text" id="cust-phone" placeholder="Phone">
+<button id="send-order">Send Order via WhatsApp</button>
+</div>
+</div>
 
 <script>
-// Search Filter
-const searchInput = document.querySelector('.search-container input');
-const products = document.querySelectorAll('.product-card');
-searchInput.addEventListener('input', () => {
-    const filter = searchInput.value.toLowerCase();
-    products.forEach(product => {
-        const title = product.querySelector('h3').textContent.toLowerCase();
-        product.style.display = title.includes(filter) ? '' : 'none';
+// Soft Snowflakes
+const snowCount = 5;
+function createSnowFlake(){
+    const snow = document.createElement('div');
+    snow.className='snowflake';
+    snow.style.left=Math.random()*100+'vw';
+    snow.style.fontSize=(6+Math.random()*4)+'px';
+    snow.style.animationDuration=(25+Math.random()*15)+'s';
+    snow.textContent='❄️';
+    document.body.appendChild(snow);
+    setTimeout(()=>{
+        snow.remove();
+        createSnowFlake();
+    }, parseFloat(snow.style.animationDuration)*1000);
+}
+for(let i=0;i<snowCount;i++){ createSnowFlake(); }
+
+// Owner password
+const OWNER_PASSWORD = "Kkk111";
+
+// Product storage
+let products = JSON.parse(localStorage.getItem('products')||'[]');
+const productSection = document.getElementById('product-section');
+
+// Render products
+function renderProducts(){
+    productSection.innerHTML='';
+    products.forEach((prod,index)=>{
+        const card = document.createElement('div');
+        card.className='product-card';
+        card.dataset.index=index;
+
+        card.innerHTML=`
+            <img src="${prod.img}" alt="${prod.name}">
+            <div class="product-info">
+                <h3>${prod.name}</h3>
+                <p>${prod.model}</p>
+                <button class="order-now">Order Now</button>
+                <button class="whatsapp-btn">WhatsApp</button>
+            </div>
+            <span class="dots">⋮</span>
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+        `;
+        productSection.appendChild(card);
+
+        const dots = card.querySelector('.dots');
+        const editBtn = card.querySelector('.edit-btn');
+        const deleteBtn = card.querySelector('.delete-btn');
+
+        dots.addEventListener('click', ()=>{
+            editBtn.style.display='inline-block';
+            deleteBtn.style.display='inline-block';
+        });
+
+        editBtn.addEventListener('click', ()=>{
+            const pass = prompt("Enter Owner Password:");
+            if(pass!==OWNER_PASSWORD){ alert("Wrong password"); return; }
+            const newName = prompt("Product Name:",prod.name);
+            const newModel = prompt("Model Name:",prod.model);
+            if(newName) prod.name=newName;
+            if(newModel) prod.model=newModel;
+            saveAndRender();
+        });
+
+        deleteBtn.addEventListener('click', ()=>{
+            const pass = prompt("Enter Owner Password:");
+            if(pass!==OWNER_PASSWORD){ alert("Wrong password"); return; }
+            products.splice(index,1);
+            saveAndRender();
+        });
+
+        // Order Now
+        const orderBtn = card.querySelector('.order-now');
+        const whatsappBtn = card.querySelector('.whatsapp-btn');
+        orderBtn.addEventListener('click',()=>{
+            document.getElementById('order-modal').style.display='flex';
+            document.getElementById('send-order').dataset.index=index;
+        });
+
+        whatsappBtn.addEventListener('click',()=>{
+            const url = `https://wa.me/94755997160?text=Order%20${encodeURIComponent(prod.name)}%20(${encodeURIComponent(prod.model)})`;
+            window.open(url,'_blank');
+        });
     });
+}
+
+// Save to localStorage
+function saveAndRender(){
+    localStorage.setItem('products',JSON.stringify(products));
+    renderProducts();
+}
+
+// Add Order Modal Send
+document.getElementById('send-order').addEventListener('click',()=>{
+    const index = parseInt(document.getElementById('send-order').dataset.index);
+    const prod = products[index];
+    const name = document.getElementById('cust-name').value;
+    const address = document.getElementById('cust-address').value;
+    const phone = document.getElementById('cust-phone').value;
+    if(!name||!address||!phone){ alert("Fill all fields"); return; }
+    const msg = `Order for ${prod.name} (${prod.model})\nName: ${name}\nAddress: ${address}\nPhone: ${phone}`;
+    const url = `https://wa.me/94755997160?text=${encodeURIComponent(msg)}`;
+    window.open(url,'_blank');
+    document.getElementById('order-modal').style.display='none';
 });
 
-// WhatsApp button logic
-const whatsappButtons = document.querySelectorAll('.whatsapp-btn');
-whatsappButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const productName = btn.closest('.product-card').querySelector('h3').textContent;
-        const message = `Hello, I want to order: ${productName}`;
-        const whatsappNumber = '94755997160'; // Sri Lanka without 0
-        const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
-    });
+// Close modal
+document.getElementById('close-order').addEventListener('click',()=>{
+    document.getElementById('order-modal').style.display='none';
 });
+
+// Add Product (Owner Only)
+function addProduct(){
+    const pass = prompt("Enter Owner Password:");
+    if(pass!==OWNER_PASSWORD){ alert("Wrong password"); return; }
+    const name = prompt("Product Name:");
+    const model = prompt("Model Name:");
+    const img = prompt("Image URL:","https://files.catbox.moe/1hxuz4.webp");
+    if(name&&model&&img) products.push({name,model,img});
+    saveAndRender();
+}
+
+// Initial Render
+renderProducts();
+
+// Add order button at bottom
+const addOrderBtn = document.createElement('button');
+addOrderBtn.textContent='Add Product';
+addOrderBtn.style.position='fixed';
+addOrderBtn.style.bottom='20px';
+addOrderBtn.style.left='20px';
+addOrderBtn.style.padding='10px 15px';
+addOrderBtn.style.background='yellow';
+addOrderBtn.style.border='none';
+addOrderBtn.style.borderRadius='5px';
+addOrderBtn.style.cursor='pointer';
+addOrderBtn.addEventListener('click',addProduct);
+document.body.appendChild(addOrderBtn);
 </script>
-
 </body>
 </html>
