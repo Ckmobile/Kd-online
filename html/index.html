@@ -126,17 +126,42 @@ header h1 {
     color: #555;
 }
 
-.product-info button {
+/* Button container */
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Order Now button */
+.product-info .order-btn {
     background-color: #ffcc00; /* yellow */
     color: black;
     border: none;
     padding: 10px 15px;
-    border-radius: 25px; /* round */
+    border-radius: 25px;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.product-info button:hover {
+.product-info .order-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+
+/* WhatsApp button */
+.product-info .whatsapp-btn {
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-info .whatsapp-btn:hover {
+    background-color: #128C7E;
     transform: scale(1.05);
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
 }
@@ -153,86 +178,6 @@ footer {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     max-width: 1200px;
     margin: 20px auto 40px auto;
-}
-
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 5000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.7);
-}
-
-.modal-content {
-    background-color: #fff;
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-}
-
-.modal-content input {
-    width: 80%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.modal-content button {
-    padding: 10px 20px;
-    border-radius: 25px;
-    border: none;
-    background-color: #25D366; /* WhatsApp green */
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.modal-content button:hover {
-    background-color: #128C7E;
-}
-
-/* Snow ❄️ */
-.snowflake {
-    position: fixed;
-    top: -5%;
-    z-index: 10000;
-    user-select: none;
-    font-size: 1rem;
-    color: #fff;
-    pointer-events: none;
-    animation-name: fall;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-}
-
-@keyframes fall {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0.8;
-    }
-}
-
-@media (max-width:600px){
-    .search-container input{
-        width:100%;
-    }
-    header h1, .header-subtext{
-        display: block;
-        margin-left: 0;
-    }
 }
 </style>
 </head>
@@ -254,46 +199,49 @@ footer {
         <div class="product-info">
             <h3>Headphones</h3>
             <p>High quality sound</p>
-            <button class="order-btn">Order Now</button>
+            <div class="btn-container">
+                <button class="order-btn">Order Now</button>
+                <button class="whatsapp-btn">WhatsApp</button>
+            </div>
         </div>
     </div>
+
     <div class="product-card">
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Art Set">
         <div class="product-info">
             <h3>Art Set</h3>
             <p>150 pieces</p>
-            <button class="order-btn">Order Now</button>
+            <div class="btn-container">
+                <button class="order-btn">Order Now</button>
+                <button class="whatsapp-btn">WhatsApp</button>
+            </div>
         </div>
     </div>
+
     <div class="product-card">
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Derma Roller">
         <div class="product-info">
             <h3>Derma Roller</h3>
             <p>Skin care tool</p>
-            <button class="order-btn">Order Now</button>
+            <div class="btn-container">
+                <button class="order-btn">Order Now</button>
+                <button class="whatsapp-btn">WhatsApp</button>
+            </div>
         </div>
     </div>
+
     <div class="product-card">
         <img src="https://files.catbox.moe/1hxuz4.webp" alt="Karaoke Mic">
         <div class="product-info">
             <h3>Karaoke Mic</h3>
             <p>Portable & Wireless</p>
-            <button class="order-btn">Order Now</button>
+            <div class="btn-container">
+                <button class="order-btn">Order Now</button>
+                <button class="whatsapp-btn">WhatsApp</button>
+            </div>
         </div>
     </div>
 </section>
-
-<!-- Modal -->
-<div class="modal" id="orderModal">
-    <div class="modal-content">
-        <h2>Enter Your Details</h2>
-        <input type="text" id="custName" placeholder="Your Name">
-        <input type="text" id="custAddress" placeholder="Your Address">
-        <input type="text" id="custPhone" placeholder="Your Phone Number">
-        <br>
-        <button id="sendBtn">Send via WhatsApp</button>
-    </div>
-</div>
 
 <footer>
     &copy; 2025 KD ONLINE SHOP. All rights reserved.
@@ -311,62 +259,16 @@ searchInput.addEventListener('input', () => {
     });
 });
 
-// Continuous Snow
-const snowCount = 10;
-function createSnowFlake() {
-    const snow = document.createElement('div');
-    snow.className = 'snowflake';
-    snow.style.left = Math.random() * 100 + 'vw';
-    snow.style.fontSize = (6 + Math.random() * 6) + 'px';
-    snow.style.animationDuration = (20 + Math.random() * 15) + 's';
-    snow.textContent = '❄️';
-    document.body.appendChild(snow);
-    setTimeout(() => {
-        snow.remove();
-        createSnowFlake();
-    }, parseFloat(snow.style.animationDuration) * 1000);
-}
-for (let i = 0; i < snowCount; i++) createSnowFlake();
-
-// Order Now modal logic
-let selectedProduct = '';
-const orderButtons = document.querySelectorAll('.order-btn');
-const modal = document.getElementById('orderModal');
-const sendBtn = document.getElementById('sendBtn');
-
-orderButtons.forEach(btn => {
+// WhatsApp button logic
+const whatsappButtons = document.querySelectorAll('.whatsapp-btn');
+whatsappButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-        selectedProduct = btn.closest('.product-card').querySelector('h3').textContent;
-        modal.style.display = 'block';
+        const productName = btn.closest('.product-card').querySelector('h3').textContent;
+        const message = `Hello, I want to order: ${productName}`;
+        const whatsappNumber = '94755997160'; // Sri Lanka without 0
+        const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
     });
-});
-
-// Send via WhatsApp
-sendBtn.addEventListener('click', () => {
-    const name = document.getElementById('custName').value.trim();
-    const address = document.getElementById('custAddress').value.trim();
-    const phone = document.getElementById('custPhone').value.trim();
-
-    if (!name || !address || !phone) {
-        alert('Please fill all fields');
-        return;
-    }
-
-    const message = `Product: ${selectedProduct}\nName: ${name}\nAddress: ${address}\nPhone: ${phone}`;
-    const whatsappNumber = '94755997160'; // Sri Lanka format without 0
-    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
-
-    // Close modal and clear inputs
-    modal.style.display = 'none';
-    document.getElementById('custName').value = '';
-    document.getElementById('custAddress').value = '';
-    document.getElementById('custPhone').value = '';
-});
-
-// Close modal on outside click
-window.addEventListener('click', (e) => {
-    if (e.target == modal) modal.style.display = 'none';
 });
 </script>
 
