@@ -16,7 +16,13 @@ header{
     text-align:center;z-index:1000
 }
 header h1{color:#fff;font-family:'Orbitron';margin-bottom:5px}
-.header-subtext{color:silver;font-size:1.1rem;font-family:'Baloo 2'}
+.header-subtext{
+    color: silver;
+    font-size: 1.1rem;
+    font-family: 'Baloo 2';
+    white-space: nowrap; /* text stays on a single line */
+    display: inline-block; /* keeps it as a single line block */
+}
 .search-container{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:70%;max-width:350px}
 .search-container input{
     width:100%;padding:12px 15px;border-radius:25px;border:2px solid #000
@@ -269,7 +275,6 @@ const addProductModal = document.getElementById("add-product-modal");
 document.getElementById("add-order-btn").onclick = () => {
     if(!checkPassword()) return;
     addProductModal.style.display = "flex";
-    // Clear inputs
     document.getElementById("new-product-name").value = "";
     document.getElementById("new-product-desc").value = "";
     document.getElementById("new-product-price").value = "";
@@ -304,4 +309,4 @@ document.querySelector(".search-container input").oninput=e=>{
 window.onload=loadProducts;
 </script>
 </body>
-      </html>
+</html>
