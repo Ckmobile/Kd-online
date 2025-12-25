@@ -3,121 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stors Online Shop</title>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet">
+    <title>ඔන්ලයින් මාකට්ප්ලේස්</title>
     <style>
+        /* ===== General ===== */
         body {
-            font-family: 'Baloo 2', sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background: #f2f2f2;
+            background: #f5f5f5;
         }
 
         header {
-            background: #007bff;
+            background: #4CAF50;
             color: white;
-            padding: 20px;
+            padding: 1rem;
             text-align: center;
         }
 
-        h1 {
-            margin: 0;
+        #search {
+            width: 80%;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
         }
 
-        .container {
+        #products {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            margin: 20px;
+            padding: 1rem;
         }
 
-        .product-card {
+        .product {
             background: white;
-            border-radius: 10px;
-            margin: 15px;
-            padding: 15px;
+            margin: 1rem;
+            padding: 1rem;
             width: 200px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            border-radius: 8px;
             text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
         }
 
-        .product-card img {
+        .product:hover {
+            transform: translateY(-5px);
+        }
+
+        .product img {
             width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 10px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
         }
 
-        .product-card h3 {
-            margin: 10px 0 5px 0;
-        }
-
-        .product-card p {
-            margin: 5px 0;
-        }
-
-        .btn {
-            background: #28a745;
+        button {
+            background: #4CAF50;
             color: white;
             border: none;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
             cursor: pointer;
-            margin-top: 10px;
+            border-radius: 4px;
         }
 
-        .btn-whatsapp {
+        button.whatsapp {
             background: #25D366;
+            margin-left: 0.5rem;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 600px) {
+            .product {
+                width: 90%;
+            }
+            #search {
+                width: 95%;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Stors Online Shop</h1>
+        <h1>🛒 අපේ ඔන්ලයින් මාකට්ප්ලේස්</h1>
+        <nav>
+            <input type="text" id="search" placeholder="ප්‍රොඩක්ට් හොයන්න...">
+        </nav>
     </header>
 
-    <div class="container" id="productContainer">
-        <!-- Products will be added here by JS -->
-    </div>
+    <main>
+        <section id="products">
+            <!-- Products dynamically displayed here -->
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 ඔන්ලයින් මාකට්ප්ලේස්</p>
+    </footer>
 
     <script>
         const products = [
             {
-                name: "Product 1",
-                price: "LKR 1,000",
+                name: "නිෂ්පාදනය 1",
+                price: "Rs.500",
                 code: "P001",
-                image: "https://via.placeholder.com/200x150.png?text=Product+1"
+                image: "https://via.placeholder.com/200x150?text=Product+1"
             },
             {
-                name: "Product 2",
-                price: "LKR 2,500",
+                name: "නිෂ්පාදනය 2",
+                price: "Rs.1200",
                 code: "P002",
-                image: "https://via.placeholder.com/200x150.png?text=Product+2"
+                image: "https://via.placeholder.com/200x150?text=Product+2"
             },
             {
-                name: "Product 3",
-                price: "LKR 3,200",
+                name: "නිෂ්පාදනය 3",
+                price: "Rs.750",
                 code: "P003",
-                image: "https://via.placeholder.com/200x150.png?text=Product+3"
+                image: "https://via.placeholder.com/200x150?text=Product+3"
+            },
+            {
+                name: "නිෂ්පාදනය 4",
+                price: "Rs.1500",
+                code: "P004",
+                image: "https://via.placeholder.com/200x150?text=Product+4"
+            },
+            {
+                name: "නිෂ්පාදනය 5",
+                price: "Rs.900",
+                code: "P005",
+                image: "https://via.placeholder.com/200x150?text=Product+5"
             }
         ];
 
-        const container = document.getElementById("productContainer");
+        const productsContainer = document.getElementById('products');
 
-        products.forEach(product => {
-            const card = document.createElement("div");
-            card.className = "product-card";
-            card.innerHTML = `
-                <img src="${product.image}" alt="${product.name}">
-                <h3>${product.name}</h3>
-                <p>Price: ${product.price}</p>
-                <p>Code: ${product.code}</p>
-                <button class="btn" onclick="alert('Order placed for ${product.name}')">Order Now</button>
-                <a href="https://wa.me/94755997160" target="_blank">
-                    <button class="btn btn-whatsapp">WhatsApp</button>
-                </a>
-            `;
-            container.appendChild(card);
+        function displayProducts(items) {
+            productsContainer.innerHTML = '';
+            items.forEach(product => {
+                const div = document.createElement('div');
+                div.className = 'product';
+                div.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>මිල: ${product.price}</p>
+                    <p>කෝඩ්: ${product.code}</p>
+                    <button onclick="orderNow('${product.name}')">Order Now</button>
+                    <button class="whatsapp" onclick="whatsapp('${product.name}')">WhatsApp</button>
+                `;
+                productsContainer.appendChild(div);
+            });
+        }
+
+        function orderNow(productName) {
+            alert(`${productName} සඳහා order කරන ලදී!`);
+        }
+
+        function whatsapp(productName) {
+            const number = "0755997160";
+            window.open(`https://wa.me/${number}?text=මම ${productName} ගැන විස්තර අවශ්‍යයි`, "_blank");
+        }
+
+        // Initial display
+        displayProducts(products);
+
+        // Search functionality
+        document.getElementById('search').addEventListener('input', (e) => {
+            const filtered = products.filter(p => p.name.toLowerCase().includes(e.target.value.toLowerCase()));
+            displayProducts(filtered);
         });
     </script>
 </body>
