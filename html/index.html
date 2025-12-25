@@ -4,210 +4,162 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KD ONLINE SHOP</title>
-
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Baloo+2:wght@600&display=swap" rel="stylesheet">
-
 <style>
 * {margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
-body{background:#fff;color:#000;position:relative;overflow-x:hidden;}
-header{position:fixed;top:0;left:0;width:100%;background:#000;padding:20px 20px 60px 20px;text-align:center;z-index:1000;}
-header h1{font-size:2rem;color:#fff;font-family:'Orbitron',sans-serif;margin-bottom:5px;}
-.header-subtext{display:block;color:silver;font-size:1.2rem;font-weight:bold;line-height:1.4;margin-top:5px;font-family:'Baloo 2',cursive;}
-.search-container{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:70%;max-width:350px;z-index:1001;}
-.search-container input{width:100%;padding:12px 15px;border-radius:25px;border:2px solid #000;font-size:1rem;outline:none;background:#fff;color:#333;box-shadow:0 5px 15px rgba(0,0,0,0.2);transition:all 0.3s ease;}
-.search-container input:focus{transform:scale(1.02);box-shadow:0 8px 20px rgba(0,0,0,0.3);}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:220px 40px 60px 40px;max-width:1200px;margin:auto;}
-.product-card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;position:relative;}
-.product-card:hover{transform:scale(1.05);box-shadow:0 10px 20px rgba(0,0,0,0.3);}
-.product-card img{width:100%;height:200px;object-fit:cover;}
-.product-info{padding:15px;text-align:center;}
-.product-info h3{margin-bottom:10px;color:#333;}
-.product-info p{margin-bottom:10px;color:#555;}
-.product-info button{background:#ff6600;color:white;border:none;padding:10px 15px;border-radius:5px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;margin-right:5px;}
-.product-info button:hover{background:#e65c00;transform:scale(1.05);box-shadow:0 5px 10px rgba(0,0,0,0.3);}
-.edit-btn, .delete-btn{display:none;position:absolute;top:10px;right:10px;margin-left:5px;padding:5px 8px;border:none;border-radius:5px;cursor:pointer;font-size:0.8rem;}
-.edit-btn{background:orange;color:#fff;}
-.delete-btn{background:red;color:#fff;}
-.dots{position:absolute;top:10px;right:10px;cursor:pointer;font-size:1.5rem;}
-footer{text-align:center;padding:15px 20px;background:#111;color:#fff;font-size:0.9rem;border:2px solid #444;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.5);max-width:1200px;margin:20px auto 40px auto;}
-.snowflake{position:fixed;top:-5%;z-index:10000;user-select:none;font-size:1rem;color:#fff;pointer-events:none;animation-name:fall;animation-iteration-count:infinite;animation-timing-function:linear;}
-@keyframes fall{0%{transform:translateY(0) rotate(0deg);opacity:1;}100%{transform:translateY(110vh) rotate(360deg);opacity:0.8;}}
-.order-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;z-index:10000;}
-.order-content{background:#fff;padding:20px;border-radius:10px;width:300px;position:relative;text-align:center;}
-.close-order{position:absolute;top:10px;right:10px;cursor:pointer;font-weight:bold;}
-.order-content input{width:90%;padding:8px;margin:5px 0;border-radius:5px;border:1px solid #ccc;}
-.order-content button{padding:8px 12px;margin-top:10px;border:none;border-radius:5px;background:green;color:white;cursor:pointer;}
-.whatsapp-btn{background:#25D366;color:white;padding:8px 12px;border:none;border-radius:5px;cursor:pointer;margin-left:5px;}
+body {background-color:#fff;color:#000;position:relative;overflow-x:hidden;}
+header {position:fixed;top:0;left:0;width:100%;background-color:#000;padding:20px 20px 80px 20px;text-align:center;z-index:1000;}
+header h1 {font-size:2rem;color:#fff;font-family:'Orbitron',sans-serif;margin-bottom:5px;}
+.header-subtext {display:block;color:silver;font-size:1.2rem;font-weight:bold;line-height:1.4;margin-top:5px;font-family:'Baloo 2',cursive;}
+.search-container {position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:70%;max-width:350px;z-index:1001;}
+.search-container input {width:100%;padding:12px 15px;border-radius:25px;border:2px solid #000;font-size:1rem;outline:none;background-color:#fff;color:#333;box-shadow:0 5px 15px rgba(0,0,0,0.2);transition:all 0.3s ease;}
+.search-container input:focus {transform:scale(1.02);box-shadow:0 8px 20px rgba(0,0,0,0.3);}
+.products {display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:220px 40px 60px 40px;max-width:1200px;margin:auto;}
+.product-card {background-color:#fff;border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;position:relative;}
+.product-card:hover {transform:scale(1.05);box-shadow:0 10px 20px rgba(0,0,0,0.3);}
+.product-card img {width:100%;height:200px;object-fit:cover;}
+.product-info {padding:15px;text-align:center;}
+.product-info h3 {margin-bottom:10px;color:#333;}
+.product-info p {margin-bottom:10px;color:#555;}
+.product-info button.order-now {background-color:orange;color:#fff;border:none;padding:10px 15px;border-radius:25px;cursor:pointer;margin-right:5px;transition:transform 0.2s,box-shadow 0.2s;float:right;}
+.product-info button.order-now:hover {background-color:#ff9900;transform:scale(1.05);}
+.product-info button.whatsapp-btn {background-color:green;color:#fff;border:none;padding:10px 15px;border-radius:25px;cursor:pointer;float:right;margin-left:5px;transition:transform 0.2s,box-shadow 0.2s;}
+.product-info button.whatsapp-btn:hover {background-color:#00cc44;transform:scale(1.05);}
+.dots-menu {position:absolute;top:10px;right:10px;font-size:20px;cursor:pointer;user-select:none;}
+.dots-options {display:none;position:absolute;top:30px;right:0;background:#fff;border:1px solid #ccc;border-radius:5px;box-shadow:0 5px 15px rgba(0,0,0,0.2);}
+.dots-options button {display:block;width:100%;padding:5px 10px;border:none;background:none;text-align:left;cursor:pointer;}
+footer {text-align:center;padding:15px 20px;background-color:#111;color:#fff;font-size:0.9rem;border:2px solid #444;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.5);max-width:1200px;margin:20px auto 40px auto;}
+.snowflake {position:fixed;z-index:10000;user-select:none;color:#fff;pointer-events:none;}
 @media(max-width:600px){.search-container input{width:100%;}header h1,.header-subtext{display:block;margin-left:0;}}
 </style>
 </head>
 <body>
-
 <header>
 <h1>KD ONLINE SHOP</h1>
 <div class="header-subtext">A very valuable customer service from us.</div>
-<div class="search-container"><input type="text" placeholder="Search for products..."></div>
+<div class="search-container">
+<input type="text" placeholder="Search for products...">
+</div>
 </header>
 
-<section class="products" id="product-section">
-    <!-- Example products -->
-</section>
+<section class="products" id="productSection"></section>
 
 <footer>&copy; 2025 KD ONLINE SHOP. All rights reserved.</footer>
 
-<!-- Order Modal -->
-<div class="order-modal" id="order-modal">
-<div class="order-content">
-<span class="close-order" id="close-order">X</span>
-<h3>Place Your Order</h3>
-<input type="text" id="cust-name" placeholder="Your Name">
-<input type="text" id="cust-address" placeholder="Address">
-<input type="text" id="cust-phone" placeholder="Phone">
-<button id="send-order">Send Order via WhatsApp</button>
-</div>
-</div>
-
 <script>
-// Soft Snowflakes
-const snowCount = 5;
-function createSnowFlake(){
-    const snow = document.createElement('div');
-    snow.className='snowflake';
-    snow.style.left=Math.random()*100+'vw';
-    snow.style.fontSize=(6+Math.random()*4)+'px';
-    snow.style.animationDuration=(25+Math.random()*15)+'s';
-    snow.textContent='❄️';
-    document.body.appendChild(snow);
-    setTimeout(()=>{
-        snow.remove();
-        createSnowFlake();
-    }, parseFloat(snow.style.animationDuration)*1000);
-}
-for(let i=0;i<snowCount;i++){ createSnowFlake(); }
+// LocalStorage product data
+let productsData = JSON.parse(localStorage.getItem('productsData')||'[]');
+const productSection = document.getElementById('productSection');
 
-// Owner password
-const OWNER_PASSWORD = "Kkk111";
-
-// Product storage
-let products = JSON.parse(localStorage.getItem('products')||'[]');
-const productSection = document.getElementById('product-section');
-
-// Render products
 function renderProducts(){
     productSection.innerHTML='';
-    products.forEach((prod,index)=>{
+    productsData.forEach((p,index)=>{
         const card = document.createElement('div');
         card.className='product-card';
-        card.dataset.index=index;
-
         card.innerHTML=`
-            <img src="${prod.img}" alt="${prod.name}">
+            <div class="dots-menu">&#8942;
+                <div class="dots-options">
+                    <button class="edit-btn">Edit</button>
+                    <button class="delete-btn">Delete</button>
+                </div>
+            </div>
+            <img src="${p.img}" alt="${p.name}">
             <div class="product-info">
-                <h3>${prod.name}</h3>
-                <p>${prod.model}</p>
+                <h3>${p.name}</h3>
+                <p>Price: ${p.price}</p>
                 <button class="order-now">Order Now</button>
                 <button class="whatsapp-btn">WhatsApp</button>
-            </div>
-            <span class="dots">⋮</span>
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
-        `;
+            </div>`;
         productSection.appendChild(card);
 
-        const dots = card.querySelector('.dots');
-        const editBtn = card.querySelector('.edit-btn');
-        const deleteBtn = card.querySelector('.delete-btn');
+        const dotsMenu = card.querySelector('.dots-menu');
+        const dotsOptions = card.querySelector('.dots-options');
+        dotsMenu.addEventListener('click',()=>dotsOptions.style.display=dotsOptions.style.display==='block'?'none':'block');
 
-        dots.addEventListener('click', ()=>{
-            editBtn.style.display='inline-block';
-            deleteBtn.style.display='inline-block';
+        card.querySelector('.delete-btn').addEventListener('click',()=>{
+            if(prompt("Owner password:")==="Kkk111"){
+                productsData.splice(index,1);
+                localStorage.setItem('productsData',JSON.stringify(productsData));
+                renderProducts();
+            }else alert('Wrong password!');
         });
 
-        editBtn.addEventListener('click', ()=>{
-            const pass = prompt("Enter Owner Password:");
-            if(pass!==OWNER_PASSWORD){ alert("Wrong password"); return; }
-            const newName = prompt("Product Name:",prod.name);
-            const newModel = prompt("Model Name:",prod.model);
-            if(newName) prod.name=newName;
-            if(newModel) prod.model=newModel;
-            saveAndRender();
-        });
-
-        deleteBtn.addEventListener('click', ()=>{
-            const pass = prompt("Enter Owner Password:");
-            if(pass!==OWNER_PASSWORD){ alert("Wrong password"); return; }
-            products.splice(index,1);
-            saveAndRender();
+        card.querySelector('.edit-btn').addEventListener('click',()=>{
+            if(prompt("Owner password:")==="Kkk111"){
+                const newName=prompt("Edit Name:",p.name);
+                const newPrice=prompt("Edit Price:",p.price);
+                if(newName&&newPrice){productsData[index].name=newName;productsData[index].price=newPrice;localStorage.setItem('productsData',JSON.stringify(productsData));renderProducts();}
+            }else alert('Wrong password!');
         });
 
         // Order Now
-        const orderBtn = card.querySelector('.order-now');
-        const whatsappBtn = card.querySelector('.whatsapp-btn');
-        orderBtn.addEventListener('click',()=>{
-            document.getElementById('order-modal').style.display='flex';
-            document.getElementById('send-order').dataset.index=index;
+        card.querySelector('.order-now').addEventListener('click',()=>{
+            const cname=prompt("Customer Name:");
+            const addr=prompt("Address:");
+            const phone=prompt("Phone:");
+            if(cname && addr && phone){
+                const message=`Product: ${p.name}\nPrice: ${p.price}\nName: ${cname}\nAddress: ${addr}\nPhone: ${phone}`;
+                window.open(`https://wa.me/0755997160?text=${encodeURIComponent(message)}`);
+            }
         });
 
-        whatsappBtn.addEventListener('click',()=>{
-            const url = `https://wa.me/94755997160?text=Order%20${encodeURIComponent(prod.name)}%20(${encodeURIComponent(prod.model)})`;
-            window.open(url,'_blank');
+        // WhatsApp button
+        card.querySelector('.whatsapp-btn').addEventListener('click',()=>{
+            const message=`Hello, interested in ${p.name} priced at ${p.price}`;
+            window.open(`https://wa.me/0755997160?text=${encodeURIComponent(message)}`);
         });
     });
 }
 
-// Save to localStorage
-function saveAndRender(){
-    localStorage.setItem('products',JSON.stringify(products));
-    renderProducts();
+// Initial products (only first load)
+if(productsData.length===0){
+    productsData=[
+        {name:'Headphones',price:'$50',img:'https://files.catbox.moe/1hxuz4.webp'},
+        {name:'Art Set',price:'$30',img:'https://files.catbox.moe/1hxuz4.webp'},
+        {name:'Derma Roller',price:'$20',img:'https://files.catbox.moe/1hxuz4.webp'},
+        {name:'Karaoke Mic',price:'$40',img:'https://files.catbox.moe/1hxuz4.webp'}
+    ];
+    localStorage.setItem('productsData',JSON.stringify(productsData));
 }
 
-// Add Order Modal Send
-document.getElementById('send-order').addEventListener('click',()=>{
-    const index = parseInt(document.getElementById('send-order').dataset.index);
-    const prod = products[index];
-    const name = document.getElementById('cust-name').value;
-    const address = document.getElementById('cust-address').value;
-    const phone = document.getElementById('cust-phone').value;
-    if(!name||!address||!phone){ alert("Fill all fields"); return; }
-    const msg = `Order for ${prod.name} (${prod.model})\nName: ${name}\nAddress: ${address}\nPhone: ${phone}`;
-    const url = `https://wa.me/94755997160?text=${encodeURIComponent(msg)}`;
-    window.open(url,'_blank');
-    document.getElementById('order-modal').style.display='none';
-});
-
-// Close modal
-document.getElementById('close-order').addEventListener('click',()=>{
-    document.getElementById('order-modal').style.display='none';
-});
-
-// Add Product (Owner Only)
-function addProduct(){
-    const pass = prompt("Enter Owner Password:");
-    if(pass!==OWNER_PASSWORD){ alert("Wrong password"); return; }
-    const name = prompt("Product Name:");
-    const model = prompt("Model Name:");
-    const img = prompt("Image URL:","https://files.catbox.moe/1hxuz4.webp");
-    if(name&&model&&img) products.push({name,model,img});
-    saveAndRender();
-}
-
-// Initial Render
 renderProducts();
 
-// Add order button at bottom
-const addOrderBtn = document.createElement('button');
-addOrderBtn.textContent='Add Product';
-addOrderBtn.style.position='fixed';
-addOrderBtn.style.bottom='20px';
-addOrderBtn.style.left='20px';
-addOrderBtn.style.padding='10px 15px';
-addOrderBtn.style.background='yellow';
-addOrderBtn.style.border='none';
-addOrderBtn.style.borderRadius='5px';
-addOrderBtn.style.cursor='pointer';
-addOrderBtn.addEventListener('click',addProduct);
-document.body.appendChild(addOrderBtn);
+// Search filter
+document.querySelector('.search-container input').addEventListener('input',e=>{
+    const filter=e.target.value.toLowerCase();
+    document.querySelectorAll('.product-card').forEach(card=>{
+        const name=card.querySelector('h3').textContent.toLowerCase();
+        card.style.display=name.includes(filter)?'':'none';
+    });
+});
+
+// Snowflakes
+let smallFlakes=[],largeFlakes=[],smallCount=15,largeCount=10;
+function createFlakes(){
+    for(let i=0;i<smallCount;i++){
+        let s=document.createElement('div');s.className='snowflake';s.style.left=Math.random()*window.innerWidth+'px';
+        s.style.top=Math.random()*window.innerHeight+'px';s.style.fontSize=(6+Math.random()*4)+'px';
+        s.speed=0.2+Math.random()*0.4;s.angle=Math.random()*2*Math.PI;s.angleSpeed=0.01+Math.random()*0.01;
+        s.textContent='❄️';document.body.appendChild(s);smallFlakes.push(s);
+    }
+    for(let i=0;i<largeCount;i++){
+        let s=document.createElement('div');s.className='snowflake';s.style.left=Math.random()*window.innerWidth+'px';
+        s.style.top=Math.random()*window.innerHeight+'px';s.style.fontSize=(12+Math.random()*8)+'px';
+        s.speed=0.4+Math.random()*0.6;s.angle=Math.random()*2*Math.PI;s.angleSpeed=0.01+Math.random()*0.02;
+        s.textContent='❄️';document.body.appendChild(s);largeFlakes.push(s);
+    }
+}
+function animateFlakes(){
+    [...smallFlakes,...largeFlakes].forEach(f=>{
+        let top=parseFloat(f.style.top),left=parseFloat(f.style.left);
+        f.angle+=f.angleSpeed;left+=Math.sin(f.angle)*0.5;top+=f.speed;
+        if(top>window.innerHeight) top=-10;
+        if(left>window.innerWidth) left=0;if(left<0) left=window.innerWidth;
+        f.style.top=top+'px';f.style.left=left+'px';
+    });
+    requestAnimationFrame(animateFlakes);
+}
+createFlakes();animateFlakes();
 </script>
 </body>
 </html>
