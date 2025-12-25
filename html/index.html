@@ -85,15 +85,8 @@ header h1{color:#fff;font-family:'Orbitron';margin-bottom:5px}
 .modal-content input{width:100%;margin:5px 0;padding:8px}
 .modal-content button{margin-top:10px;cursor:pointer}
 
-/* Image modal */
-#image-modal img{
-    display:block;
-    margin:auto;
-    max-width:90%;
-    max-height:90%;
-    border-radius:10px;
-    cursor:zoom-out;
-}
+/* Image Modal */
+#img-modal img{max-width:90%;max-height:80%;border-radius:10px}
 
 /* Footer */
 footer{
@@ -143,9 +136,8 @@ footer{
 </div>
 
 <!-- Image Modal -->
-<div id="image-modal" class="modal">
-  <span id="close-image-modal" style="position:absolute;top:10px;right:20px;font-size:30px;color:#fff;cursor:pointer;">✖</span>
-  <img id="image-modal-content" src="">
+<div id="img-modal" class="modal">
+  <img src="" alt="Product Image">
 </div>
 
 <footer>© 2025 KD ONLINE SHOP</footer>
@@ -177,8 +169,14 @@ function saveProducts(){
 
 // Load products
 function loadProducts(){  
-    const data=JSON.parse(localStorage.getItem(STORAGE_KEY));  
-    if(!data)return;  
+    let data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if(!data || data.length===0){
+        data = [
+            {name:"Sample Product 1", desc:"Description 1", price:"1000", img:DEFAULT_IMG},
+            {name:"Sample Product 2", desc:"Description 2", price:"2000", img:DEFAULT_IMG}
+        ];
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
     const section=document.querySelector(".products");  
     section.innerHTML="";  
     data.forEach(p=>createProduct(p.name,p.desc,p.price,p.img,false));  
@@ -226,7 +224,10 @@ function attachEvents(card){
     const orderPhone = document.getElementById("order-phone");
     const sendBtn = document.getElementById("send-order-btn");
     const closeModal = document.getElementById("close-modal");
+    const imgModal = document.getElementById("img-modal");
+    const modalImg = imgModal.querySelector("img");
 
+    // Menu toggle
     card.querySelector(".menu-btn").onclick=e=>{
         e.stopPropagation();
         menu.style.display = menu.style.display==="flex" ? "none":"flex";
@@ -235,6 +236,7 @@ function attachEvents(card){
         if (!card.contains(e.target)) menu.style.display = "none";
     });
 
+    // Edit
     card.querySelector(".edit-btn").onclick=()=>{
         if(!checkPassword())return;
         card.querySelector("h3").textContent = prompt("Name:",card.querySelector("h3").textContent);
@@ -246,11 +248,13 @@ function attachEvents(card){
         saveProducts();
     };
 
+    // Delete
     card.querySelector(".delete-btn").onclick=()=>{
         if(!checkPassword())return;
         card.remove(); saveProducts();
     };
 
+    // WhatsApp button
     card.querySelector(".whatsapp-btn").onclick=()=>{
         window.open(`https://wa.me/${whatsappNumber}?text=Order: ${card.querySelector("h3").textContent}`);
     };
@@ -277,7 +281,17 @@ function attachEvents(card){
         };
     };
 
+    // Close modals
     closeModal.onclick = ()=>modal.style.display="none";
+    addProductModal.onclick = e => { if(e.target===addProductModal) addProductModal.style.display="none"; };
+    modal.onclick = e => { if(e.target===modal) modal.style.display="none"; };
+    imgModal.onclick = e => { if(e.target===imgModal) imgModal.style.display="none"; };
+
+    // Image click to enlarge
+    card.querySelector("img").onclick = ()=>{
+        modalImg.src = card.querySelector("img").src;
+        imgModal.style.display="flex";
+    };
 }
 
 // Add product modal
@@ -285,6 +299,7 @@ const addProductModal = document.getElementById("add-product-modal");
 document.getElementById("add-order-btn").onclick = () => {
     if(!checkPassword()) return;
     addProductModal.style.display = "flex";
+    // Clear inputs
     document.getElementById("new-product-name").value = "";
     document.getElementById("new-product-desc").value = "";
     document.getElementById("new-product-price").value = "";
@@ -307,21 +322,6 @@ document.getElementById("save-product-btn").onclick = () => {
 document.getElementById("close-add-product-modal").onclick = () => {
     addProductModal.style.display = "none";
 };
-
-// Image modal
-const imageModal = document.getElementById("image-modal");
-const imageModalContent = document.getElementById("image-modal-content");
-const closeImageModal = document.getElementById("close-image-modal");
-
-document.querySelector(".products").addEventListener("click", e=>{
-    const img = e.target.closest("img");
-    if(img && img.closest(".product-card")){
-        imageModalContent.src = img.src;
-        imageModal.style.display = "flex";
-    }
-});
-closeImageModal.onclick = ()=>{ imageModal.style.display="none"; }
-imageModal.onclick = (e)=>{ if(e.target===imageModal) imageModal.style.display="none"; }
 
 // Search
 document.querySelector(".search-container input").oninput=e=>{  
