@@ -130,16 +130,13 @@ footer{
 <section class="products"></section>
 <button id="add-order-btn">Add Order</button>
 
-
-
-    
 <!-- Order Form Modal -->
 <div id="order-modal" class="modal">
   <div class="modal-content">
     <h3>Place Order</h3>
-    <h3>Product 1</h3>
-        <p>Price: Rs 500</p>
-        <p>Code: P001</p>
+    <p id="modal-product-name"></p>
+    <p id="modal-product-price"></p>
+    <p id="modal-product-desc"></p>
     <input type="text" id="order-name" placeholder="Your Name">
     <input type="text" id="order-address" placeholder="Address">
     <input type="text" id="order-phone" placeholder="Phone">
@@ -148,12 +145,18 @@ footer{
   </div>
 </div>
 
-
-
-
-
-
-  
+<!-- Add Product Modal -->
+<div id="add-product-modal" class="modal">
+  <div class="modal-content">
+    <h3>Add New Product</h3>
+    <input type="text" id="new-product-name" placeholder="derma roller">
+    <input type="text" id="new-product-desc" placeholder="(088966)">
+    <input type="text" id="new-product-price" placeholder="900">
+    <input type="text" id="new-product-img" placeholder="https://files.catbox.moe/fgkdy1.webp">
+    <button id="save-product-btn" style="background:#ffcc00;color:#000;width:100%;border:none;border-radius:5px;">Add Product</button>
+    <span id="close-add-product-modal" style="position:absolute;top:5px;right:10px;cursor:pointer;font-weight:bold;">✖</span>
+  </div>
+</div>
 
 <footer>© 2025 KD ONLINE SHOP</footer>
 
@@ -347,4 +350,4 @@ window.onclick = function(e) {
 };
 </script>
 </body>
-  </html>
+                                                                                                                                     </html>
