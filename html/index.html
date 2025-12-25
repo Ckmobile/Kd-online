@@ -24,10 +24,8 @@ header h1{font-size:2rem;color:#fff;font-family:'Orbitron',sans-serif;margin-bot
 .product-info{padding:15px;text-align:center;}
 .product-info h3{margin-bottom:10px;color:#333;}
 .product-info p{margin-bottom:10px;color:#555;}
-.order-now{background:orange;color:white;border:none;padding:10px 15px;border-radius:5px;cursor:pointer;margin-right:5px;transition:0.3s;}
-.order-now:hover{background:#e65c00;transform:scale(1.05);}
-.whatsapp-btn{background:#25D366;color:white;padding:10px 15px;border:none;border-radius:5px;cursor:pointer;transition:0.3s;margin-left:5px;}
-.whatsapp-btn:hover{background:#1ebe57;transform:scale(1.05);}
+.product-info button{background:#ff6600;color:white;border:none;padding:10px 15px;border-radius:5px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;margin-right:5px;}
+.product-info button:hover{background:#e65c00;transform:scale(1.05);box-shadow:0 5px 10px rgba(0,0,0,0.3);}
 .edit-btn, .delete-btn{display:none;position:absolute;top:10px;right:10px;margin-left:5px;padding:5px 8px;border:none;border-radius:5px;cursor:pointer;font-size:0.8rem;}
 .edit-btn{background:orange;color:#fff;}
 .delete-btn{background:red;color:#fff;}
@@ -40,6 +38,7 @@ footer{text-align:center;padding:15px 20px;background:#111;color:#fff;font-size:
 .close-order{position:absolute;top:10px;right:10px;cursor:pointer;font-weight:bold;}
 .order-content input{width:90%;padding:8px;margin:5px 0;border-radius:5px;border:1px solid #ccc;}
 .order-content button{padding:8px 12px;margin-top:10px;border:none;border-radius:5px;background:green;color:white;cursor:pointer;}
+.whatsapp-btn{background:#25D366;color:white;padding:8px 12px;border:none;border-radius:5px;cursor:pointer;margin-left:5px;}
 #add-order-btn{position:fixed;bottom:20px;right:20px;padding:15px 20px;background:yellow;border:none;border-radius:50px;cursor:pointer;box-shadow:0 5px 10px rgba(0,0,0,0.3);font-weight:bold;}
 #add-order-btn:hover{background:orange;}
 @media(max-width:600px){.search-container input{width:100%;}header h1,.header-subtext{display:block;margin-left:0;}}
@@ -70,22 +69,34 @@ footer{text-align:center;padding:15px 20px;background:#111;color:#fff;font-size:
 </div>
 
 <script>
-// Snowflakes
-const snowCount=5;
-function createSnowFlake(){const snow=document.createElement('div');snow.className='snowflake';snow.style.left=Math.random()*100+'vw';snow.style.fontSize=(6+Math.random()*4)+'px';snow.style.animationDuration=(25+Math.random()*15)+'s';snow.textContent='❄️';document.body.appendChild(snow);setTimeout(()=>{snow.remove();createSnowFlake();},parseFloat(snow.style.animationDuration)*1000);}
-for(let i=0;i<snowCount;i++){createSnowFlake();}
+// Soft Snowflakes
+const snowCount = 5;
+function createSnowFlake(){
+    const snow = document.createElement('div');
+    snow.className='snowflake';
+    snow.style.left=Math.random()*100+'vw';
+    snow.style.fontSize=(6+Math.random()*4)+'px';
+    snow.style.animationDuration=(25+Math.random()*15)+'s';
+    snow.textContent='❄️';
+    document.body.appendChild(snow);
+    setTimeout(()=>{
+        snow.remove();
+        createSnowFlake();
+    }, parseFloat(snow.style.animationDuration)*1000);
+}
+for(let i=0;i<snowCount;i++){ createSnowFlake(); }
 
 // Owner password
-const OWNER_PASSWORD="Kkk111";
+const OWNER_PASSWORD = "Kkk111";
 
 // Product storage
-let products=JSON.parse(localStorage.getItem('products')||'[]');
-const productSection=document.getElementById('product-section');
+let products = JSON.parse(localStorage.getItem('products')||'[]');
+const productSection = document.getElementById('product-section');
 
 function renderProducts(){
     productSection.innerHTML='';
     products.forEach((prod,index)=>{
-        const card=document.createElement('div');
+        const card = document.createElement('div');
         card.className='product-card';
         card.dataset.index=index;
 
@@ -93,7 +104,7 @@ function renderProducts(){
             <img src="${prod.img}" alt="${prod.name}">
             <div class="product-info">
                 <h3>${prod.name}</h3>
-                <p>Price: ${prod.price}</p>
+                <p>${prod.model}</p>
                 <button class="order-now">Order Now</button>
                 <button class="whatsapp-btn">WhatsApp</button>
             </div>
@@ -103,73 +114,92 @@ function renderProducts(){
         `;
         productSection.appendChild(card);
 
-        const dots=card.querySelector('.dots');
-        const editBtn=card.querySelector('.edit-btn');
-        const deleteBtn=card.querySelector('.delete-btn');
+        const dots = card.querySelector('.dots');
+        const editBtn = card.querySelector('.edit-btn');
+        const deleteBtn = card.querySelector('.delete-btn');
 
-        dots.addEventListener('click',()=>{editBtn.style.display='inline-block';deleteBtn.style.display='inline-block';});
+        // Show edit/delete on dots click
+        dots.addEventListener('click', ()=>{
+            editBtn.style.display='inline-block';
+            deleteBtn.style.display='inline-block';
+        });
 
-        editBtn.addEventListener('click',()=>{
-            const pass=prompt("Enter Owner Password:");
-            if(pass!==OWNER_PASSWORD){alert("Wrong password"); return;}
-            const newName=prompt("Product Name:",prod.name);
-            const newPrice=prompt("Price:",prod.price);
+        editBtn.addEventListener('click', ()=>{
+            const pass = prompt("Enter Owner Password:");
+            if(pass!==OWNER_PASSWORD){ alert("Wrong password"); return; }
+            const newName = prompt("Product Name:",prod.name);
+            const newModel = prompt("Model Name:",prod.model);
             if(newName) prod.name=newName;
-            if(newPrice) prod.price=newPrice;
+            if(newModel) prod.model=newModel;
             saveAndRender();
         });
 
-        deleteBtn.addEventListener('click',()=>{
-            const pass=prompt("Enter Owner Password:");
-            if(pass!==OWNER_PASSWORD){alert("Wrong password"); return;}
+        deleteBtn.addEventListener('click', ()=>{
+            const pass = prompt("Enter Owner Password:");
+            if(pass!==OWNER_PASSWORD){ alert("Wrong password"); return; }
             products.splice(index,1);
             saveAndRender();
         });
 
-        const orderBtn=card.querySelector('.order-now');
-        const whatsappBtn=card.querySelector('.whatsapp-btn');
+        // Order Now
+        const orderBtn = card.querySelector('.order-now');
+        const whatsappBtn = card.querySelector('.whatsapp-btn');
         orderBtn.addEventListener('click',()=>{
             document.getElementById('order-modal').style.display='flex';
             document.getElementById('send-order').dataset.index=index;
         });
         whatsappBtn.addEventListener('click',()=>{
-            const url=`https://wa.me/94755997160?text=Order%20${encodeURIComponent(prod.name)}%20(${encodeURIComponent(prod.price)})`;
+            const url = `https://wa.me/94755997160?text=Order%20${encodeURIComponent(prod.name)}%20(${encodeURIComponent(prod.model)})`;
             window.open(url,'_blank');
         });
     });
 }
 
-function saveAndRender(){localStorage.setItem('products',JSON.stringify(products));renderProducts();}
+function saveAndRender(){
+    localStorage.setItem('products',JSON.stringify(products));
+    renderProducts();
+}
 
+// Send order via modal
 document.getElementById('send-order').addEventListener('click',()=>{
-    const index=parseInt(document.getElementById('send-order').dataset.index);
-    const prod=products[index];
-    const name=document.getElementById('cust-name').value;
-    const address=document.getElementById('cust-address').value;
-    const phone=document.getElementById('cust-phone').value;
-    if(!name||!address||!phone){alert("Fill all fields");return;}
-    const msg=`Order for ${prod.name}\nName: ${name}\nAddress: ${address}\nPhone: ${phone}`;
-    const url=`https://wa.me/94755997160?text=${encodeURIComponent(msg)}`;
+    const index = parseInt(document.getElementById('send-order').dataset.index);
+    const prod = products[index];
+    const name = document.getElementById('cust-name').value;
+    const address = document.getElementById('cust-address').value;
+    const phone = document.getElementById('cust-phone').value;
+    if(!name||!address||!phone){ alert("Fill all fields"); return; }
+    const msg = `Order for ${prod.name} (${prod.model})\nName: ${name}\nAddress: ${address}\nPhone: ${phone}`;
+    const url = `https://wa.me/94755997160?text=${encodeURIComponent(msg)}`;
     window.open(url,'_blank');
     document.getElementById('order-modal').style.display='none';
 });
 
-document.getElementById('close-order').addEventListener('click',()=>{document.getElementById('order-modal').style.display='none';});
+// Close modal
+document.getElementById('close-order').addEventListener('click',()=>{
+    document.getElementById('order-modal').style.display='none';
+});
 
+// Add Product button (owner)
 function addProduct(){
-    const pass=prompt("Enter Owner Password:");
-    if(pass!==OWNER_PASSWORD){alert("Wrong password"); return;}
-    const name=prompt("Product Name:");
-    const price=prompt("Product Price:");
-    const img=prompt("Image URL:","https://files.catbox.moe/1hxuz4.webp");
-    if(name&&price&&img) products.push({name,price,img});
+    const pass = prompt("Enter Owner Password:");
+    if(pass!==OWNER_PASSWORD){ alert("Wrong password"); return; }
+    const name = prompt("Product Name:");
+    const model = prompt("Model Name:");
+    const img = prompt("Image URL:","https://files.catbox.moe/1hxuz4.webp");
+    if(name&&model&&img) products.push({name,model,img});
     saveAndRender();
 }
 
+// Initialize
 renderProducts();
 
-const addOrderBtn=document.createElement('button');
+// Add button at bottom-right (round)
+const addOrderBtn = document.createElement('button');
 addOrderBtn.id='add-order-btn';
 addOrderBtn.textContent='Add Product';
-addOrderBtn.addEventListener('click',addProduct);
-document.body
+addOrderBtn.addEventListener('click', addProduct);
+document.body.appendChild(addOrderBtn);
+</script>
+
+</body>
+</html>
