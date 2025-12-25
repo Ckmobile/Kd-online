@@ -9,32 +9,50 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#000;color:#fff;overflow-x:hidden;position:relative}
 
+/* Snowflakes */
+.snowflake {
+  position: fixed;
+  top: -2em;
+  font-size: 1.5em;
+  color: #fff;
+  pointer-events: none;
+  user-select: none;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) translateX(0); opacity: 1; }
+  100% { transform: translateY(100vh) translateX(50px); opacity: 0; }
+}
+
 /* Header */
 header{
-    position:fixed;top:0;left:0;width:100%;
-    background:#000;padding:20px 20px 60px;
-    text-align:center;z-index:1000
+position:fixed;top:0;left:0;width:100%;
+background:#000;padding:20px 20px 60px;
+text-align:center;z-index:1000
 }
 header h1{color:#fff;font-family:'Orbitron';margin-bottom:5px}
 .header-subtext{color:silver;font-size:1.1rem;font-family:'Baloo 2'}
 .search-container{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:70%;max-width:350px}
 .search-container input{
-    width:100%;padding:12px 15px;border-radius:25px;border:2px solid #000
+width:100%;padding:12px 15px;border-radius:25px;border:2px solid #000
 }
 
 /* Products */
 .products{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    padding:220px 40px 60px;
-    max-width:1200px;
-    margin:auto
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+padding:220px 40px 60px;
+max-width:1200px;
+margin:auto
 }
 .product-card{
-    background:#111;border-radius:10px;
-    box-shadow:0 5px 15px rgba(255,255,255,.2);
-    position:relative;transition:.3s
+background:#fff;border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+position:relative;transition:.3s;color:#000
 }
 .product-card:hover{transform:scale(1.05)}
 .product-card img{width:100%;height:200px;object-fit:cover}
@@ -51,33 +69,28 @@ header h1{color:#fff;font-family:'Orbitron';margin-bottom:5px}
 .menu{position:absolute;top:10px;right:10px}
 .menu-btn{cursor:pointer;font-size:1.5rem}
 .menu-content{
-    display:none;
-    flex-direction:column;
-    position:absolute;
-    top:25px;right:0;
-    background:#fff;border-radius:8px;
-    box-shadow:0 5px 10px rgba(0,0,0,.2)
+display:none;
+flex-direction:column;
+position:absolute;
+top:25px;right:0;
+background:#fff;border-radius:8px;
+box-shadow:0 5px 10px rgba(0,0,0,.2)
 }
 .menu-content button{padding:10px;border:none;background:none;cursor:pointer}
 .menu-content button:hover{background:#eee}
 
 /* Add Button */
 #add-order-btn{
-    position:fixed;bottom:20px;right:20px;
-    background:#ffcc00;border:none;
-    padding:15px 20px;border-radius:50px;
-    font-weight:bold;cursor:pointer;z-index:1000
+position:fixed;bottom:20px;right:20px;
+background:#ffcc00;border:none;
+padding:15px 20px;border-radius:50px;
+font-weight:bold;cursor:pointer;z-index:1000
 }
 
 /* Footer */
 footer{
-    text-align:center;background:#111;color:#fff;
-    padding:15px;margin:20px auto;max-width:1200px;border-radius:10px
-}
-
-/* Snow Canvas */
-#snow-canvas{
-    position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:500;
+text-align:center;background:#111;color:#fff;
+padding:15px;margin:20px auto;max-width:1200px;border-radius:10px
 }
 </style>
 </head>
@@ -95,7 +108,7 @@ footer{
 
 <!-- Order Form Modal -->
 <div id="order-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;z-index:2000;">
-  <div style="background:#111;padding:20px;border-radius:10px;width:300px;position:relative;color:#fff;">
+  <div style="background:#fff;padding:20px;border-radius:10px;width:300px;position:relative;color:#000">
     <h3>Place Order</h3>
     <p id="modal-product-name"></p>
     <p id="modal-product-price"></p>
@@ -108,52 +121,62 @@ footer{
   </div>
 </div>
 
-<!-- Snow Canvas -->
-<canvas id="snow-canvas"></canvas>
-
 <footer>© 2025 KD ONLINE SHOP</footer>
 
 <script>
 const PASSWORD = "Kkk111";
 const STORAGE_KEY = "kd_products";
-const whatsappNumber = "9475597160"; 
+const whatsappNumber = "9475597160";
 const DEFAULT_IMG = "https://via.placeholder.com/400x250?text=Product";
 
+// Snow effect
+const snowCount = 30;
+for(let i=0;i<snowCount;i++){
+  const snow = document.createElement("div");
+  snow.className = "snowflake";
+  snow.textContent = "❄️";
+  snow.style.left = Math.random() * 100 + "vw";
+  snow.style.fontSize = (Math.random()*24+12)+"px";
+  snow.style.animationDuration = (Math.random()*5+5)+"s";
+  snow.style.animationDelay = Math.random()*5+"s";
+  document.body.appendChild(snow);
+}
+
 // Password check
-function checkPassword(){  
-    return prompt("Enter password:") === PASSWORD;  
+function checkPassword(){    
+    return prompt("Enter password:") === PASSWORD;    
 }
 
 // Save products
-function saveProducts(){  
-    const products=[];  
-    document.querySelectorAll(".product-card").forEach(card=>{  
-        products.push({  
-            name:card.querySelector("h3").textContent,  
-            desc:card.querySelector(".product-info p").textContent,  
-            price:card.querySelector(".product-price").dataset.price,  
-            img:card.querySelector("img").src  
-        });  
-    });  
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(products));  
+function saveProducts(){    
+    const products=[];    
+    document.querySelectorAll(".product-card").forEach(card=>{    
+        products.push({    
+            name:card.querySelector("h3").textContent,    
+            desc:card.querySelector(".product-info p").textContent,    
+            price:card.querySelector(".product-price").dataset.price,    
+            img:card.querySelector("img").src    
+        });    
+    });    
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(products));    
 }
 
 // Load products
-function loadProducts(){  
-    const data=JSON.parse(localStorage.getItem(STORAGE_KEY));  
-    if(!data)return;  
-    const section=document.querySelector(".products");  
-    section.innerHTML="";  
-    data.forEach(p=>createProduct(p.name,p.desc,p.price,p.img,false));  
+function loadProducts(){    
+    const data=JSON.parse(localStorage.getItem(STORAGE_KEY));    
+    if(!data)return;    
+    const section=document.querySelector(".products");    
+    section.innerHTML="";    
+    data.forEach(p=>createProduct(p.name,p.desc,p.price,p.img,false));    
 }
 
 // Create product card
-function createProduct(name,desc,price,img,save=true){  
-    if(!name || !price) return;
-    if(isNaN(price)) return alert("Price must be a number");
+function createProduct(name,desc,price,img,save=true){    
+    if(!name || !price) return;  
+    if(isNaN(price)) return alert("Price must be a number");  
 
-    const card=document.createElement("div");  
-    card.className="product-card";  
+    const card=document.createElement("div");    
+    card.className="product-card";    
     card.innerHTML=`
         <div class="menu">
             <span class="menu-btn">&#x22EE;</span>
@@ -171,154 +194,96 @@ function createProduct(name,desc,price,img,save=true){
                 <button class="order-btn">Order Now</button>
                 <button class="whatsapp-btn">WhatsApp</button>
             </div>
-        </div>`;  
-    document.querySelector(".products").appendChild(card);  
-    attachEvents(card);  
-    if(save) saveProducts();  
+        </div>`;    
+    document.querySelector(".products").appendChild(card);    
+    attachEvents(card);    
+    if(save) saveProducts();    
 }
 
 // Attach events
-function attachEvents(card){  
-    const menu = card.querySelector(".menu-content");
-    const modal = document.getElementById("order-modal");
-    const modalName = document.getElementById("modal-product-name");
-    const modalPrice = document.getElementById("modal-product-price");
-    const modalDesc = document.getElementById("modal-product-desc");
-    const orderName = document.getElementById("order-name");
-    const orderAddress = document.getElementById("order-address");
-    const orderPhone = document.getElementById("order-phone");
-    const sendBtn = document.getElementById("send-order-btn");
-    const closeModal = document.getElementById("close-modal");
+function attachEvents(card){    
+    const menu = card.querySelector(".menu-content");  
+    const modal = document.getElementById("order-modal");  
+    const modalName = document.getElementById("modal-product-name");  
+    const modalPrice = document.getElementById("modal-product-price");  
+    const modalDesc = document.getElementById("modal-product-desc");  
+    const orderName = document.getElementById("order-name");  
+    const orderAddress = document.getElementById("order-address");  
+    const orderPhone = document.getElementById("order-phone");  
+    const sendBtn = document.getElementById("send-order-btn");  
+    const closeModal = document.getElementById("close-modal");  
 
-    card.querySelector(".menu-btn").onclick=e=>{
-        e.stopPropagation();
-        menu.style.display = menu.style.display==="flex" ? "none":"flex";
-    };
-    document.body.onclick=()=>menu.style.display="none";
+    card.querySelector(".menu-btn").onclick=e=>{  
+        e.stopPropagation();  
+        menu.style.display = menu.style.display==="flex" ? "none":"flex";  
+    };  
+    document.body.onclick=()=>menu.style.display="none";  
 
-    card.querySelector(".edit-btn").onclick=()=>{
-        if(!checkPassword())return;
-        card.querySelector("h3").textContent = prompt("Name:",card.querySelector("h3").textContent);
-        card.querySelector(".product-info p").textContent = prompt("Description:",card.querySelector(".product-info p").textContent);
-        const price = prompt("Price:",card.querySelector(".product-price").dataset.price);
-        if(isNaN(price)) return alert("Invalid price");
-        card.querySelector(".product-price").dataset.price = price;
-        card.querySelector(".product-price").textContent = "Price: LKR "+price;
-        saveProducts();
-    };
+    card.querySelector(".edit-btn").onclick=()=>{  
+        if(!checkPassword())return;  
+        card.querySelector("h3").textContent = prompt("Name:",card.querySelector("h3").textContent);  
+        card.querySelector(".product-info p").textContent = prompt("Description:",card.querySelector(".product-info p").textContent);  
+        const price = prompt("Price:",card.querySelector(".product-price").dataset.price);  
+        if(isNaN(price)) return alert("Invalid price");  
+        card.querySelector(".product-price").dataset.price = price;  
+        card.querySelector(".product-price").textContent = "Price: LKR "+price;  
+        saveProducts();  
+    };  
 
-    card.querySelector(".delete-btn").onclick=()=>{
-        if(!checkPassword())return;
-        card.remove(); saveProducts();
-    };
+    card.querySelector(".delete-btn").onclick=()=>{  
+        if(!checkPassword())return;  
+        card.remove(); saveProducts();  
+    };  
 
-    card.querySelector(".whatsapp-btn").onclick=()=>{
-        window.open(`https://wa.me/${whatsappNumber}?text=Order: ${card.querySelector("h3").textContent}`);
-    };
+    card.querySelector(".whatsapp-btn").onclick=()=>{  
+        window.open(`https://wa.me/${whatsappNumber}?text=Order: ${card.querySelector("h3").textContent}`);  
+    };  
 
-    // Order Now popup
-    card.querySelector(".order-btn").onclick=()=>{
-        modalName.textContent = "Product: " + card.querySelector("h3").textContent;
-        modalPrice.textContent = "Price: LKR " + card.querySelector(".product-price").dataset.price;
-        modalDesc.textContent = "Description: " + card.querySelector(".product-info p").textContent;
-        orderName.value = "";
-        orderAddress.value = "";
-        orderPhone.value = "";
-        modal.style.display = "flex";
+    // Order Now popup  
+    card.querySelector(".order-btn").onclick=()=>{  
+        modalName.textContent = "Product: " + card.querySelector("h3").textContent;  
+        modalPrice.textContent = "Price: LKR " + card.querySelector(".product-price").dataset.price;  
+        modalDesc.textContent = "Description: " + card.querySelector(".product-info p").textContent;  
+        orderName.value = "";  
+        orderAddress.value = "";  
+        orderPhone.value = "";  
+        modal.style.display = "flex";  
 
-        sendBtn.onclick = ()=>{
-            const n = orderName.value.trim();
-            const a = orderAddress.value.trim();
-            const p = orderPhone.value.trim();
-            if(!n||!a||!p){ alert("Please fill all fields"); return; }
+        sendBtn.onclick = ()=>{  
+            const n = orderName.value.trim();  
+            const a = orderAddress.value.trim();  
+            const p = orderPhone.value.trim();  
+            if(!n||!a||!p){ alert("Please fill all fields"); return; }  
 
-            const msg = `${modalName.textContent}\n${modalPrice.textContent}\n${modalDesc.textContent}\nName: ${n}\nAddress: ${a}\nPhone: ${p}`;
-            window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`);
-            modal.style.display = "none";
-        };
-    };
+            const msg = `${modalName.textContent}\n${modalPrice.textContent}\n${modalDesc.textContent}\nName: ${n}\nAddress: ${a}\nPhone: ${p}`;  
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`);  
+            modal.style.display = "none";  
+        };  
+    };  
 
-    closeModal.onclick = ()=>modal.style.display="none";
-    modal.onclick = e => { if(e.target === modal) modal.style.display="none"; };
-}
+    closeModal.onclick = ()=>modal.style.display="none";  
+}  
 
 // Add product
-document.getElementById("add-order-btn").onclick=()=>{  
-    if(!checkPassword())return;  
-    createProduct(  
-        prompt("Product name"),  
-        prompt("Description"),  
-        prompt("Price"),  
-        prompt("Image URL")  
-    );  
+document.getElementById("add-order-btn").onclick=()=>{    
+    if(!checkPassword())return;    
+    createProduct(    
+        prompt("Product name"),    
+        prompt("Description"),    
+        prompt("Price"),    
+        prompt("Image URL")    
+    );    
 };
 
 // Search
-document.querySelector(".search-container input").oninput=e=>{  
-    const v=e.target.value.toLowerCase();  
-    document.querySelectorAll(".product-card").forEach(c=>{  
-        c.style.display=c.textContent.toLowerCase().includes(v)?"":"none";  
-    });  
+document.querySelector(".search-container input").oninput=e=>{    
+    const v=e.target.value.toLowerCase();    
+    document.querySelectorAll(".product-card").forEach(c=>{    
+        c.style.display=c.textContent.toLowerCase().includes(v)?"":"none";    
+    });    
 };
 
 window.onload=loadProducts;
-
-/* Emoji Snowfall */
-const canvas = document.getElementById("snow-canvas");
-const ctx = canvas.getContext("2d");
-let w = canvas.width = window.innerWidth;
-let h = canvas.height = window.innerHeight;
-
-window.addEventListener("resize", () => {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-});
-
-const numFlakes = 100;
-const flakes = [];
-
-for(let i=0;i<numFlakes;i++){
-    flakes.push({
-        x: Math.random()*w,
-        y: Math.random()*h,
-        r: Math.random()*20+10, // emoji size
-        d: Math.random()*numFlakes
-    });
-}
-
-function drawFlakes(){
-    ctx.clearRect(0,0,w,h);
-    for(let i=0;i<numFlakes;i++){
-        let f = flakes[i];
-        ctx.font = `${f.r}px Arial`;
-        ctx.fillText("❄️", f.x, f.y);
-    }
-    moveFlakes();
-}
-
-let angle = 0;
-function moveFlakes(){
-    angle += 0.01;
-    for(let i=0;i<numFlakes;i++){
-        let f = flakes[i];
-        f.y += Math.cos(angle + f.d) + 1 + f.r/20;
-        f.x += Math.sin(angle) * 2;
-
-        if(f.x > w+5 || f.x < -5 || f.y > h){
-            if(i%3 > 0){
-                flakes[i] = {x: Math.random()*w, y: -10, r: f.r, d: f.d};
-            } else {
-                if(Math.sin(angle) > 0){
-                    flakes[i] = {x: -5, y: Math.random()*h, r: f.r, d: f.d};
-                } else {
-                    flakes[i] = {x: w+5, y: Math.random()*h, r: f.r, d: f.d};
-                }
-            }
-        }
-    }
-}
-
-setInterval(drawFlakes, 25);
 </script>
 </body>
 </html>
