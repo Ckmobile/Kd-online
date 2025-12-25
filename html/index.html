@@ -6,160 +6,338 @@
 <title>KD ONLINE SHOP</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Baloo+2:wght@600&display=swap" rel="stylesheet">
 <style>
-* {margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
-body {background-color:#fff;color:#000;position:relative;overflow-x:hidden;}
-header {position:fixed;top:0;left:0;width:100%;background-color:#000;padding:20px 20px 80px 20px;text-align:center;z-index:1000;}
-header h1 {font-size:2rem;color:#fff;font-family:'Orbitron',sans-serif;margin-bottom:5px;}
-.header-subtext {display:block;color:silver;font-size:1.2rem;font-weight:bold;line-height:1.4;margin-top:5px;font-family:'Baloo 2',cursive;}
-.search-container {position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:70%;max-width:350px;z-index:1001;}
-.search-container input {width:100%;padding:12px 15px;border-radius:25px;border:2px solid #000;font-size:1rem;outline:none;background-color:#fff;color:#333;box-shadow:0 5px 15px rgba(0,0,0,0.2);transition:all 0.3s ease;}
-.search-container input:focus {transform:scale(1.02);box-shadow:0 8px 20px rgba(0,0,0,0.3);}
-.products {display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:220px 40px 60px 40px;max-width:1200px;margin:auto;}
-.product-card {background-color:#fff;border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.2);transition:transform 0.3s,box-shadow 0.3s;position:relative;}
-.product-card:hover {transform:scale(1.05);box-shadow:0 10px 20px rgba(0,0,0,0.3);}
-.product-card img {width:100%;height:200px;object-fit:cover;}
-.product-info {padding:15px;text-align:center;}
-.product-info h3 {margin-bottom:10px;color:#333;}
-.product-info p {margin-bottom:10px;color:#555;}
-.product-info button.order-now {background-color:orange;color:#fff;border:none;padding:10px 15px;border-radius:25px;cursor:pointer;margin-right:5px;transition:transform 0.2s,box-shadow 0.2s;float:right;}
-.product-info button.order-now:hover {background-color:#ff9900;transform:scale(1.05);}
-.product-info button.whatsapp-btn {background-color:green;color:#fff;border:none;padding:10px 15px;border-radius:25px;cursor:pointer;float:right;margin-left:5px;transition:transform 0.2s,box-shadow 0.2s;}
-.product-info button.whatsapp-btn:hover {background-color:#00cc44;transform:scale(1.05);}
-.dots-menu {position:absolute;top:10px;right:10px;font-size:20px;cursor:pointer;user-select:none;}
-.dots-options {display:none;position:absolute;top:30px;right:0;background:#fff;border:1px solid #ccc;border-radius:5px;box-shadow:0 5px 15px rgba(0,0,0,0.2);}
-.dots-options button {display:block;width:100%;padding:5px 10px;border:none;background:none;text-align:left;cursor:pointer;}
-footer {text-align:center;padding:15px 20px;background-color:#111;color:#fff;font-size:0.9rem;border:2px solid #444;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.5);max-width:1200px;margin:20px auto 40px auto;}
-.snowflake {position:fixed;z-index:10000;user-select:none;color:#fff;pointer-events:none;}
-@media(max-width:600px){.search-container input{width:100%;}header h1,.header-subtext{display:block;margin-left:0;}}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+body {
+    background-color: #ffffff;
+    color: #000;
+    position: relative;
+    overflow-x: hidden;
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000;
+    padding: 20px;
+    text-align: center;
+    z-index: 1000;
+}
+header h1 {
+    font-size: 2rem;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+}
+.header-subtext {
+    color: silver;
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: 'Baloo 2', cursive;
+    margin-top: 5px;
+}
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 20px;
+    padding: 180px 40px 60px 40px;
+    max-width: 1200px;
+    margin: auto;
+}
+.product-card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    position: relative;
+}
+.product-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.product-info {
+    padding: 15px;
+    text-align: center;
+}
+.product-info h3 {
+    margin-bottom: 5px;
+    color: #333;
+}
+.product-info p {
+    margin-bottom: 10px;
+    color: #555;
+}
+.product-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+.product-buttons button {
+    padding: 5px 8px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.order-btn {
+    background-color: orange;
+    color: white;
+}
+.whatsapp-btn {
+    background-color: green;
+    color: white;
+}
+.edit-btn {
+    background-color: #007bff;
+    color: white;
+}
+.delete-btn {
+    background-color: red;
+    color: white;
+}
+footer {
+    text-align: center;
+    padding: 15px 20px;
+    background-color: #111;
+    color: #fff;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 1200px;
+}
+.snowflake {
+    position: fixed;
+    top: -5%;
+    z-index: 10000;
+    user-select: none;
+    font-size: 1rem;
+    color: #fff;
+    pointer-events: none;
+    animation-name: fall;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes fall {
+    0% {transform: translateY(0) rotate(0deg); opacity:1;}
+    100% {transform: translateY(110vh) rotate(360deg); opacity:0.8;}
+}
+.modal {
+    position: fixed;
+    top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.6);
+    display:none;
+    justify-content:center; align-items:center;
+    z-index: 2000;
+}
+.modal-content {
+    background:#fff; padding:20px; border-radius:10px; width:90%; max-width:400px;
+}
+.modal-content input {
+    width:100%; padding:8px; margin:5px 0; border-radius:5px; border:1px solid #ccc;
+}
+.modal-content button {
+    padding:8px 15px; margin-top:10px; border:none; border-radius:5px; cursor:pointer;
+}
+.add-product-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ff6600;
+    color: #fff;
+    padding:10px 15px;
+    border:none;
+    border-radius:50%;
+    font-size:1.5rem;
+    cursor:pointer;
+    z-index: 1001;
+}
 </style>
 </head>
 <body>
 <header>
-<h1>KD ONLINE SHOP</h1>
-<div class="header-subtext">A very valuable customer service from us.</div>
-<div class="search-container">
-<input type="text" placeholder="Search for products...">
-</div>
+    <h1>KD ONLINE SHOP</h1>
+    <div class="header-subtext">A very valuable customer service from us.</div>
 </header>
 
-<section class="products" id="productSection"></section>
+<section class="products" id="products"></section>
 
 <footer>&copy; 2025 KD ONLINE SHOP. All rights reserved.</footer>
 
-<script>
-// LocalStorage product data
-let productsData = JSON.parse(localStorage.getItem('productsData')||'[]');
-const productSection = document.getElementById('productSection');
+<button class="add-product-btn" title="Add Product">+</button>
 
-function renderProducts(){
-    productSection.innerHTML='';
-    productsData.forEach((p,index)=>{
+<!-- Modals -->
+<div class="modal" id="addProductModal">
+    <div class="modal-content">
+        <h3>Add Product (Owner Only)</h3>
+        <input type="password" id="ownerPassword" placeholder="Enter Owner Password">
+        <input type="text" id="newProductName" placeholder="Product Name">
+        <input type="text" id="newProductPrice" placeholder="Product Price">
+        <input type="text" id="newProductModel" placeholder="Product Model">
+        <button id="saveProductBtn">Add Product</button>
+    </div>
+</div>
+
+<div class="modal" id="orderModal">
+    <div class="modal-content">
+        <h3>Order Product</h3>
+        <input type="text" id="orderProductName" placeholder="Product Name" readonly>
+        <input type="text" id="orderProductModel" placeholder="Model" readonly>
+        <input type="text" id="customerName" placeholder="Your Name">
+        <input type="text" id="customerAddress" placeholder="Your Address">
+        <input type="text" id="customerPhone" placeholder="Phone Number">
+        <button id="sendOrderBtn">Send Order via WhatsApp</button>
+    </div>
+</div>
+
+<script>
+// LocalStorage key
+const storageKey = 'kd_products';
+let products = JSON.parse(localStorage.getItem(storageKey)) || [
+    {name:'Headphones', price:'$50', model:'H100'},
+    {name:'Art Set', price:'$80', model:'A150'},
+    {name:'Derma Roller', price:'$30', model:'D200'},
+    {name:'Karaoke Mic', price:'$120', model:'K300'}
+];
+
+const productsContainer = document.getElementById('products');
+const addBtn = document.querySelector('.add-product-btn');
+const addModal = document.getElementById('addProductModal');
+const orderModal = document.getElementById('orderModal');
+
+function saveProducts() {
+    localStorage.setItem(storageKey, JSON.stringify(products));
+}
+
+function renderProducts() {
+    productsContainer.innerHTML='';
+    products.forEach((p,index)=>{
         const card = document.createElement('div');
         card.className='product-card';
-        card.innerHTML=`
-            <div class="dots-menu">&#8942;
-                <div class="dots-options">
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
-                </div>
-            </div>
-            <img src="${p.img}" alt="${p.name}">
+        card.innerHTML = `
+            <img src="https://files.catbox.moe/1hxuz4.webp" alt="${p.name}">
             <div class="product-info">
                 <h3>${p.name}</h3>
                 <p>Price: ${p.price}</p>
-                <button class="order-now">Order Now</button>
-                <button class="whatsapp-btn">WhatsApp</button>
-            </div>`;
-        productSection.appendChild(card);
+                <div class="dots" style="cursor:pointer; margin-top:5px;">&#x22EE;</div>
+                <div class="product-buttons" style="display:none;">
+                    <button class="edit-btn">Edit</button>
+                    <button class="delete-btn">Delete</button>
+                </div>
+                <div style="margin-top:5px;">
+                    <button class="order-btn">Order Now</button>
+                    <button class="whatsapp-btn">WhatsApp</button>
+                </div>
+            </div>
+        `;
+        productsContainer.appendChild(card);
 
-        const dotsMenu = card.querySelector('.dots-menu');
-        const dotsOptions = card.querySelector('.dots-options');
-        dotsMenu.addEventListener('click',()=>dotsOptions.style.display=dotsOptions.style.display==='block'?'none':'block');
+        // Dots click to show edit/delete
+        const dots = card.querySelector('.dots');
+        const buttonsDiv = card.querySelector('.product-buttons');
+        dots.addEventListener('click',()=>{ buttonsDiv.style.display= buttonsDiv.style.display==='flex' ? 'none':'flex'; buttonsDiv.style.flexDirection='row'; buttonsDiv.style.gap='5px'; });
 
-        card.querySelector('.delete-btn').addEventListener('click',()=>{
-            if(prompt("Owner password:")==="Kkk111"){
-                productsData.splice(index,1);
-                localStorage.setItem('productsData',JSON.stringify(productsData));
+        // Edit
+        const editBtn = card.querySelector('.edit-btn');
+        editBtn.addEventListener('click',()=>{
+            const newName = prompt('Edit product name',p.name);
+            const newPrice = prompt('Edit product price',p.price);
+            const newModel = prompt('Edit product model',p.model);
+            if(newName) p.name=newName;
+            if(newPrice) p.price=newPrice;
+            if(newModel) p.model=newModel;
+            saveProducts();
+            renderProducts();
+        });
+
+        // Delete
+        const deleteBtn = card.querySelector('.delete-btn');
+        deleteBtn.addEventListener('click',()=>{
+            if(confirm('Are you sure?')) {
+                products.splice(index,1);
+                saveProducts();
                 renderProducts();
-            }else alert('Wrong password!');
-        });
-
-        card.querySelector('.edit-btn').addEventListener('click',()=>{
-            if(prompt("Owner password:")==="Kkk111"){
-                const newName=prompt("Edit Name:",p.name);
-                const newPrice=prompt("Edit Price:",p.price);
-                if(newName&&newPrice){productsData[index].name=newName;productsData[index].price=newPrice;localStorage.setItem('productsData',JSON.stringify(productsData));renderProducts();}
-            }else alert('Wrong password!');
-        });
-
-        // Order Now
-        card.querySelector('.order-now').addEventListener('click',()=>{
-            const cname=prompt("Customer Name:");
-            const addr=prompt("Address:");
-            const phone=prompt("Phone:");
-            if(cname && addr && phone){
-                const message=`Product: ${p.name}\nPrice: ${p.price}\nName: ${cname}\nAddress: ${addr}\nPhone: ${phone}`;
-                window.open(`https://wa.me/0755997160?text=${encodeURIComponent(message)}`);
             }
         });
 
-        // WhatsApp button
-        card.querySelector('.whatsapp-btn').addEventListener('click',()=>{
-            const message=`Hello, interested in ${p.name} priced at ${p.price}`;
-            window.open(`https://wa.me/0755997160?text=${encodeURIComponent(message)}`);
+        // Order Now
+        const orderBtn = card.querySelector('.order-btn');
+        orderBtn.addEventListener('click',()=>{
+            orderModal.style.display='flex';
+            document.getElementById('orderProductName').value=p.name;
+            document.getElementById('orderProductModel').value=p.model;
         });
+
+        // WhatsApp Button
+        const whatsappBtn = card.querySelector('.whatsapp-btn');
+        whatsappBtn.addEventListener('click',()=>{
+            const name = prompt("Enter your name:");
+            const address = prompt("Enter your address:");
+            const phone = prompt("Enter your phone:");
+            if(name && address && phone){
+                const message = `Order for ${p.name} (${p.model})\nName: ${name}\nAddress: ${address}\nPhone: ${phone}`;
+                window.open(`https://wa.me/0755997160?text=${encodeURIComponent(message)}`,'_blank');
+            }
+        });
+
     });
 }
-
-// Initial products (only first load)
-if(productsData.length===0){
-    productsData=[
-        {name:'Headphones',price:'$50',img:'https://files.catbox.moe/1hxuz4.webp'},
-        {name:'Art Set',price:'$30',img:'https://files.catbox.moe/1hxuz4.webp'},
-        {name:'Derma Roller',price:'$20',img:'https://files.catbox.moe/1hxuz4.webp'},
-        {name:'Karaoke Mic',price:'$40',img:'https://files.catbox.moe/1hxuz4.webp'}
-    ];
-    localStorage.setItem('productsData',JSON.stringify(productsData));
-}
-
 renderProducts();
 
-// Search filter
-document.querySelector('.search-container input').addEventListener('input',e=>{
-    const filter=e.target.value.toLowerCase();
-    document.querySelectorAll('.product-card').forEach(card=>{
-        const name=card.querySelector('h3').textContent.toLowerCase();
-        card.style.display=name.includes(filter)?'':'none';
-    });
+// Add Product Button
+addBtn.addEventListener('click',()=>{
+    const pwd = prompt("Enter owner password:");
+    if(pwd==='Kkk111'){
+        addModal.style.display='flex';
+    } else alert('Incorrect password');
+});
+
+// Save Product
+document.getElementById('saveProductBtn').addEventListener('click',()=>{
+    const name = document.getElementById('newProductName').value.trim();
+    const price = document.getElementById('newProductPrice').value.trim();
+    const model = document.getElementById('newProductModel').value.trim();
+    if(name && price && model){
+        products.push({name, price, model});
+        saveProducts();
+        renderProducts();
+        addModal.style.display='none';
+        document.getElementById('newProductName').value='';
+        document.getElementById('newProductPrice').value='';
+        document.getElementById('newProductModel').value='';
+    } else alert('Fill all fields');
+});
+
+// Close Modals when clicking outside
+window.addEventListener('click',e=>{
+    if(e.target===addModal) addModal.style.display='none';
+    if(e.target===orderModal) orderModal.style.display='none';
 });
 
 // Snowflakes
-let smallFlakes=[],largeFlakes=[],smallCount=15,largeCount=10;
-function createFlakes(){
-    for(let i=0;i<smallCount;i++){
-        let s=document.createElement('div');s.className='snowflake';s.style.left=Math.random()*window.innerWidth+'px';
-        s.style.top=Math.random()*window.innerHeight+'px';s.style.fontSize=(6+Math.random()*4)+'px';
-        s.speed=0.2+Math.random()*0.4;s.angle=Math.random()*2*Math.PI;s.angleSpeed=0.01+Math.random()*0.01;
-        s.textContent='❄️';document.body.appendChild(s);smallFlakes.push(s);
-    }
-    for(let i=0;i<largeCount;i++){
-        let s=document.createElement('div');s.className='snowflake';s.style.left=Math.random()*window.innerWidth+'px';
-        s.style.top=Math.random()*window.innerHeight+'px';s.style.fontSize=(12+Math.random()*8)+'px';
-        s.speed=0.4+Math.random()*0.6;s.angle=Math.random()*2*Math.PI;s.angleSpeed=0.01+Math.random()*0.02;
-        s.textContent='❄️';document.body.appendChild(s);largeFlakes.push(s);
-    }
+const snowCount=10;
+function createSnowFlake(){
+    const snow=document.createElement('div');
+    snow.className='snowflake';
+    snow.style.left=Math.random()*100+'vw';
+    snow.style.fontSize=(6+Math.random()*6)+'px';
+    snow.style.animationDuration=(15+Math.random()*10)+'s';
+    snow.textContent='❄️';
+    document.body.appendChild(snow);
+    setTimeout(()=>{
+        snow.remove();
+        createSnowFlake();
+    },parseFloat(snow.style.animationDuration)*1000);
 }
-function animateFlakes(){
-    [...smallFlakes,...largeFlakes].forEach(f=>{
-        let top=parseFloat(f.style.top),left=parseFloat(f.style.left);
-        f.angle+=f.angleSpeed;left+=Math.sin(f.angle)*0.5;top+=f.speed;
-        if(top>window.innerHeight) top=-10;
-        if(left>window.innerWidth) left=0;if(left<0) left=window.innerWidth;
-        f.style.top=top+'px';f.style.left=left+'px';
-    });
-    requestAnimationFrame(animateFlakes);
-}
-createFlakes();animateFlakes();
+for(let i=0;i<snowCount;i++) createSnowFlake();
 </script>
 </body>
 </html>
