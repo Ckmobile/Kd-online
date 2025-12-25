@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Baloo+2:wght@600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#fff;color:#000;overflow-x:hidden}
+body{background:#000;color:#fff;overflow-x:hidden;position:relative}
 
 /* Header */
 header{
@@ -16,13 +16,7 @@ header{
     text-align:center;z-index:1000
 }
 header h1{color:#fff;font-family:'Orbitron';margin-bottom:5px}
-.header-subtext{
-    color: silver;
-    font-size: 1.1rem;
-    font-family: 'Baloo 2';
-    white-space: nowrap; /* text stays on a single line */
-    display: inline-block; /* keeps it as a single line block */
-}
+.header-subtext{color:silver;font-size:1.1rem;font-family:'Baloo 2';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .search-container{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:70%;max-width:350px}
 .search-container input{
     width:100%;padding:12px 15px;border-radius:25px;border:2px solid #000
@@ -35,12 +29,13 @@ header h1{color:#fff;font-family:'Orbitron';margin-bottom:5px}
     gap:20px;
     padding:220px 40px 60px;
     max-width:1200px;
-    margin:auto
+    margin:auto;
+    position:relative;z-index:1;
 }
 .product-card{
-    background:#fff;border-radius:10px;
-    box-shadow:0 5px 15px rgba(0,0,0,.2);
-    position:relative;transition:.3s
+    background:#111;border-radius:10px;
+    box-shadow:0 5px 15px rgba(255,255,255,.2);
+    position:relative;transition:.3s;color:#fff;
 }
 .product-card:hover{transform:scale(1.05)}
 .product-card img{width:100%;height:200px;object-fit:cover}
@@ -61,11 +56,12 @@ header h1{color:#fff;font-family:'Orbitron';margin-bottom:5px}
     flex-direction:column;
     position:absolute;
     top:25px;right:0;
-    background:#fff;border-radius:8px;
-    box-shadow:0 5px 10px rgba(0,0,0,.2)
+    background:#222;border-radius:8px;
+    box-shadow:0 5px 10px rgba(0,0,0,.2);
+    z-index:10;
 }
-.menu-content button{padding:10px;border:none;background:none;cursor:pointer}
-.menu-content button:hover{background:#eee}
+.menu-content button{padding:10px;border:none;background:none;cursor:pointer;color:#fff}
+.menu-content button:hover{background:#333}
 
 /* Add Button */
 #add-order-btn{
@@ -85,20 +81,33 @@ header h1{color:#fff;font-family:'Orbitron';margin-bottom:5px}
     z-index:2000;
 }
 .modal-content {
-    background:#fff;padding:20px;border-radius:10px;width:300px;position:relative;
+    background:#222;padding:20px;border-radius:10px;width:300px;position:relative;color:#fff;
 }
 .modal-content h3{margin-bottom:10px}
-.modal-content input{width:100%;margin:5px 0;padding:8px}
+.modal-content input{width:100%;margin:5px 0;padding:8px;border-radius:5px;border:1px solid #fff;background:#111;color:#fff}
 .modal-content button{margin-top:10px;cursor:pointer}
 
 /* Footer */
 footer{
     text-align:center;background:#111;color:#fff;
-    padding:15px;margin:20px auto;max-width:1200px;border-radius:10px
+    padding:15px;margin:20px auto;max-width:1200px;border-radius:10px;position:relative;z-index:1;
+}
+
+/* Snow Canvas */
+#snow-canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:0;
 }
 </style>
 </head>
 <body>
+<canvas id="snow-canvas"></canvas>
+
 <header>
     <h1>KD ONLINE SHOP</h1>
     <div class="header-subtext">A very valuable customer service from us.</div>
@@ -119,7 +128,7 @@ footer{
     <p id="modal-product-desc"></p>
     <input type="text" id="order-name" placeholder="Your Name">
     <input type="text" id="order-address" placeholder="Address">
-    <input type="text" id="order-phone" placeholder="Phone number">
+    <input type="text" id="order-phone" placeholder="Phone">
     <button id="send-order-btn" style="background:#25D366;color:#fff;width:100%;border:none;border-radius:5px;">Send via WhatsApp</button>
     <span id="close-modal" style="position:absolute;top:5px;right:10px;cursor:pointer;font-weight:bold;">✖</span>
   </div>
@@ -130,7 +139,7 @@ footer{
   <div class="modal-content">
     <h3>Add New Product</h3>
     <input type="text" id="new-product-name" placeholder="Product Name">
-    <input type="text" id="new-product-desc" placeholder="product code">
+    <input type="text" id="new-product-desc" placeholder="Description">
     <input type="text" id="new-product-price" placeholder="Price">
     <input type="text" id="new-product-img" placeholder="Image URL">
     <button id="save-product-btn" style="background:#ffcc00;color:#000;width:100%;border:none;border-radius:5px;">Add Product</button>
@@ -202,6 +211,19 @@ function createProduct(name,desc,price,img,save=true){
     document.querySelector(".products").appendChild(card);  
     attachEvents(card);  
     if(save) saveProducts();  
+
+    // Click image to enlarge
+    card.querySelector("img").onclick = () => {
+        const imgModal = document.createElement("div");
+        imgModal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:flex;justify-content:center;align-items:center;z-index:3000;cursor:pointer';
+        const imgEl = document.createElement("img");
+        imgEl.src = card.querySelector("img").src;
+        imgEl.style.maxWidth = "90%";
+        imgEl.style.maxHeight = "90%";
+        imgModal.appendChild(imgEl);
+        document.body.appendChild(imgModal);
+        imgModal.onclick = () => imgModal.remove();
+    };
 }
 
 // Attach events
@@ -275,6 +297,7 @@ const addProductModal = document.getElementById("add-product-modal");
 document.getElementById("add-order-btn").onclick = () => {
     if(!checkPassword()) return;
     addProductModal.style.display = "flex";
+    // Clear inputs
     document.getElementById("new-product-name").value = "";
     document.getElementById("new-product-desc").value = "";
     document.getElementById("new-product-price").value = "";
@@ -307,6 +330,58 @@ document.querySelector(".search-container input").oninput=e=>{
 };
 
 window.onload=loadProducts;
+
+// ---------------- Snow Effect ----------------
+const canvas = document.getElementById("snow-canvas");
+const ctx = canvas.getContext("2d");
+let width = canvas.width = window.innerWidth;
+let height = canvas.height = window.innerHeight;
+
+window.addEventListener("resize", () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+});
+
+const numFlakes = 80;
+const flakes = [];
+
+for(let i=0;i<numFlakes;i++){
+    flakes.push({
+        x: Math.random()*width,
+        y: Math.random()*height,
+        r: Math.random()*3+1,
+        d: Math.random()*1+0.2
+    });
+}
+
+function drawSnow(){
+    ctx.clearRect(0,0,width,height);
+    ctx.fillStyle = "rgba(255,255,255,0.8)";
+    ctx.beginPath();
+    for(let i=0;i<numFlakes;i++){
+        let f = flakes[i];
+        ctx.moveTo(f.x, f.y);
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI*2);
+    }
+    ctx.fill();
+    updateSnow();
+}
+
+function updateSnow(){
+    for(let i=0;i<numFlakes;i++){
+        let f = flakes[i];
+        f.y += f.d;
+        f.x += Math.sin(f.y * 0.01);
+
+        if(f.y > height){
+            f.y = -5;
+            f.x = Math.random()*width;
+        }
+    }
+    requestAnimationFrame(drawSnow);
+}
+
+drawSnow();
 </script>
 </body>
 </html>
