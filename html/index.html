@@ -4,168 +4,255 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KD ONLINE SHOP</title>
-
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Baloo+2:wght@600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#f4f4f4}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#fff;color:#000;overflow-x:hidden}
 
 /* Header */
 header{
-  background:#000;color:#fff;
-  padding:20px;text-align:center;
-  position:fixed;top:0;width:100%;z-index:1000
+    position:fixed;top:0;left:0;width:100%;
+    background:#000;padding:20px 20px 60px;
+    text-align:center;z-index:1000
 }
-header h1{margin-bottom:5px}
+header h1{color:#fff;font-family:'Orbitron';margin-bottom:5px}
+.header-subtext{color:silver;font-size:1.1rem;font-family:'Baloo 2'}
+.search-container{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:70%;max-width:350px}
+.search-container input{
+    width:100%;padding:12px 15px;border-radius:25px;border:2px solid #000
+}
 
 /* Products */
 .products{
-  padding:140px 20px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-  max-width:1100px;margin:auto
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:220px 40px 60px;
+    max-width:1200px;
+    margin:auto
 }
 .product-card{
-  background:#fff;border-radius:10px;
-  box-shadow:0 5px 15px rgba(0,0,0,.2);
-  overflow:hidden
+    background:#fff;border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    position:relative;transition:.3s
 }
-.product-card img{
-  width:100%;height:200px;object-fit:cover
-}
+.product-card:hover{transform:scale(1.05)}
+.product-card img{width:100%;height:200px;object-fit:cover}
+
 .product-info{text-align:center;padding:15px}
-.product-price{font-weight:bold;margin:5px 0}
-.order-btn{
-  background:#ffcc00;border:none;
-  padding:10px 20px;border-radius:25px;
-  cursor:pointer;font-weight:bold
+.product-price{font-weight:bold}
+
+/* Buttons */
+.btn-container{display:flex;justify-content:center;gap:10px}
+.order-btn{background:#ffcc00;border:none;padding:10px 15px;border-radius:25px;cursor:pointer}
+.whatsapp-btn{background:#25D366;color:#fff;border:none;padding:10px 15px;border-radius:25px}
+
+/* Menu */
+.menu{position:absolute;top:10px;right:10px}
+.menu-btn{cursor:pointer;font-size:1.5rem}
+.menu-content{
+    display:none;
+    flex-direction:column;
+    position:absolute;
+    top:25px;right:0;
+    background:#fff;border-radius:8px;
+    box-shadow:0 5px 10px rgba(0,0,0,.2)
+}
+.menu-content button{padding:10px;border:none;background:none;cursor:pointer}
+.menu-content button:hover{background:#eee}
+
+/* Add Button */
+#add-order-btn{
+    position:fixed;bottom:20px;right:20px;
+    background:#ffcc00;border:none;
+    padding:15px 20px;border-radius:50px;
+    font-weight:bold;cursor:pointer;z-index:1000
 }
 
-/* Popup */
-#orderPopup{
-  display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,.6);z-index:2000
+/* Footer */
+footer{
+    text-align:center;background:#111;color:#fff;
+    padding:15px;margin:20px auto;max-width:1200px;border-radius:10px
 }
-.popup-box{
-  background:#fff;
-  max-width:400px;
-  margin:80px auto;
-  padding:20px;border-radius:10px
-}
-.popup-box h3{text-align:center;margin-bottom:10px}
-.popup-box input,
-.popup-box textarea,
-.popup-box button{
-  width:100%;padding:10px;
-  margin-bottom:8px
-}
-.popup-box button{
-  background:#25D366;color:#fff;
-  border:none;font-size:16px;
-  border-radius:6px;cursor:pointer
-}
-.cancel-btn{background:#ccc;color:#000}
 </style>
 </head>
-
 <body>
-
 <header>
-  <h1>KD ONLINE SHOP</h1>
-  <p>Order via WhatsApp</p>
+    <h1>KD ONLINE SHOP</h1>
+    <div class="header-subtext">A very valuable customer service from us.</div>
+    <div class="search-container">
+        <input type="text" placeholder="Search products...">
+    </div>
 </header>
 
-<section class="products">
+<section class="products"></section>
+<button id="add-order-btn">Add Order</button>
 
-  <!-- PRODUCT 1 -->
-  <div class="product-card">
-    <img src="https://via.placeholder.com/400x300">
-    <div class="product-info">
-      <h3>Wireless Mouse</h3>
-      <p>High quality wireless mouse</p>
-      <p class="product-price">LKR 1500</p>
-      <button class="order-btn" onclick="openOrder(this)">Order Now</button>
-    </div>
-  </div>
-
-  <!-- PRODUCT 2 -->
-  <div class="product-card">
-    <img src="https://via.placeholder.com/400x300">
-    <div class="product-info">
-      <h3>Bluetooth Speaker</h3>
-      <p>Powerful bass sound</p>
-      <p class="product-price">LKR 4500</p>
-      <button class="order-btn" onclick="openOrder(this)">Order Now</button>
-    </div>
-  </div>
-
-</section>
-
-<!-- ORDER POPUP -->
-<div id="orderPopup">
-  <div class="popup-box">
-    <h3>Order Details</h3>
-
-    <p><strong id="pname"></strong></p>
-    <p id="pdesc"></p>
-    <p><strong id="pprice"></strong></p>
-
-    <input id="cname" placeholder="Your Name">
-    <textarea id="caddress" placeholder="Address"></textarea>
-    <input id="cphone" placeholder="Phone Number">
-
-    <button onclick="sendOrder()">Send Order</button>
-    <button class="cancel-btn" onclick="closePopup()">Cancel</button>
+<!-- Order Form Modal -->
+<div id="order-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;z-index:2000;">
+  <div style="background:#fff;padding:20px;border-radius:10px;width:300px;position:relative;">
+    <h3>Place Order</h3>
+    <p id="modal-product-name"></p>
+    <p id="modal-product-price"></p>
+    <p id="modal-product-desc"></p>
+    <input type="text" id="order-name" placeholder="Your Name" style="width:100%;margin:5px 0;padding:8px;">
+    <input type="text" id="order-address" placeholder="Address" style="width:100%;margin:5px 0;padding:8px;">
+    <input type="text" id="order-phone" placeholder="Phone" style="width:100%;margin:5px 0;padding:8px;">
+    <button id="send-order-btn" style="background:#25D366;color:#fff;padding:10px;width:100%;border:none;border-radius:5px;margin-top:10px;cursor:pointer;">Send via WhatsApp</button>
+    <span id="close-modal" style="position:absolute;top:5px;right:10px;cursor:pointer;font-weight:bold;">✖</span>
   </div>
 </div>
 
+<footer>© 2025 KD ONLINE SHOP</footer>
+
 <script>
-const whatsappNumber = "94755997160";
-let product = {};
+const PASSWORD = "Kkk111";
+const STORAGE_KEY = "kd_products";
+const whatsappNumber = "9475597160"; // WhatsApp number
+const DEFAULT_IMG = "https://via.placeholder.com/400x250?text=Product";
 
-function openOrder(btn){
-  const card = btn.closest(".product-card");
-  product = {
-    name: card.querySelector("h3").textContent,
-    desc: card.querySelector("p").textContent,
-    price: card.querySelector(".product-price").textContent
-  };
-
-  document.getElementById("pname").textContent = product.name;
-  document.getElementById("pdesc").textContent = product.desc;
-  document.getElementById("pprice").textContent = product.price;
-
-  document.getElementById("orderPopup").style.display = "block";
+// Password check
+function checkPassword(){  
+    return prompt("Enter password:") === PASSWORD;  
 }
 
-function closePopup(){
-  document.getElementById("orderPopup").style.display = "none";
+// Save products
+function saveProducts(){  
+    const products=[];  
+    document.querySelectorAll(".product-card").forEach(card=>{  
+        products.push({  
+            name:card.querySelector("h3").textContent,  
+            desc:card.querySelector(".product-info p").textContent,  
+            price:card.querySelector(".product-price").dataset.price,  
+            img:card.querySelector("img").src  
+        });  
+    });  
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(products));  
 }
 
-function sendOrder(){
-  const n = cname.value;
-  const a = caddress.value;
-  const p = cphone.value;
-
-  if(!n || !a || !p){
-    alert("Please fill all fields");
-    return;
-  }
-
-  const msg =
-`📦 New Order
-Product: ${product.name}
-Description: ${product.desc}
-Price: ${product.price}
-
-👤 Name: ${n}
-🏠 Address: ${a}
-📞 Phone: ${p}`;
-
-  window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`);
-  closePopup();
+// Load products
+function loadProducts(){  
+    const data=JSON.parse(localStorage.getItem(STORAGE_KEY));  
+    if(!data)return;  
+    const section=document.querySelector(".products");  
+    section.innerHTML="";  
+    data.forEach(p=>createProduct(p.name,p.desc,p.price,p.img,false));  
 }
+
+// Create product card
+function createProduct(name,desc,price,img,save=true){  
+    if(!name || !price) return;
+    if(isNaN(price)) return alert("Price must be a number");
+
+    const card=document.createElement("div");  
+    card.className="product-card";  
+    card.innerHTML=`
+        <div class="menu">
+            <span class="menu-btn">&#x22EE;</span>
+            <div class="menu-content">
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+            </div>
+        </div>
+        <img src="${img || DEFAULT_IMG}">
+        <div class="product-info">
+            <h3>${name}</h3>
+            <p>${desc || ""}</p>
+            <p class="product-price" data-price="${price}">Price: LKR ${price}</p>
+            <div class="btn-container">
+                <button class="order-btn">Order Now</button>
+                <button class="whatsapp-btn">WhatsApp</button>
+            </div>
+        </div>`;  
+    document.querySelector(".products").appendChild(card);  
+    attachEvents(card);  
+    if(save) saveProducts();  
+}
+
+// Attach events
+function attachEvents(card){  
+    const menu = card.querySelector(".menu-content");
+    const modal = document.getElementById("order-modal");
+    const modalName = document.getElementById("modal-product-name");
+    const modalPrice = document.getElementById("modal-product-price");
+    const modalDesc = document.getElementById("modal-product-desc");
+    const orderName = document.getElementById("order-name");
+    const orderAddress = document.getElementById("order-address");
+    const orderPhone = document.getElementById("order-phone");
+    const sendBtn = document.getElementById("send-order-btn");
+    const closeModal = document.getElementById("close-modal");
+
+    card.querySelector(".menu-btn").onclick=e=>{
+        e.stopPropagation();
+        menu.style.display = menu.style.display==="flex" ? "none":"flex";
+    };
+    document.body.onclick=()=>menu.style.display="none";
+
+    card.querySelector(".edit-btn").onclick=()=>{
+        if(!checkPassword())return;
+        card.querySelector("h3").textContent = prompt("Name:",card.querySelector("h3").textContent);
+        card.querySelector(".product-info p").textContent = prompt("Description:",card.querySelector(".product-info p").textContent);
+        const price = prompt("Price:",card.querySelector(".product-price").dataset.price);
+        if(isNaN(price)) return alert("Invalid price");
+        card.querySelector(".product-price").dataset.price = price;
+        card.querySelector(".product-price").textContent = "Price: LKR "+price;
+        saveProducts();
+    };
+
+    card.querySelector(".delete-btn").onclick=()=>{
+        if(!checkPassword())return;
+        card.remove(); saveProducts();
+    };
+
+    card.querySelector(".whatsapp-btn").onclick=()=>{
+        window.open(`https://wa.me/${whatsappNumber}?text=Order: ${card.querySelector("h3").textContent}`);
+    };
+
+    // Order Now popup
+    card.querySelector(".order-btn").onclick=()=>{
+        modalName.textContent = "Product: " + card.querySelector("h3").textContent;
+        modalPrice.textContent = "Price: LKR " + card.querySelector(".product-price").dataset.price;
+        modalDesc.textContent = "Description: " + card.querySelector(".product-info p").textContent;
+        orderName.value = "";
+        orderAddress.value = "";
+        orderPhone.value = "";
+        modal.style.display = "flex";
+
+        sendBtn.onclick = ()=>{
+            const n = orderName.value.trim();
+            const a = orderAddress.value.trim();
+            const p = orderPhone.value.trim();
+            if(!n||!a||!p){ alert("Please fill all fields"); return; }
+
+            const msg = `${modalName.textContent}\n${modalPrice.textContent}\n${modalDesc.textContent}\nName: ${n}\nAddress: ${a}\nPhone: ${p}`;
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`);
+            modal.style.display = "none";
+        };
+    };
+
+    closeModal.onclick = ()=>modal.style.display="none";
+}
+
+// Add product
+document.getElementById("add-order-btn").onclick=()=>{  
+    if(!checkPassword())return;  
+    createProduct(  
+        prompt("Product name"),  
+        prompt("Description"),  
+        prompt("Price"),  
+        prompt("Image URL")  
+    );  
+};
+
+// Search
+document.querySelector(".search-container input").oninput=e=>{  
+    const v=e.target.value.toLowerCase();  
+    document.querySelectorAll(".product-card").forEach(c=>{  
+        c.style.display=c.textContent.toLowerCase().includes(v)?"":"none";  
+    });  
+};
+
+window.onload=loadProducts;
 </script>
-
 </body>
 </html>
