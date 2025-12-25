@@ -341,7 +341,7 @@ searchInput.addEventListener('input', () => {
     const filter = searchInput.value.toLowerCase();
     products.forEach(product => {
         const title = product.querySelector('h3').textContent.toLowerCase();
-        const desc = product.querySelector('p').textContent.toLowerCase();
+        const desc = Array.from(product.querySelectorAll('p')).map(p => p.textContent.toLowerCase()).join(' ');
         product.style.display = (title + desc).includes(filter) ? '' : 'none';
     });
 });
@@ -352,13 +352,13 @@ whatsappButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         const productName = btn.closest('.product-card').querySelector('h3').textContent;
         const message = `Hello, I want to order: ${productName}`;
-        const whatsappNumber = '94755997160'; // Sri Lanka number without 0
+        const whatsappNumber = '94755997160';
         const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
         window.open(url, '_blank');
     });
 });
 
-// Order Now button
+// Order Now button (WhatsApp only with prompts)
 const orderButtons = document.querySelectorAll('.order-btn');
 orderButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -377,7 +377,7 @@ orderButtons.forEach(btn => {
 
         const message = `Order Details:\n\nProduct: ${productName}\nPrice: ${productPrice}\n\nCustomer Name: ${customerName}\nAddress: ${customerAddress}\nPhone: ${customerPhone}`;
 
-        const whatsappNumber = '94755997160';
+        const whatsappNumber = '94755997160'; // International format
         const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
         window.open(url, '_blank');
