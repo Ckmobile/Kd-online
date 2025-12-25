@@ -133,15 +133,19 @@ header h1 {
     gap: 10px;
 }
 
-/* Order Now button */
-.product-info .order-btn {
-    background-color: #ffcc00; /* yellow */
-    color: black;
-    border: none;
+/* Buttons */
+.product-info .order-btn,
+.product-info .whatsapp-btn {
     padding: 10px 15px;
     border-radius: 25px;
+    border: none;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-info .order-btn {
+    background-color: #ffcc00;
+    color: black;
 }
 
 .product-info .order-btn:hover {
@@ -149,15 +153,9 @@ header h1 {
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
 }
 
-/* WhatsApp button */
 .product-info .whatsapp-btn {
     background-color: #25D366;
     color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .product-info .whatsapp-btn:hover {
@@ -259,14 +257,41 @@ searchInput.addEventListener('input', () => {
     });
 });
 
-// WhatsApp button logic
+// WhatsApp button (just sends product name)
 const whatsappButtons = document.querySelectorAll('.whatsapp-btn');
 whatsappButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         const productName = btn.closest('.product-card').querySelector('h3').textContent;
         const message = `Hello, I want to order: ${productName}`;
-        const whatsappNumber = '94755997160'; // Sri Lanka without 0
+        const whatsappNumber = '94755997160';
         const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    });
+});
+
+// Order Now button (sends full customer info)
+const orderButtons = document.querySelectorAll('.order-btn');
+orderButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const productCard = btn.closest('.product-card');
+        const productName = productCard.querySelector('h3').textContent;
+        const productPrice = prompt("Enter the product price:");
+
+        const customerName = prompt("Enter your full name:");
+        const customerAddress = prompt("Enter your address:");
+        const phone1 = prompt("Enter your first phone number:");
+        const phone2 = prompt("Enter your second phone number (optional):");
+
+        let message = `Order Details:%0A`;
+        message += `Product: ${productName}%0A`;
+        message += `Price: ${productPrice}%0A`;
+        message += `Name: ${customerName}%0A`;
+        message += `Address: ${customerAddress}%0A`;
+        message += `Phone 1: ${phone1}%0A`;
+        if(phone2) message += `Phone 2: ${phone2}%0A`;
+
+        const whatsappNumber = '94755997160';
+        const url = `https://wa.me/${whatsappNumber}?text=${message}`;
         window.open(url, '_blank');
     });
 });
