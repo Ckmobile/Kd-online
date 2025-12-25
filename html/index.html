@@ -8,148 +8,208 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Baloo+2:wght@600&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#fff}
-header{position:fixed;top:0;width:100%;background:#000;color:#fff;text-align:center;padding:20px 20px 60px;z-index:1000}
-header h1{font-family:Orbitron}
-.header-subtext{color:silver;font-family:"Baloo 2"}
-.search-container{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:300px}
-.search-container input{width:100%;padding:10px;border-radius:20px}
-.products{padding:220px 30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-.product-card{background:#fff;border-radius:10px;box-shadow:0 5px 10px rgba(0,0,0,.2);position:relative}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#fff;color:#000;overflow-x:hidden}
+
+/* Header */
+header{
+    position:fixed;top:0;left:0;width:100%;
+    background:#000;padding:20px 20px 60px;
+    text-align:center;z-index:1000
+}
+header h1{color:#fff;font-family:'Orbitron';margin-bottom:5px}
+.header-subtext{color:silver;font-size:1.1rem;font-family:'Baloo 2'}
+.search-container{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:70%;max-width:350px}
+.search-container input{
+    width:100%;padding:12px 15px;border-radius:25px;border:2px solid #000
+}
+
+/* Products */
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:220px 40px 60px;
+    max-width:1200px;
+    margin:auto
+}
+.product-card{
+    background:#fff;border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    position:relative;transition:.3s
+}
+.product-card:hover{transform:scale(1.05)}
 .product-card img{width:100%;height:200px;object-fit:cover}
-.product-info{text-align:center;padding:10px}
+
+.product-info{text-align:center;padding:15px}
 .product-price{font-weight:bold}
+
+/* Buttons */
 .btn-container{display:flex;justify-content:center;gap:10px}
-.order-btn{background:#ffcc00;border:none;padding:8px 14px;border-radius:20px}
-.whatsapp-btn{background:#25D366;border:none;padding:8px 14px;border-radius:20px;color:#fff}
+.order-btn{background:#ffcc00;border:none;padding:10px 15px;border-radius:25px;cursor:pointer}
+.whatsapp-btn{background:#25D366;color:#fff;border:none;padding:10px 15px;border-radius:25px}
+
+/* Menu */
 .menu{position:absolute;top:10px;right:10px}
-.menu-btn{cursor:pointer}
-.menu-content{display:none;position:absolute;right:0;background:#fff;border-radius:6px}
-.menu-content button{display:block;width:100%;border:none;padding:8px}
-#add-product{position:fixed;bottom:20px;right:20px;background:#ffcc00;border:none;padding:15px 20px;border-radius:30px;font-weight:bold}
-footer{text-align:center;padding:15px;background:#111;color:#fff}
+.menu-btn{cursor:pointer;font-size:1.5rem}
+.menu-content{
+    display:none;
+    flex-direction:column;
+    position:absolute;
+    top:25px;right:0;
+    background:#fff;border-radius:8px;
+    box-shadow:0 5px 10px rgba(0,0,0,.2)
+}
+.menu-content button{padding:10px;border:none;background:none;cursor:pointer}
+.menu-content button:hover{background:#eee}
+
+/* Add Button */
+#add-order-btn{
+    position:fixed;bottom:20px;right:20px;
+    background:#ffcc00;border:none;
+    padding:15px 20px;border-radius:50px;
+    font-weight:bold;cursor:pointer;z-index:1000
+}
+
+/* Footer */
+footer{
+    text-align:center;background:#111;color:#fff;
+    padding:15px;margin:20px auto;max-width:1200px;border-radius:10px
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>KD ONLINE SHOP</h1>
-<div class="header-subtext">A very valuable customer service from us.</div>
-<div class="search-container">
-<input type="text" placeholder="Search..." id="search">
-</div>
+    <h1>KD ONLINE SHOP</h1>
+    <div class="header-subtext">A very valuable customer service from us.</div>
+    <div class="search-container">
+        <input type="text" placeholder="Search products...">
+    </div>
 </header>
 
-<section class="products" id="products"></section>
+<section class="products"></section>
 
-<button id="add-product">Add Product</button>
+<button id="add-order-btn">Add Order</button>
 
 <footer>© 2025 KD ONLINE SHOP</footer>
 
 <script>
-const PASSWORD="Kkk111";
-const STORAGE_KEY="kd_products";
+const PASSWORD = "Kkk111";
+const STORAGE_KEY = "kd_products";
+const whatsappNumber = "94755997160";
 
-// Default products (first load only)
-const defaultProducts=[
- {name:"Headphones",desc:"High quality sound",price:3500,img:"https://files.catbox.moe/1hxuz4.webp"},
- {name:"Art Set",desc:"150 pieces",price:4500,img:"https://files.catbox.moe/1hxuz4.webp"}
-];
-
-let products = JSON.parse(localStorage.getItem(STORAGE_KEY)) || defaultProducts;
-saveProducts();
-
-function saveProducts(){
- localStorage.setItem(STORAGE_KEY,JSON.stringify(products));
-}
-
+/* Password */
 function checkPassword(){
- const p=prompt("Enter password");
- return p===PASSWORD;
+    return prompt("Enter password:") === PASSWORD;
 }
 
-function renderProducts(){
- const box=document.getElementById("products");
- box.innerHTML="";
- products.forEach((p,i)=>{
- box.innerHTML+=`
- <div class="product-card">
-  <div class="menu">
-   <span class="menu-btn">⋮</span>
-   <div class="menu-content">
-    <button onclick="editProduct(${i})">Edit</button>
-    <button onclick="deleteProduct(${i})">Delete</button>
-   </div>
-  </div>
-  <img src="${p.img}">
-  <div class="product-info">
-   <h3>${p.name}</h3>
-   <p>${p.desc}</p>
-   <p class="product-price">Price: LKR ${p.price}</p>
-   <div class="btn-container">
-    <button class="order-btn" onclick="orderNow(${i})">Order Now</button>
-    <button class="whatsapp-btn" onclick="whatsapp(${i})">WhatsApp</button>
-   </div>
-  </div>
- </div>`;
- });
- document.querySelectorAll(".menu-btn").forEach(b=>{
-  b.onclick=()=>b.nextElementSibling.style.display=
-  b.nextElementSibling.style.display==="block"?"none":"block";
- });
+/* Save */
+function saveProducts(){
+    const products=[];
+    document.querySelectorAll(".product-card").forEach(card=>{
+        products.push({
+            name:card.querySelector("h3").textContent,
+            desc:card.querySelector(".product-info p").textContent,
+            price:card.querySelector(".product-price").textContent.replace(/\D/g,""),
+            img:card.querySelector("img").src
+        });
+    });
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(products));
 }
 
-function addProduct(){
- if(!checkPassword())return alert("Wrong password");
- const name=prompt("Product name");
- const desc=prompt("Description");
- const price=prompt("Price");
- const img=prompt("Image URL");
- products.push({name,desc,price,img});
- saveProducts();
- renderProducts();
+/* Load */
+function loadProducts(){
+    const data=JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if(!data)return;
+    const section=document.querySelector(".products");
+    section.innerHTML="";
+    data.forEach(p=>createProduct(p.name,p.desc,p.price,p.img,false));
 }
 
-function editProduct(i){
- if(!checkPassword())return alert("Wrong password");
- products[i].name=prompt("Name",products[i].name);
- products[i].desc=prompt("Desc",products[i].desc);
- products[i].price=prompt("Price",products[i].price);
- saveProducts();
- renderProducts();
+/* Create Card */
+function createProduct(name,desc,price,img,save=true){
+    const card=document.createElement("div");
+    card.className="product-card";
+    card.innerHTML=`
+        <div class="menu">
+            <span class="menu-btn">&#x22EE;</span>
+            <div class="menu-content">
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+            </div>
+        </div>
+        <img src="${img}">
+        <div class="product-info">
+            <h3>${name}</h3>
+            <p>${desc}</p>
+            <p class="product-price">Price: LKR ${price}</p>
+            <div class="btn-container">
+                <button class="order-btn">Order Now</button>
+                <button class="whatsapp-btn">WhatsApp</button>
+            </div>
+        </div>`;
+    document.querySelector(".products").appendChild(card);
+    attachEvents(card);
+    if(save) saveProducts();
 }
 
-function deleteProduct(i){
- if(!checkPassword())return alert("Wrong password");
- products.splice(i,1);
- saveProducts();
- renderProducts();
+/* Events */
+function attachEvents(card){
+    card.querySelector(".menu-btn").onclick=()=>{
+        const m=card.querySelector(".menu-content");
+        m.style.display=m.style.display==="flex"?"none":"flex";
+    };
+
+    card.querySelector(".edit-btn").onclick=()=>{
+        if(!checkPassword())return;
+        card.querySelector("h3").textContent=prompt("Name:",card.querySelector("h3").textContent);
+        card.querySelector(".product-info p").textContent=prompt("Description:",card.querySelector(".product-info p").textContent);
+        const price=prompt("Price:",card.querySelector(".product-price").textContent.replace(/\D/g,""));
+        card.querySelector(".product-price").textContent="Price: LKR "+price;
+        saveProducts();
+    };
+
+    card.querySelector(".delete-btn").onclick=()=>{
+        if(!checkPassword())return;
+        card.remove(); saveProducts();
+    };
+
+    card.querySelector(".whatsapp-btn").onclick=()=>{
+        window.open(`https://wa.me/${whatsappNumber}?text=Order: ${card.querySelector("h3").textContent}`);
+    };
+
+    card.querySelector(".order-btn").onclick=()=>{
+        const n=prompt("Your name:");
+        const a=prompt("Address:");
+        const p=prompt("Phone:");
+        if(!n||!a||!p)return;
+        const msg=`Product: ${card.querySelector("h3").textContent}\n${card.querySelector(".product-price").textContent}\nName:${n}\nAddress:${a}\nPhone:${p}`;
+        window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`);
+    };
 }
 
-function orderNow(i){
- const c=prompt("Your name");
- const a=prompt("Address");
- const p=prompt("Phone");
- const m=`Order\n${products[i].name}\nLKR ${products[i].price}\n${c}\n${a}\n${p}`;
- window.open(`https://wa.me/94755997160?text=${encodeURIComponent(m)}`);
-}
-
-function whatsapp(i){
- window.open(`https://wa.me/94755997160?text=I want ${products[i].name}`);
-}
-
-document.getElementById("add-product").onclick=addProduct;
-
-document.getElementById("search").oninput=e=>{
- const t=e.target.value.toLowerCase();
- document.querySelectorAll(".product-card").forEach(c=>{
-  c.style.display=c.innerText.toLowerCase().includes(t)?"":"none";
- });
+/* Add Product */
+document.getElementById("add-order-btn").onclick=()=>{
+    if(!checkPassword())return;
+    createProduct(
+        prompt("Product name"),
+        prompt("Description"),
+        prompt("Price"),
+        prompt("Image URL")
+    );
 };
 
-renderProducts();
+/* Search */
+document.querySelector(".search-container input").oninput=e=>{
+    const v=e.target.value.toLowerCase();
+    document.querySelectorAll(".product-card").forEach(c=>{
+        c.style.display=c.textContent.toLowerCase().includes(v)?"":"none";
+    });
+};
+
+window.onload=loadProducts;
 </script>
 
 </body>
