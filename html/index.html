@@ -19,35 +19,49 @@ body{
 }
 
 /* Header */
-header{
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background:#111;
+    padding:10px 20px 10px;
+    text-align: center;
     position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    background:#000;
-    padding:20px 20px 100px;
-    text-align:center;
-    z-index:1000;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+.header-inner {
+    display: flex;
+    flex-direction: row;  /* horizontal alignment */
+    align-items: center;
+    gap: 20px; /* space between shop name and search */
+    flex-wrap: wrap; /* mobile friendly */
 }
 header h1{
+    display: inline-block;
+    background-color:#000;
     color:#fff;
+    padding:5px 15px;
+    border-radius:5px;
     font-family:'Orbitron';
+    font-size:1.8rem;
 }
 .header-subtext{
     color:silver;
-    font-size:1.1rem;
+    font-size:0.9rem;
     font-family:'Baloo 2';
-    margin-bottom:10px;
+    margin-top:5px;
 }
 
 /* Search Box */
 .header-search input {
-    width: 80%;
-    max-width: 400px;
-    padding: 10px 15px;
-    border-radius: 25px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
+    width:250px;
+    padding:8px 12px;
+    border-radius:25px;
+    border:1px solid #ccc;
+    font-size:1rem;
 }
 .header-search input:focus {
     outline: none;
@@ -57,7 +71,7 @@ header h1{
 
 /* Main content */
 main{
-    padding:220px 30px 140px;
+    padding:160px 30px 140px; /* header fixed height adjust */
     max-width:900px;
     margin:auto;
     text-align:center;
@@ -262,12 +276,6 @@ footer{
 
 /* Responsive adjustments */
 @media (max-width:600px){
-    header{
-        padding:15px 15px 90px;
-    }
-    main{
-        padding-top:190px;
-    }
     .product-item{
         width:45%;
     }
@@ -280,13 +288,15 @@ footer{
 </style>
 </head>
 <body>
+
 <header>
-    <h1>KD ONLINE SHOP</h1>
-    <div class="header-subtext">A very valuable customer service from us.</div>
-    <!-- Search Box -->
-    <div class="header-search">
-        <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
+    <div class="header-inner">
+        <h1>KD ONLINE SHOP</h1>
+        <div class="header-search">
+            <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
+        </div>
     </div>
+    <div class="header-subtext">A very valuable customer service from us.</div>
 </header>
 
 <main>
@@ -312,11 +322,10 @@ footer{
         <button class="contact-btn" onclick="contactWhatsApp()" aria-label="Contact us via WhatsApp">Contact via WhatsApp</button>
     </div>
 
-    <!-- Products Section -->
     <div class="section" id="products">
         <h2>Our Products</h2>
         <div class="product-list">
-            <!-- Product 1 -->
+            <!-- Example Product -->
             <div class="product-item">
                 <img src="https://via.placeholder.com/150" alt="Product 1">
                 <h3>Product 1</h3>
@@ -325,7 +334,6 @@ footer{
                 <button class="order-btn" onclick="orderProduct('Product 1')">Order Now</button>
                 <button class="whatsapp-btn" onclick="contactWhatsApp('Product 1')">WhatsApp</button>
             </div>
-            <!-- Product 2 -->
             <div class="product-item">
                 <img src="https://via.placeholder.com/150" alt="Product 2">
                 <h3>Product 2</h3>
@@ -333,24 +341,6 @@ footer{
                 <p>Product No: 002</p>
                 <button class="order-btn" onclick="orderProduct('Product 2')">Order Now</button>
                 <button class="whatsapp-btn" onclick="contactWhatsApp('Product 2')">WhatsApp</button>
-            </div>
-            <!-- Product 3 -->
-            <div class="product-item">
-                <img src="https://via.placeholder.com/150" alt="Product 3">
-                <h3>Product 3</h3>
-                <p>Price: $45</p>
-                <p>Product No: 003</p>
-                <button class="order-btn" onclick="orderProduct('Product 3')">Order Now</button>
-                <button class="whatsapp-btn" onclick="contactWhatsApp('Product 3')">WhatsApp</button>
-            </div>
-            <!-- Product 4 -->
-            <div class="product-item">
-                <img src="https://via.placeholder.com/150" alt="Product 4">
-                <h3>Product 4</h3>
-                <p>Price: $55</p>
-                <p>Product No: 004</p>
-                <button class="order-btn" onclick="orderProduct('Product 4')">Order Now</button>
-                <button class="whatsapp-btn" onclick="contactWhatsApp('Product 4')">WhatsApp</button>
             </div>
         </div>
     </div>
@@ -375,12 +365,10 @@ footer{
 <!-- Footer -->
 <footer>
   <div class="footer-links">
-    <!-- WhatsApp -->
     <a href="https://wa.me/94755997160" target="_blank">
       <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
       <span>WhatsApp Channel</span>
     </a>
-    <!-- Facebook -->
     <a href="https://www.facebook.com/YourPageName" target="_blank">
       <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
       <span>Facebook Page</span>
@@ -425,8 +413,6 @@ function orderProduct(productName) {
     switch(productName){
         case "Product 1": productPrice="$25"; productCode="001"; break;
         case "Product 2": productPrice="$35"; productCode="002"; break;
-        case "Product 3": productPrice="$45"; productCode="003"; break;
-        case "Product 4": productPrice="$55"; productCode="004"; break;
     }
 
     productLabel.textContent = `Ordering: ${productName} | Price: ${productPrice} | Code: ${productCode}`;
@@ -448,8 +434,6 @@ function submitOrder(e){
     switch(selectedProduct){
         case "Product 1": price="$25"; code="001"; break;
         case "Product 2": price="$35"; code="002"; break;
-        case "Product 3": price="$45"; code="003"; break;
-        case "Product 4": price="$55"; code="004"; break;
     }
 
     const message = encodeURIComponent(
@@ -477,11 +461,7 @@ function searchProducts() {
 
     products.forEach(product => {
         const name = product.querySelector("h3").innerText.toLowerCase();
-        if(name.includes(input)) {
-            product.style.display = "block";
-        } else {
-            product.style.display = "none";
-        }
+        product.style.display = name.includes(input) ? "block" : "none";
     });
 }
 </script>
