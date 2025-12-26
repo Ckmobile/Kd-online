@@ -77,6 +77,9 @@ header h1{
     display: none;
     z-index: 1000;
 }
+#searchResults div:hover {
+    background: #f0f0f0;
+}
 
 /* Main content */
 main{
@@ -126,7 +129,7 @@ main{
     padding:15px;
     width:200px;
     text-align:center;
-    transition: transform 0.3s;
+    transition: transform 0.3s, border 0.3s;
 }
 .product-item:hover{
     transform:translateY(-5px);
@@ -368,6 +371,15 @@ footer{
                 <button class="order-btn" onclick="orderProduct('Product 4')">Order Now</button>
                 <button class="whatsapp-btn" onclick="contactWhatsApp('Product 4')">WhatsApp</button>
             </div>
+            <!-- New Product -->
+            <div class="product-item">
+                <img src="https://files.catbox.moe/2o2ny6.webp" alt="Electric Pump">
+                <h3>Electric Pump</h3>
+                <p>Price: LKR 2100</p>
+                <p>Product No: p07869</p>
+                <button class="order-btn" onclick="orderProduct('Electric Pump')">Order Now</button>
+                <button class="whatsapp-btn" onclick="contactWhatsApp('Electric Pump')">WhatsApp</button>
+            </div>
         </div>
     </div>
 </main>
@@ -432,7 +444,8 @@ const productsInfo = {
   "Product 1": { price: "LKR 2500", code: "001" },
   "Product 2": { price: "LKR 3500", code: "002" },
   "Product 3": { price: "LKR 4500", code: "003" },
-  "Product 4": { price: "LKR 5500", code: "004" }
+  "Product 4": { price: "LKR 5500", code: "004" },
+  "Electric Pump": { price: "LKR 2100", code: "p07869" } // new product
 };
 
 // Order Form
