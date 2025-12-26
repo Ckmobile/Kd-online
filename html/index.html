@@ -170,6 +170,56 @@ footer{
     100%{transform:translateY(110vh);}
 }
 
+/* Popup Form */
+.order-form-popup {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+.order-form-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+}
+.order-form-content input {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+.order-form-content button {
+    background: orange;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+.order-form-content button:hover {
+    background: darkorange;
+}
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
 /* Responsive adjustments */
 @media (max-width:600px){
     header{
@@ -262,6 +312,22 @@ footer{
     </div>
 </main>
 
+<!-- Order Form Popup -->
+<div id="orderFormPopup" class="order-form-popup">
+  <div class="order-form-content">
+    <span class="close-btn" onclick="closeOrderForm()">&times;</span>
+    <h2>Order Form</h2>
+    <p id="productNameLabel"></p>
+    <form id="orderForm" onsubmit="submitOrder(event)">
+      <input type="text" id="customerName" placeholder="Your Name" required>
+      <input type="text" id="customerAddress" placeholder="Your Address" required>
+      <input type="tel" id="customerPhone1" placeholder="Phone Number 1" required>
+      <input type="tel" id="customerPhone2" placeholder="Phone Number 2">
+      <button type="submit">Send via WhatsApp</button>
+    </form>
+  </div>
+</div>
+
 <footer>© 2025 KD ONLINE SHOP</footer>
 
 <script>
@@ -276,10 +342,6 @@ function contactWhatsApp(productName){
     }
 }
 
-function orderProduct(productName){
-    alert(`You ordered: ${productName}\nWe will contact you soon via WhatsApp!`);
-}
-
 /* Snow effect */
 for(let i=0;i<20;i++){
     const s=document.createElement("div");
@@ -290,6 +352,63 @@ for(let i=0;i<20;i++){
     s.style.animationDuration=(Math.random()*5+8)+"s";
     s.style.animationDelay=Math.random()*5+"s";
     document.body.appendChild(s);
+}
+
+// Order Form Functionality
+let selectedProduct = null;
+
+function orderProduct(productName) {
+    selectedProduct = productName;
+    const productLabel = document.getElementById("productNameLabel");
+    let productPrice = "";
+    let productCode = "";
+
+    switch(productName){
+        case "Product 1": productPrice="$25"; productCode="001"; break;
+        case "Product 2": productPrice="$35"; productCode="002"; break;
+        case "Product 3": productPrice="$45"; productCode="003"; break;
+        case "Product 4": productPrice="$55"; productCode="004"; break;
+    }
+
+    productLabel.textContent = `Ordering: ${productName} | Price: ${productPrice} | Code: ${productCode}`;
+    document.getElementById("orderFormPopup").style.display = "block";
+}
+
+function closeOrderForm(){
+    document.getElementById("orderFormPopup").style.display = "none";
+}
+
+function submitOrder(e){
+    e.preventDefault();
+    const name = document.getElementById("customerName").value;
+    const address = document.getElementById("customerAddress").value;
+    const phone1 = document.getElementById("customerPhone1").value;
+    const phone2 = document.getElementById("customerPhone2").value;
+
+    let price = "", code = "";
+    switch(selectedProduct){
+        case "Product 1": price="$25"; code="001"; break;
+        case "Product 2": price="$35"; code="002"; break;
+        case "Product 3": price="$45"; code="003"; break;
+        case "Product 4": price="$55"; code="004"; break;
+    }
+
+    const message = encodeURIComponent(
+        `Hello! I want to order:\n` +
+        `Product: ${selectedProduct}\n` +
+        `Price: ${price}\n` +
+        `Product Code: ${code}\n\n` +
+        `Customer Info:\n` +
+        `Name: ${name}\n` +
+        `Address: ${address}\n` +
+        `Phone 1: ${phone1}\n` +
+        `Phone 2: ${phone2}`
+    );
+
+    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank", "noopener,noreferrer");
+
+    closeOrderForm();
+    document.getElementById("orderForm").reset();
 }
 </script>
 </body>
