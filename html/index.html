@@ -18,10 +18,10 @@ body{
     overflow-x:hidden;
 }
 
-/* Header as Black Box, Reduced Height */
+/* Header as Black Box, Reduced Height, Moved Up */
 header{
     position: fixed;
-    top: 20px;
+    top: 10px; /* moved up */
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
@@ -81,7 +81,7 @@ header h1{
 
 /* Main content */
 main{
-    padding: 160px 30px 140px;
+    padding: 140px 30px 140px; /* adjusted for moved up header */
     max-width:900px;
     margin:auto;
     text-align:center;
@@ -190,7 +190,7 @@ footer{
     left: 0;
     width: 100%;
     text-align: center;
-    background: #000; /* Changed to black */
+    background: #000; /* black footer */
     color: #fff;
     padding: 12px;
     z-index: 1000;
@@ -291,7 +291,7 @@ footer{
         padding:8px 15px;
     }
     main{
-        padding-top:140px;
+        padding-top:120px; /* reduced for mobile */
     }
     .product-item{
         width:45%;
@@ -342,7 +342,7 @@ footer{
     <div class="section" id="products">
         <h2>Our Products</h2>
         <div class="product-list">
-            <!-- Product 1 -->
+            <!-- Product Items -->
             <div class="product-item">
                 <img src="https://via.placeholder.com/150" alt="Product 1">
                 <h3>Product 1</h3>
@@ -351,7 +351,6 @@ footer{
                 <button class="order-btn" onclick="orderProduct('Product 1')">Order Now</button>
                 <button class="whatsapp-btn" onclick="contactWhatsApp('Product 1')">WhatsApp</button>
             </div>
-            <!-- Product 2 -->
             <div class="product-item">
                 <img src="https://via.placeholder.com/150" alt="Product 2">
                 <h3>Product 2</h3>
@@ -360,7 +359,6 @@ footer{
                 <button class="order-btn" onclick="orderProduct('Product 2')">Order Now</button>
                 <button class="whatsapp-btn" onclick="contactWhatsApp('Product 2')">WhatsApp</button>
             </div>
-            <!-- Product 3 -->
             <div class="product-item">
                 <img src="https://via.placeholder.com/150" alt="Product 3">
                 <h3>Product 3</h3>
@@ -369,7 +367,6 @@ footer{
                 <button class="order-btn" onclick="orderProduct('Product 3')">Order Now</button>
                 <button class="whatsapp-btn" onclick="contactWhatsApp('Product 3')">WhatsApp</button>
             </div>
-            <!-- Product 4 -->
             <div class="product-item">
                 <img src="https://via.placeholder.com/150" alt="Product 4">
                 <h3>Product 4</h3>
@@ -401,12 +398,10 @@ footer{
 <!-- Footer -->
 <footer>
   <div class="footer-links">
-    <!-- WhatsApp -->
     <a href="https://wa.me/94755997160" target="_blank">
       <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
       <span>WhatsApp Channel</span>
     </a>
-    <!-- Facebook -->
     <a href="https://www.facebook.com/YourPageName" target="_blank">
       <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
       <span>Facebook Page</span>
@@ -439,7 +434,7 @@ for(let i=0;i<20;i++){
     document.body.appendChild(s);
 }
 
-// Order Form Functionality
+// Order Form
 let selectedProduct = null;
 
 function orderProduct(productName) {
