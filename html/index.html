@@ -18,10 +18,10 @@ body{
     overflow-x:hidden;
 }
 
-/* Header as Black Box, Reduced Height, Moved Up */
+/* Header */
 header{
     position: fixed;
-    top: 10px; /* moved up */
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
@@ -64,8 +64,6 @@ header h1{
     border-color: #25D366;
     box-shadow: 0 0 5px rgba(37, 211, 102,0.5);
 }
-
-/* Dropdown for search results */
 #searchResults {
     position: absolute;
     top: 100%;
@@ -82,7 +80,7 @@ header h1{
 
 /* Main content */
 main{
-    padding: 250px 30px 140px; /* increased top padding for Welcome section */
+    padding: 250px 30px 140px;
     max-width:900px;
     margin:auto;
     text-align:center;
@@ -99,7 +97,7 @@ main{
     color:#444;
 }
 
-/* Contact button */
+/* Buttons */
 .contact-btn{
     background:#25D366;
     color:#fff;
@@ -114,8 +112,6 @@ main{
     transform: scale(1.05);
     background: #1DA851;
 }
-
-/* Products */
 .product-list{
     display:flex;
     flex-wrap:wrap;
@@ -150,7 +146,7 @@ main{
     margin:2px 0;
 }
 
-/* Order Now Button (Orange) */
+/* Order / WhatsApp Buttons */
 .order-btn{
     background: orange;
     color: #fff;
@@ -166,8 +162,6 @@ main{
     transform: scale(1.05);
     background: darkorange;
 }
-
-/* WhatsApp Button (Green) */
 .whatsapp-btn{
     background: #25D366;
     color: #fff;
@@ -285,14 +279,14 @@ footer{
     cursor: pointer;
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width:600px){
     header{
         width: 95%;
         padding:8px 15px;
     }
     main{
-        padding-top:210px; /* adjusted for mobile */
+        padding-top:210px;
     }
     .product-item{
         width:45%;
@@ -309,7 +303,6 @@ footer{
 <header>
     <h1>KD ONLINE SHOP</h1>
     <div class="header-subtext">A very valuable customer service from us.</div>
-    <!-- Search Box -->
     <div class="header-search">
         <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
         <div id="searchResults"></div>
@@ -346,7 +339,7 @@ footer{
             <div class="product-item">
                 <img src="https://via.placeholder.com/150" alt="Product 1">
                 <h3>Product 1</h3>
-                <p>Price: $25</p>
+                <p>Price: LKR 2500</p>
                 <p>Product No: 001</p>
                 <button class="order-btn" onclick="orderProduct('Product 1')">Order Now</button>
                 <button class="whatsapp-btn" onclick="contactWhatsApp('Product 1')">WhatsApp</button>
@@ -354,7 +347,7 @@ footer{
             <div class="product-item">
                 <img src="https://via.placeholder.com/150" alt="Product 2">
                 <h3>Product 2</h3>
-                <p>Price: $35</p>
+                <p>Price: LKR 3500</p>
                 <p>Product No: 002</p>
                 <button class="order-btn" onclick="orderProduct('Product 2')">Order Now</button>
                 <button class="whatsapp-btn" onclick="contactWhatsApp('Product 2')">WhatsApp</button>
@@ -362,7 +355,7 @@ footer{
             <div class="product-item">
                 <img src="https://via.placeholder.com/150" alt="Product 3">
                 <h3>Product 3</h3>
-                <p>Price: $45</p>
+                <p>Price: LKR 4500</p>
                 <p>Product No: 003</p>
                 <button class="order-btn" onclick="orderProduct('Product 3')">Order Now</button>
                 <button class="whatsapp-btn" onclick="contactWhatsApp('Product 3')">WhatsApp</button>
@@ -370,7 +363,7 @@ footer{
             <div class="product-item">
                 <img src="https://via.placeholder.com/150" alt="Product 4">
                 <h3>Product 4</h3>
-                <p>Price: $55</p>
+                <p>Price: LKR 5500</p>
                 <p>Product No: 004</p>
                 <button class="order-btn" onclick="orderProduct('Product 4')">Order Now</button>
                 <button class="whatsapp-btn" onclick="contactWhatsApp('Product 4')">WhatsApp</button>
@@ -434,23 +427,22 @@ for(let i=0;i<20;i++){
     document.body.appendChild(s);
 }
 
+// Products Info
+const productsInfo = {
+  "Product 1": { price: "LKR 2500", code: "001" },
+  "Product 2": { price: "LKR 3500", code: "002" },
+  "Product 3": { price: "LKR 4500", code: "003" },
+  "Product 4": { price: "LKR 5500", code: "004" }
+};
+
 // Order Form
 let selectedProduct = null;
 
 function orderProduct(productName) {
     selectedProduct = productName;
-    const productLabel = document.getElementById("productNameLabel");
-    let productPrice = "";
-    let productCode = "";
-
-    switch(productName){
-        case "Product 1": productPrice="$25"; productCode="001"; break;
-        case "Product 2": productPrice="$35"; productCode="002"; break;
-        case "Product 3": productPrice="$45"; productCode="003"; break;
-        case "Product 4": productPrice="$55"; productCode="004"; break;
-    }
-
-    productLabel.textContent = `Ordering: ${productName} | Price: ${productPrice} | Code: ${productCode}`;
+    const { price, code } = productsInfo[productName];
+    document.getElementById("productNameLabel").textContent = 
+        `Ordering: ${productName} | Price: ${price} | Code: ${code}`;
     document.getElementById("orderFormPopup").style.display = "block";
 }
 
@@ -465,13 +457,7 @@ function submitOrder(e){
     const phone1 = document.getElementById("customerPhone1").value;
     const phone2 = document.getElementById("customerPhone2").value;
 
-    let price = "", code = "";
-    switch(selectedProduct){
-        case "Product 1": price="$25"; code="001"; break;
-        case "Product 2": price="$35"; code="002"; break;
-        case "Product 3": price="$45"; code="003"; break;
-        case "Product 4": price="$55"; code="004"; break;
-    }
+    const { price, code } = productsInfo[selectedProduct];
 
     const message = encodeURIComponent(
         `Hello! I want to order:\n` +
@@ -491,7 +477,7 @@ function submitOrder(e){
     document.getElementById("orderForm").reset();
 }
 
-// Search functionality with dropdown
+// Search functionality
 function searchProducts() {
     const input = document.getElementById("searchInput").value.toLowerCase().trim();
     const products = document.querySelectorAll(".product-item");
