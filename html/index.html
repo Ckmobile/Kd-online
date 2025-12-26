@@ -171,6 +171,30 @@ footer{
     padding: 12px;
     z-index: 1000;
 }
+.footer-links{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-bottom:5px;
+}
+.footer-links a{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    color:#fff;
+    text-decoration:none;
+    transition: transform 0.2s, color 0.2s;
+}
+.footer-links a img{
+    width:24px;
+    height:24px;
+}
+.footer-links a:hover{
+    transform: scale(1.1);
+    color:#25D366;
+}
 
 /* Snow effect */
 .snowflake{
@@ -348,7 +372,22 @@ footer{
   </div>
 </div>
 
-<footer>© 2025 KD ONLINE SHOP</footer>
+<!-- Footer -->
+<footer>
+  <div class="footer-links">
+    <!-- WhatsApp -->
+    <a href="https://wa.me/94755997160" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+      <span>WhatsApp Channel</span>
+    </a>
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/YourPageName" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+      <span>Facebook Page</span>
+    </a>
+  </div>
+  <div>© 2025 KD ONLINE SHOP</div>
+</footer>
 
 <script>
 const whatsappNumber = "94755997160";  
