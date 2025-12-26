@@ -18,14 +18,15 @@ body{
     overflow-x:hidden;
 }
 
-/* Header */
+/* Header as Box */
 header{
     position: fixed;
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
-    background: rgba(0, 0, 255, 0.5); /* Blue with transparency */
+    max-width: 900px;
+    background: rgba(0, 0, 255, 0.5); /* Semi-transparent blue */
     backdrop-filter: blur(10px);
     padding: 20px 30px;
     text-align: center;
@@ -61,7 +62,7 @@ header h1{
 
 /* Main content */
 main{
-    padding:220px 30px 140px;
+    padding: 220px 30px 140px;
     max-width:900px;
     margin:auto;
     text-align:center;
