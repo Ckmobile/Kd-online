@@ -25,7 +25,7 @@ header{
     left:0;
     width:100%;
     background:#000;
-    padding:20px 20px 60px;
+    padding:20px 20px 100px;
     text-align:center;
     z-index:1000;
 }
@@ -37,6 +37,22 @@ header h1{
     color:silver;
     font-size:1.1rem;
     font-family:'Baloo 2';
+    margin-bottom:10px;
+}
+
+/* Search Box */
+.header-search input {
+    width: 80%;
+    max-width: 400px;
+    padding: 10px 15px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+.header-search input:focus {
+    outline: none;
+    border-color: #25D366;
+    box-shadow: 0 0 5px rgba(37, 211, 102,0.5);
 }
 
 /* Main content */
@@ -223,7 +239,7 @@ footer{
 /* Responsive adjustments */
 @media (max-width:600px){
     header{
-        padding:15px 15px 40px;
+        padding:15px 15px 90px;
     }
     main{
         padding-top:190px;
@@ -243,6 +259,10 @@ footer{
 <header>
     <h1>KD ONLINE SHOP</h1>
     <div class="header-subtext">A very valuable customer service from us.</div>
+    <!-- Search Box -->
+    <div class="header-search">
+        <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
+    </div>
 </header>
 
 <main>
@@ -409,6 +429,21 @@ function submitOrder(e){
 
     closeOrderForm();
     document.getElementById("orderForm").reset();
+}
+
+// Search functionality
+function searchProducts() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const products = document.querySelectorAll(".product-item");
+
+    products.forEach(product => {
+        const name = product.querySelector("h3").innerText.toLowerCase();
+        if(name.includes(input)) {
+            product.style.display = "block";
+        } else {
+            product.style.display = "none";
+        }
+    });
 }
 </script>
 </body>
