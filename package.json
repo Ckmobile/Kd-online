@@ -4,7 +4,7 @@
   "description": "Item shop website",
   "main": "hutta.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node hutta.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
