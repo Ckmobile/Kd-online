@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Admin Panel | Item Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="apakya.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+</head>
+<body class="admin-body">
+    <div class="mobile-menu-btn admin-mobile-menu">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <header class="admin-header">
+        <div class="admin-header-content">
+            <a href="pak.html" class="admin-back">
+                <i class="fas fa-arrow-left"></i> <span class="back-text">Back to Site</span>
+            </a>
+            <h1><i class="fas fa-lock"></i> <span class="header-text">Admin Panel</span></h1>
+            <div class="admin-user">
+                <i class="fas fa-user-shield"></i>
+                <span id="adminStatus">Not Logged In</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <div class="admin-login-section" id="loginSection">
+            <div class="login-card">
+                <h2><i class="fas fa-key"></i> Admin Authentication</h2>
+                <p class="login-description">Enter admin credentials to manage items</p>
+                
+                <div class="login-form">
+                    <div class="form-group">
+                        <label for="adminEmail"><i class="fas fa-envelope"></i> Admin Email</label>
+                        <input type="email" id="adminEmail" placeholder="admin@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="adminPassword"><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="adminPassword" placeholder="Enter password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="adminKey"><i class="fas fa-shield-alt"></i> Admin Secret Key</label>
+                        <input type="password" id="adminKey" placeholder="Enter admin secret key">
+                        <small>Admin Code</small>
+                    </div>
+                    
+                    <button id="loginBtn" class="btn-login">
+                        <i class="fas fa-sign-in-alt"></i> Login as Admin
+                    </button>
+                    
+                    <div class="login-note">
+                        <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Only Web Owner:</p>
+                        <ol>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-dashboard" id="adminDashboard" style="display: none;">
+            <div class="dashboard-header">
+                <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+                <button id="logoutBtn" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> <span class="logout-text">Logout</span>
+                </button>
+            </div>
+            
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalItems">0</h3>
+                        <p>Total Items</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalCategories">13</h3>
+                        <p>Categories</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="recentItems">0</h3>
+                        <p>Added This Week</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="add-item-section">
+                <h3><i class="fas fa-plus-circle"></i> Add New Item</h3>
+                
+                <form id="addItemForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="itemName">Item Name *</label>
+                            <input type="text" id="itemName" required placeholder="Enter item name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="itemPrice">Price (LKR) *</label>
+                            <input type="number" id="itemPrice" step="0.01" required placeholder="0.00">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="itemCategory">Category *</label>
+                            <select id="itemCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="gift">Gift</option>
+                                <option value="vehicle">Vehicle</option>
+                                <option value="mobile">Mobile</option>
+                                <option value="fashion">Fashion</option>
+                                <option value="school">School</option>
+                                <option value="stores">Stores</option>
+                                <option value="kids">Kids</option>
+                                <option value="toy">Toy</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="home">Home & Garden</option>
+                                <option value="sports">Sports</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="itemImage">Image URL</label>
+                            <input type="url" id="itemImage" placeholder="https://example.com/image.jpg">
+                            <small>Leave empty for default category image</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="itemDescription">Description *</label>
+                        <textarea id="itemDescription" rows="4" required placeholder="Enter item description"></textarea>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <button type="submit" class="btn-add">
+                            <i class="fas fa-save"></i> <span class="btn-text">Add Item</span>
+                        </button>
+                        <button type="button" id="clearForm" class="btn-clear">
+                            <i class="fas fa-times"></i> <span class="btn-text">Clear Form</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="manage-items-section">
+                <h3><i class="fas fa-edit"></i> Manage Existing Items</h3>
+                <div class="search-admin">
+                    <input type="text" id="adminSearch" placeholder="Search items...">
+                    <button id="adminSearchBtn"><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="admin-items-container" id="adminItemsContainer">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading items...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="admin-footer">
+        <p class="footer-note">Admin Panel - For made by lashmitha</p>
+    </footer>
+    <script src="fatima.js"></script>
+    <script src="bijja.js"></script>
+    
+    <script>
+        document.querySelector('.admin-mobile-menu').addEventListener('click', function() {
+            document.querySelector('.admin-header').classList.toggle('mobile-open');
+            document.querySelector('.admin-container').classList.toggle('mobile-open');
+        });
+    </script>
+</body>
+</html>
