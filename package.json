@@ -2,9 +2,9 @@
   "name": "lakaweb",
   "version": "1.0.0",
   "description": "Item shop website",
-  "main": "server.js",
+  "main": "hutta.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node hutta.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
