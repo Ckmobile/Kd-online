@@ -171,7 +171,7 @@ function renderAdminItems() {
                 <h4 class="admin-item-name">${item.name}</h4>
                 <span class="admin-item-category">${item.category.toUpperCase()}</span>
                 <p class="admin-item-description">${item.description.substring(0, 120)}${item.description.length > 120 ? '...' : ''}</p>
-                <div class="admin-item-price">LKR${parseFloat(item.price).toFixed(2)}</div>
+                <div class="admin-item-price">Rs.${parseFloat(item.price).toFixed(2)}</div>
                 <div class="admin-item-date">Added: ${formatDate(item.date)}</div>
             </div>
             <div class="admin-item-actions">
