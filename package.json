@@ -1,10 +1,10 @@
 {
-  "name": "lakaweb",
+  "name": "item-management-website",
   "version": "1.0.0",
-  "description": "Item shop website",
-  "main": "hutta.js",
+  "description": "Item management website with Firebase and Heroku",
+  "main": "server.js",
   "scripts": {
-    "start": "node hutta.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

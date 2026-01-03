@@ -5,19 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Admin Panel | Item Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="admin.css""
+    <link rel="stylesheet" href="adm.css">
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 </head>
 <body class="admin-body">
+    <!-- Mobile Menu Button -->
     <div class="mobile-menu-btn admin-mobile-menu">
         <i class="fas fa-bars"></i>
     </div>
 
+    <!-- Admin Header -->
     <header class="admin-header">
         <div class="admin-header-content">
-            <a href="pak.html" class="admin-back">
+            <a href="index.html" class="admin-back">
                 <i class="fas fa-arrow-left"></i> <span class="back-text">Back to Site</span>
             </a>
             <h1><i class="fas fa-lock"></i> <span class="header-text">Admin Panel</span></h1>
@@ -29,6 +32,7 @@
     </header>
 
     <div class="admin-container">
+        <!-- Login Section -->
         <div class="admin-login-section" id="loginSection">
             <div class="login-card">
                 <h2><i class="fas fa-key"></i> Admin Authentication</h2>
@@ -64,6 +68,7 @@
             </div>
         </div>
 
+        <!-- Admin Dashboard (Visible after login) -->
         <div class="admin-dashboard" id="adminDashboard" style="display: none;">
             <div class="dashboard-header">
                 <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
@@ -72,6 +77,7 @@
                 </button>
             </div>
             
+            <!-- Stats -->
             <div class="admin-stats">
                 <div class="stat-card">
                     <div class="stat-icon">
@@ -102,6 +108,7 @@
                 </div>
             </div>
             
+            <!-- Add Item Form -->
             <div class="add-item-section">
                 <h3><i class="fas fa-plus-circle"></i> Add New Item</h3>
                 
@@ -161,6 +168,7 @@
                 </form>
             </div>
             
+            <!-- Manage Items Section -->
             <div class="manage-items-section">
                 <h3><i class="fas fa-edit"></i> Manage Existing Items</h3>
                 <div class="search-admin">
@@ -178,13 +186,17 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <footer class="admin-footer">
         <p class="footer-note">Admin Panel - For made by lashmitha</p>
     </footer>
-    <script src="fatima.js"></script>
-    <script src="bijja.js"></script>
+
+    <!-- Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="admin.js"></script>
     
     <script>
+        // Mobile menu toggle
         document.querySelector('.admin-mobile-menu').addEventListener('click', function() {
             document.querySelector('.admin-header').classList.toggle('mobile-open');
             document.querySelector('.admin-container').classList.toggle('mobile-open');
