@@ -6,6 +6,40 @@ const clearFilters = document.getElementById('clearFilters');
 const itemsCount = document.getElementById('itemsCount');
 const emptyState = document.getElementById('emptyState');
 const categoryCards = document.querySelectorAll('.category-card');
+/* ===========================
+   PRODUCT IMAGE POPUP
+=========================== */
+
+const imagePopupOverlay = document.getElementById("imagePopupOverlay");
+const popupImage = document.getElementById("popupImage");
+const imagePopupClose = document.querySelector(".image-popup-close");
+
+/* OPEN IMAGE POPUP */
+document.addEventListener("click", function (e) {
+
+    /*
+      Project structure based on your HTML:
+      - Product image is inside product card
+      - Clicking the image should open popup
+    */
+
+    if (e.target.tagName === "IMG" && e.target.closest(".item")) {
+        popupImage.src = e.target.src;
+        imagePopupOverlay.style.display = "flex";
+    }
+});
+
+/* CLOSE POPUP */
+imagePopupClose.addEventListener("click", () => {
+    imagePopupOverlay.style.display = "none";
+});
+
+imagePopupOverlay.addEventListener("click", (e) => {
+    if (e.target === imagePopupOverlay) {
+        imagePopupOverlay.style.display = "none";
+    }
+});
+
 
 let allItems = [];
 let filteredItems = [];
