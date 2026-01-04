@@ -8,39 +8,6 @@ const emptyState = document.getElementById('emptyState');
 const categoryCards = document.querySelectorAll('.category-card');
 
 
-/* =====================================
-   PRODUCT IMAGE POPUP (STOP OTHER POPUPS)
-===================================== */
-
-const imagePopupOverlay = document.getElementById("imagePopupOverlay");
-const popupImage = document.getElementById("popupImage");
-const imagePopupClose = document.querySelector(".image-popup-close");
-
-if (imagePopupOverlay && popupImage && imagePopupClose) {
-
-    document.addEventListener("click", function (e) {
-
-        // Product image click only
-        if (e.target.tagName === "IMG" && e.target.closest(".item")) {
-
-            // 🚫 STOP other popup triggers
-            e.stopPropagation();
-            e.preventDefault();
-
-            popupImage.src = e.target.src;
-            imagePopupOverlay.style.display = "flex";
-        }
-    }, true); // 👈 CAPTURE MODE (important)
-    
-    imagePopupClose.addEventListener("click", function () {
-        imagePopupOverlay.style.display = "none";
-    });
-
-    imagePopupOverlay.addEventListener("click", function (e) {
-        if (e.target === imagePopupOverlay) {
-            imagePopupOverlay.style.display = "none";
-        }
-    });
 }
 
 let allItems = [];
