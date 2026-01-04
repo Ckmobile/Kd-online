@@ -257,7 +257,26 @@ function createWhatsAppPopup() {
             </div>
         </div>
     `;
-    
+    /* PRODUCT CLICK → POPUP DATA FILL */
+
+document.addEventListener("click", function (e) {
+
+    // product card click
+    const product = e.target.closest(".item"); // <-- your product class
+    if (!product) return;
+
+    // product image element inside card
+    const productImg = product.querySelector("img");
+
+    // popup image element
+    const popupImg = document.getElementById("popupProductImage");
+
+    if (popupImg && productImg) {
+        popupImg.src = productImg.src;
+    }
+
+    // popup already opens by existing code
+});
     document.body.appendChild(popupOverlay);
     document.body.appendChild(whatsappPopup);
     
