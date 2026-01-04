@@ -17,8 +17,8 @@ let currentSearch = '';
 let currentSort = 'newest';
 
 const whatsappNumbers = {
-    option1: '94755997160',
-    option2: '94760000000'
+    option1: '94755997160'
+    
 };
 
 const defaultImages = {
@@ -218,15 +218,7 @@ function createWhatsAppPopup() {
                         </div>
                     </div>
                     
-                    <div class="number-option" data-number="option2">
-                        <div class="option-radio">
-                            <div class="radio-circle"></div>
-                        </div>
-                        <div class="option-info">
-                            <div class="option-title">Secondary Number</div>
-                            <div class="option-number">+94 76 000 0000</div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             
@@ -257,26 +249,7 @@ function createWhatsAppPopup() {
             </div>
         </div>
     `;
-    /* PRODUCT CLICK → POPUP DATA FILL */
-
-document.addEventListener("click", function (e) {
-
-    // product card click
-    const product = e.target.closest(".item"); // <-- your product class
-    if (!product) return;
-
-    // product image element inside card
-    const productImg = product.querySelector("img");
-
-    // popup image element
-    const popupImg = document.getElementById("popupProductImage");
-
-    if (popupImg && productImg) {
-        popupImg.src = productImg.src;
-    }
-
-    // popup already opens by existing code
-});
+    
     document.body.appendChild(popupOverlay);
     document.body.appendChild(whatsappPopup);
     
