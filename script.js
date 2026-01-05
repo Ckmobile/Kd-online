@@ -1,11 +1,199 @@
-/* ================= WHATSAPP POPUP COMPLETE CODE ================= */
+/* ================= COMPLETE SCRIPT.JS ================= */
+
+// DOM Elements
+const itemsContainer = document.getElementById('itemsContainer');
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const sortSelect = document.getElementById('sortSelect');
+const clearFilters = document.getElementById('clearFilters');
+const itemsCount = document.getElementById('itemsCount');
+const emptyState = document.getElementById('emptyState');
+const categoryCards = document.querySelectorAll('.category-card');
+
+// State
+let allItems = [];
+let filteredItems = [];
+let currentCategory = 'all';
+let currentSearch = '';
+let currentSort = 'newest';
 
 // WhatsApp number
-const whatsappNumber = '94755997160'; // ඔබගේ WhatsApp අංකය
+const whatsappNumber = '94755997160'; // Your WhatsApp number
+
+// Default images for categories
+const defaultImages = {
+    gift: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+    vehicle: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+    mobile: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+    fashion: 'https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+    school: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+    stores: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+    kids: 'https://images.unsplash.com/photo-1534188753412-9f0337d4d51d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+    toy: 'https://images.unsplash.com/photo-1550747531-5f0b3c16d2e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+    electronics: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+    home: 'https://images.unsplash.com/photo-1484101403633-562f891dc89a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+    sports: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+    other: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+};
+
+// Category icons mapping
+const categoryIcons = {
+    gift: 'fas fa-gift',
+    vehicle: 'fas fa-car',
+    mobile: 'fas fa-mobile-alt',
+    fashion: 'fas fa-tshirt',
+    school: 'fas fa-graduation-cap',
+    stores: 'fas fa-store',
+    kids: 'fas fa-child',
+    toy: 'fas fa-gamepad',
+    electronics: 'fas fa-laptop',
+    home: 'fas fa-home',
+    sports: 'fas fa-futbol',
+    other: 'fas fa-ellipsis-h'
+};
 
 // DOM Elements - Popup
 let whatsappPopup = null;
 let popupOverlay = null;
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    loadItems();
+    setupEventListeners();
+    createWhatsAppPopup(); // Create popup on load
+    createSuggestionsDropdown();
+    setupMobileMenu();
+});
+
+// Setup mobile menu toggle
+function setupMobileMenu() {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (mobileMenuBtn && navLinks) {
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            this.querySelector('i').classList.toggle('fa-bars');
+            this.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!mobileMenuBtn.contains(event.target) && !navLinks.contains(event.target)) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+            }
+        });
+    }
+}
+
+// Load items from Firebase
+function loadItems() {
+    itemsContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading items...</p></div>';
+    
+    db.collection('items').get()
+        .then((querySnapshot) => {
+            allItems = [];
+            querySnapshot.forEach((doc) => {
+                const item = doc.data();
+                item.id = doc.id;
+                item.date = item.date || new Date().toISOString();
+                allItems.push(item);
+            });
+            
+            // Sort by date (newest first) initially
+            allItems.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            filteredItems = [...allItems];
+            renderItems();
+            updateItemsCount();
+        })
+        .catch((error) => {
+            console.error("Error loading items: ", error);
+            itemsContainer.innerHTML = '<div class="error-message">Failed to load items. Please try again later.</div>';
+        });
+}
+
+// Create suggestions dropdown
+function createSuggestionsDropdown() {
+    const suggestionsDropdown = document.createElement('div');
+    suggestionsDropdown.id = 'searchSuggestions';
+    suggestionsDropdown.className = 'search-suggestions';
+    
+    // Add after search container
+    const searchContainer = document.querySelector('.search-container');
+    if (searchContainer) {
+        searchContainer.appendChild(suggestionsDropdown);
+    }
+}
+
+// Get search suggestions based on input
+function getSearchSuggestions(searchTerm) {
+    if (!searchTerm || searchTerm.length < 1) return [];
+    
+    const suggestions = new Set(); // Use Set to avoid duplicates
+    
+    allItems.forEach(item => {
+        // Check item name
+        if (item.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+            suggestions.add(item.name);
+        }
+        
+        // Check item category
+        if (item.category.toLowerCase().includes(searchTerm.toLowerCase())) {
+            suggestions.add(item.category);
+        }
+        
+        // Check for words starting with search term
+        const words = item.name.toLowerCase().split(' ');
+        words.forEach(word => {
+            if (word.startsWith(searchTerm.toLowerCase())) {
+                suggestions.add(word);
+            }
+        });
+    });
+    
+    // Convert Set to Array and limit to 5 suggestions
+    return Array.from(suggestions).slice(0, 5);
+}
+
+// Show search suggestions
+function showSearchSuggestions(suggestions) {
+    const suggestionsDropdown = document.getElementById('searchSuggestions');
+    if (!suggestionsDropdown) return;
+    
+    if (suggestions.length === 0) {
+        suggestionsDropdown.style.display = 'none';
+        return;
+    }
+    
+    suggestionsDropdown.innerHTML = '';
+    suggestionsDropdown.style.display = 'block';
+    
+    suggestions.forEach(suggestion => {
+        const suggestionItem = document.createElement('div');
+        suggestionItem.className = 'suggestion-item';
+        suggestionItem.innerHTML = `<i class="fas fa-search"></i> ${suggestion}`;
+        
+        suggestionItem.addEventListener('click', function() {
+            searchInput.value = suggestion;
+            hideSearchSuggestions();
+            performSearch();
+            scrollToItems();
+        });
+        
+        suggestionsDropdown.appendChild(suggestionItem);
+    });
+}
+
+// Hide search suggestions
+function hideSearchSuggestions() {
+    const suggestionsDropdown = document.getElementById('searchSuggestions');
+    if (suggestionsDropdown) {
+        suggestionsDropdown.style.display = 'none';
+    }
+}
 
 // Create WhatsApp Order Popup
 function createWhatsAppPopup() {
@@ -453,7 +641,7 @@ function trackOrder(item, customerName, customerPhone) {
         timestamp: new Date().toISOString()
     });
     
-    // Optional: Save to your database
+    // Optional: Save to Firebase
     /*
     db.collection('orders').add({
         itemId: item.id,
@@ -523,7 +711,547 @@ function showOrderSuccessMessage(itemName) {
     }, 8000);
 }
 
-// Initialize popup on page load
-document.addEventListener('DOMContentLoaded', function() {
-    createWhatsAppPopup();
+// Render items to the page
+function renderItems() {
+    if (filteredItems.length === 0) {
+        itemsContainer.style.display = 'none';
+        emptyState.style.display = 'block';
+        return;
+    }
+    
+    itemsContainer.style.display = 'grid';
+    emptyState.style.display = 'none';
+    
+    itemsContainer.innerHTML = '';
+    
+    filteredItems.forEach(item => {
+        const itemCard = document.createElement('div');
+        itemCard.className = 'item-card';
+        
+        const imageUrl = item.image || defaultImages[item.category] || defaultImages.other;
+        const categoryIcon = categoryIcons[item.category] || 'fas fa-box';
+        
+        itemCard.innerHTML = `
+            <div class="item-image">
+                <img src="${imageUrl}" alt="${item.name}" loading="lazy">
+                <div class="item-overlay">
+                    <span class="overlay-category">
+                        <i class="${categoryIcon}"></i> ${item.category}
+                    </span>
+                </div>
+            </div>
+            <div class="item-info">
+                <h3 class="item-name">${item.name}</h3>
+                <p class="item-description">${item.description.substring(0, 120)}${item.description.length > 120 ? '...' : ''}</p>
+                
+                <div class="item-details">
+                    <div class="item-price">
+                        <i class="fas fa-tag"></i>
+                        LKR. ${parseFloat(item.price).toFixed(2)}
+                    </div>
+                    <div class="item-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        ${formatDate(item.date)}
+                    </div>
+                </div>
+                
+                <button class="order-now-btn" 
+                    data-item-id="${item.id}" 
+                    data-item-name="${item.name}" 
+                    data-item-category="${item.category}" 
+                    data-item-price="${item.price}" 
+                    data-item-description="${item.description}"
+                    data-item-image="${imageUrl}">
+                    <i class="fab fa-whatsapp"></i> Order Now
+                </button>
+            </div>
+        `;
+        
+        // Add click event to the order button
+        const orderBtn = itemCard.querySelector('.order-now-btn');
+        orderBtn.addEventListener('click', function() {
+            const itemData = {
+                id: this.getAttribute('data-item-id'),
+                name: this.getAttribute('data-item-name'),
+                category: this.getAttribute('data-item-category'),
+                price: this.getAttribute('data-item-price'),
+                description: this.getAttribute('data-item-description'),
+                image: this.getAttribute('data-item-image')
+            };
+            
+            // Show WhatsApp popup
+            showWhatsAppPopup(itemData);
+        });
+        
+        // Add click event to item image/name for quick view
+        const itemImage = itemCard.querySelector('.item-image');
+        const itemNameElement = itemCard.querySelector('.item-name');
+        
+        [itemImage, itemNameElement].forEach(element => {
+            element.style.cursor = 'pointer';
+            element.addEventListener('click', function() {
+                const itemData = {
+                    id: item.id,
+                    name: item.name,
+                    category: item.category,
+                    price: item.price,
+                    description: item.description,
+                    image: item.image || imageUrl
+                };
+                showWhatsAppPopup(itemData);
+            });
+        });
+        
+        itemsContainer.appendChild(itemCard);
+    });
+}
+
+// Format date for display
+function formatDate(dateString) {
+    try {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diffTime = Math.abs(now - date);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays === 1) {
+            return 'Today';
+        } else if (diffDays <= 7) {
+            return `${diffDays} days ago`;
+        } else {
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+    } catch (error) {
+        return 'Recently';
+    }
+}
+
+// Setup event listeners
+function setupEventListeners() {
+    let searchTimeout;
+    
+    // Real-time search with suggestions
+    searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        
+        const searchTerm = searchInput.value.trim();
+        
+        if (searchTerm.length > 0) {
+            // Show suggestions immediately
+            const suggestions = getSearchSuggestions(searchTerm);
+            showSearchSuggestions(suggestions);
+            
+            // Delay the actual search
+            searchTimeout = setTimeout(() => {
+                currentSearch = searchTerm.toLowerCase();
+                applyFilters();
+            }, 500);
+        } else {
+            // Hide suggestions if search is empty
+            hideSearchSuggestions();
+            currentSearch = '';
+            applyFilters();
+        }
+    });
+    
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(event) {
+        const suggestionsDropdown = document.getElementById('searchSuggestions');
+        if (suggestionsDropdown && 
+            !suggestionsDropdown.contains(event.target) && 
+            event.target !== searchInput) {
+            hideSearchSuggestions();
+        }
+    });
+    
+    // Search button click
+    searchBtn.addEventListener('click', function() {
+        currentSearch = searchInput.value.trim().toLowerCase();
+        hideSearchSuggestions();
+        applyFilters();
+        
+        if (currentSearch.length > 0) {
+            scrollToItems();
+        }
+    });
+    
+    // Enter key for search
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            currentSearch = searchInput.value.trim().toLowerCase();
+            hideSearchSuggestions();
+            applyFilters();
+            
+            if (currentSearch.length > 0) {
+                scrollToItems();
+            }
+        }
+    });
+    
+    // Arrow keys navigation in suggestions
+    searchInput.addEventListener('keydown', function(e) {
+        const suggestionsDropdown = document.getElementById('searchSuggestions');
+        if (!suggestionsDropdown || suggestionsDropdown.style.display === 'none') return;
+        
+        const suggestions = suggestionsDropdown.querySelectorAll('.suggestion-item');
+        let activeIndex = -1;
+        
+        // Find currently active suggestion
+        suggestions.forEach((suggestion, index) => {
+            if (suggestion.classList.contains('active')) {
+                activeIndex = index;
+            }
+        });
+        
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (activeIndex < suggestions.length - 1) {
+                if (activeIndex >= 0) {
+                    suggestions[activeIndex].classList.remove('active');
+                }
+                suggestions[activeIndex + 1].classList.add('active');
+                searchInput.value = suggestions[activeIndex + 1].textContent.replace('🔍 ', '');
+            }
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (activeIndex > 0) {
+                suggestions[activeIndex].classList.remove('active');
+                suggestions[activeIndex - 1].classList.add('active');
+                searchInput.value = suggestions[activeIndex - 1].textContent.replace('🔍 ', '');
+            }
+        } else if (e.key === 'Escape') {
+            hideSearchSuggestions();
+        }
+    });
+    
+    // Sorting
+    sortSelect.addEventListener('change', function() {
+        currentSort = this.value;
+        applyFilters();
+    });
+    
+    // Clear filters
+    clearFilters.addEventListener('click', function() {
+        searchInput.value = '';
+        sortSelect.value = 'newest';
+        currentSearch = '';
+        currentCategory = 'all';
+        currentSort = 'newest';
+        hideSearchSuggestions();
+        
+        // Remove active class from all category cards
+        categoryCards.forEach(card => card.classList.remove('active'));
+        
+        // Add active class to "All Items" card
+        const allItemsCard = document.querySelector('.category-card[data-category="all"]');
+        if (allItemsCard) {
+            allItemsCard.classList.add('active');
+        }
+        
+        applyFilters();
+    });
+    
+    // Category filtering
+    categoryCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const category = this.getAttribute('data-category');
+            
+            // Update active category
+            categoryCards.forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+            
+            currentCategory = category;
+            applyFilters();
+            
+            // Category select කළ විට items section එකට scroll වේ
+            if (category !== 'all') {
+                scrollToItems();
+            }
+        });
+    });
+    
+    // Set "All Items" as active initially
+    const allItemsCard = document.querySelector('.category-card[data-category="all"]');
+    if (allItemsCard) {
+        allItemsCard.classList.add('active');
+    }
+    
+    // Categories navigation - Mobile horizontal scroll
+    const categoryList = document.getElementById('categoryList');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    
+    if (prevBtn && nextBtn && categoryList) {
+        prevBtn.addEventListener('click', () => {
+            scrollCategories(-200);
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            scrollCategories(200);
+        });
+        
+        // Update navigation button visibility based on scroll position
+        categoryList.addEventListener('scroll', updateCategoryNavigation);
+        
+        // Initial update
+        updateCategoryNavigation();
+        
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        categoryList.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        categoryList.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const swipeDistance = touchEndX - touchStartX;
+            
+            if (Math.abs(swipeDistance) > swipeThreshold) {
+                if (swipeDistance > 0) {
+                    // Swipe right - scroll left
+                    scrollCategories(-200);
+                } else {
+                    // Swipe left - scroll right
+                    scrollCategories(200);
+                }
+            }
+        }
+    }
+    
+    // Window resize handler to update navigation buttons
+    window.addEventListener('resize', updateCategoryNavigation);
+}
+
+// Scroll categories horizontally
+function scrollCategories(amount) {
+    const categoryList = document.getElementById('categoryList');
+    if (categoryList) {
+        categoryList.scrollBy({
+            left: amount,
+            behavior: 'smooth'
+        });
+        
+        // Update buttons after scrolling
+        setTimeout(updateCategoryNavigation, 300);
+    }
+}
+
+// Update category navigation buttons
+function updateCategoryNavigation() {
+    const categoryList = document.getElementById('categoryList');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    
+    if (!categoryList || !prevBtn || !nextBtn) return;
+    
+    const scrollLeft = categoryList.scrollLeft;
+    const scrollWidth = categoryList.scrollWidth;
+    const clientWidth = categoryList.clientWidth;
+    
+    // Show/hide previous button
+    if (scrollLeft <= 10) {
+        prevBtn.classList.add('disabled');
+        prevBtn.style.opacity = '0.5';
+        prevBtn.style.cursor = 'not-allowed';
+    } else {
+        prevBtn.classList.remove('disabled');
+        prevBtn.style.opacity = '1';
+        prevBtn.style.cursor = 'pointer';
+    }
+    
+    // Show/hide next button
+    if (scrollLeft + clientWidth >= scrollWidth - 10) {
+        nextBtn.classList.add('disabled');
+        nextBtn.style.opacity = '0.5';
+        nextBtn.style.cursor = 'not-allowed';
+    } else {
+        nextBtn.classList.remove('disabled');
+        nextBtn.style.opacity = '1';
+        nextBtn.style.cursor = 'pointer';
+    }
+    
+    // Hide navigation buttons on desktop
+    if (window.innerWidth >= 768) {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+    } else {
+        prevBtn.style.display = 'flex';
+        nextBtn.style.display = 'flex';
+    }
+}
+
+// Perform search
+function performSearch() {
+    currentSearch = searchInput.value.trim().toLowerCase();
+    applyFilters();
+}
+
+// Apply all filters and sorting
+function applyFilters() {
+    filteredItems = [...allItems];
+    
+    // Apply category filter
+    if (currentCategory !== 'all') {
+        filteredItems = filteredItems.filter(item => 
+            item.category.toLowerCase() === currentCategory.toLowerCase()
+        );
+    }
+    
+    // Apply search filter
+    if (currentSearch) {
+        filteredItems = filteredItems.filter(item => 
+            item.name.toLowerCase().includes(currentSearch) ||
+            item.description.toLowerCase().includes(currentSearch) ||
+            item.category.toLowerCase().includes(currentSearch)
+        );
+    }
+    
+    // Apply sorting
+    switch (currentSort) {
+        case 'price-low':
+            filteredItems.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+            break;
+        case 'price-high':
+            filteredItems.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+            break;
+        case 'name':
+            filteredItems.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+        case 'newest':
+        default:
+            filteredItems.sort((a, b) => new Date(b.date) - new Date(a.date));
+            break;
+    }
+    
+    renderItems();
+    updateItemsCount();
+}
+
+// Update items count display
+function updateItemsCount() {
+    itemsCount.textContent = filteredItems.length;
+}
+
+// Scroll to items section function
+function scrollToItems() {
+    const itemsSection = document.querySelector('.items-section');
+    if (itemsSection) {
+        // Smooth scroll to items section
+        itemsSection.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    }
+}
+
+// Optional: Refresh items periodically
+setInterval(() => {
+    // You can enable this to auto-refresh items every 5 minutes
+    // loadItems();
+}, 300000); // 5 minutes
+
+// Handle online/offline status
+window.addEventListener('online', function() {
+    console.log('Connection restored. Reloading items...');
+    loadItems();
+    
+    // Show online message
+    showStatusMessage('You are back online!', 'success');
 });
+
+window.addEventListener('offline', function() {
+    console.log('Connection lost. Showing offline message...');
+    
+    // Show offline message
+    showStatusMessage('You are currently offline. Some features may not be available.', 'warning');
+});
+
+// Show status message
+function showStatusMessage(message, type) {
+    const statusMsg = document.createElement('div');
+    statusMsg.className = `status-message status-${type}`;
+    statusMsg.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'wifi' : 'exclamation-triangle'}"></i>
+        <span>${message}</span>
+    `;
+    
+    // Add to page
+    document.body.appendChild(statusMsg);
+    
+    // Show with animation
+    setTimeout(() => {
+        statusMsg.classList.add('show');
+    }, 10);
+    
+    // Remove after 5 seconds
+    setTimeout(() => {
+        statusMsg.classList.remove('show');
+        setTimeout(() => {
+            if (statusMsg.parentNode) {
+                statusMsg.remove();
+            }
+        }, 300);
+    }, 5000);
+}
+
+// Add status message styles to CSS
+const statusStyle = document.createElement('style');
+statusStyle.textContent = `
+    .status-message {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 15px 20px;
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 10001;
+        transform: translateX(120%);
+        transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        border-left: 4px solid;
+    }
+    
+    .status-message.show {
+        transform: translateX(0);
+    }
+    
+    .status-success {
+        border-left-color: var(--success);
+    }
+    
+    .status-warning {
+        border-left-color: var(--warning);
+    }
+    
+    .status-message i {
+        font-size: 1.3rem;
+    }
+    
+    .status-success i {
+        color: var(--success);
+    }
+    
+    .status-warning i {
+        color: var(--warning);
+    }
+    
+    .status-message span {
+        font-weight: 500;
+        color: var(--dark);
+    }
+`;
+document.head.appendChild(statusStyle);
