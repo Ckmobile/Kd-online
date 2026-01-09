@@ -447,7 +447,7 @@ function renderItems() {
             </div>
         `;
         
-        const orderBtn = itemCard.querySelector('.order-now-btn');
+       /* const orderBtn = itemCard.querySelector('.order-now-btn');
         orderBtn.addEventListener('click', function() {
             const itemData = {
                 id: this.getAttribute('data-item-id'),
@@ -459,6 +459,21 @@ function renderItems() {
             
             showWhatsAppPopup(itemData);
         });
+        */
+
+
+const orderBtn = itemCard.querySelector('.order-now-btn');
+orderBtn.addEventListener('click', function() {
+    const itemData = {
+        id: this.getAttribute('data-item-id'),
+        name: this.getAttribute('data-item-name'),
+        category: this.getAttribute('data-item-category'),
+        price: this.getAttribute('data-item-price'),
+        description: this.getAttribute('data-item-description')
+    };
+    
+    showWhatsAppPopup(itemData); // Only triggers when clicking the button
+});
         
         const itemImage = itemCard.querySelector('.item-image');
         const itemNameElement = itemCard.querySelector('.item-name');
