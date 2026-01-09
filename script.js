@@ -784,7 +784,7 @@ function renderItems() {
         });
         
         // Add click event to item image/name for quick view
-        const itemImage = itemCard.querySelector('.item-image');
+      /*  const itemImage = itemCard.querySelector('.item-image');
         const itemNameElement = itemCard.querySelector('.item-name');
         
         [itemImage, itemNameElement].forEach(element => {
@@ -799,7 +799,7 @@ function renderItems() {
                     image: item.image || imageUrl
                 };
                 showWhatsAppPopup(itemData);
-            });
+            }); */
         });
         
         itemsContainer.appendChild(itemCard);
