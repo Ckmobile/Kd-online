@@ -529,7 +529,7 @@ body {
 .category-card[data-category="electronics"] i { color: #3742fa; }
 .category-card[data-category="home"] i { color: #2ecc71; }
 .category-card[data-category="sports"] i { color: #ff6b6b; }
-.category-card[data-catagery="kitchen"] i { color: #ffff33; }
+.category-card[data-catagery="kitchen"] i { color: #ff6b6b; }
 .category-card[data-category="other"] i { color: #95afc0; }
 
 /* ================= ITEMS SECTION ================= */
