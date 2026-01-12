@@ -736,10 +736,7 @@ function renderItems() {
             <div class="item-image">
                 <img src="${imageUrl}" alt="${item.name}" loading="lazy">
                 <div class="item-overlay">
-                    <span class="overlay-category">
-                        <i class="${categoryIcon}"></i> ${item.category}
-                    </span>
-                </div>
+                    
             </div>
             <div class="item-info">
                 <h3 class="item-name">${item.name}</h3>
