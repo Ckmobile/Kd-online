@@ -736,7 +736,7 @@ function renderItems() {
             <div class="item-image">
                 <img src="${imageUrl}" alt="${item.name}" loading="lazy">
                 <div class="item-overlay">
-                    
+                    </div>
             </div>
             <div class="item-info">
                 <h3 class="item-name">${item.name}</h3>
