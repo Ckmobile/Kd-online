@@ -507,9 +507,9 @@ function resetForm() {
     });
     
     // Focus on name field
-    setTimeout(() => {
+  /*  setTimeout(() => {
         document.getElementById('customerName').focus();
-    }, 300);
+    }, 300); */
 }
 
 // Show popup with animation
