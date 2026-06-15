@@ -526,7 +526,7 @@ body {
 
 /* අලුතින් add කරන්න */
 .category-card[data-category="kitchen"] i { color: #ff9f43; }
-.category-card[data-category="song"] i { color: #9b59b6; }
+.category-card[data-category="music"] i { color: #9b59b6; }
 .category-card[data-category="health"] i { color: #e74c3c; }
 
 .category-card[data-category="other"] i { color: #95afc0; }
