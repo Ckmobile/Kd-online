@@ -782,10 +782,10 @@ function renderItems() {
         });
         
         // Add click event to item image/name for quick view
-   /*   const itemImage = itemCard.querySelector('.item-image');
+      const itemImage = itemCard.querySelector('.item-image'); 
         const itemNameElement = itemCard.querySelector('.item-name');
         
-        [itemImage, itemNameElement].forEach(element => {
+      /*  [itemImage, itemNameElement].forEach(element => {
             element.style.cursor = 'pointer';
             element.addEventListener('click', function() {
                 const itemData = {
@@ -799,6 +799,54 @@ function renderItems() {
                 showWhatsAppPopup(itemData);
             }); 
         }); */
+
+// 784 පේළියේ සිට ආදේශ කරන්න
+itemImage.style.cursor = 'pointer';
+
+itemImage.addEventListener('click', (e) => {
+    e.stopPropagation(); // වෙනත් click events ක්‍රියාත්මක වීම වළක්වයි
+
+    // දැනට screen එකේ තියෙන image එකක් fullscreen වෙලාද බලන්න
+    if (itemImage.classList.contains('fullscreen-view')) {
+        // Fullscreen අයින් කර සාමාන්‍ය තත්ත්වයට පත් කිරීම
+        itemImage.classList.remove('fullscreen-view');
+        itemImage.style.position = '';
+        itemImage.style.top = '';
+        itemImage.style.left = '';
+        itemImage.style.width = '';
+        itemImage.style.height = '';
+        itemImage.style.zIndex = '';
+        itemImage.style.objectFit = '';
+        itemImage.style.backgroundColor = '';
+
+        // සැඟවූ අනෙකුත් දේවල් නැවත පෙන්වීම
+        document.querySelectorAll('body > *:not(.fullscreen-view)').forEach(el => {
+            el.style.display = '';
+        });
+    } else {
+        // Image එක විතරක් පෙන්වීමට අනිත් සියලුම දේ සැඟවීම
+        document.querySelectorAll('body > *').forEach(el => {
+            el.style.display = 'none';
+        });
+
+        // Image එක මුළු screen එක පුරාම පෙන්වීමට සකස් කිරීම
+        itemImage.classList.add('fullscreen-view');
+        itemImage.style.display = 'block';
+        itemImage.style.position = 'fixed';
+        itemImage.style.top = '0';
+        itemImage.style.left = '0';
+        itemImage.style.width = '100vw';
+        itemImage.style.height = '100vh';
+        itemImage.style.zIndex = '99999';
+        itemImage.style.objectFit = 'contain'; // රූපය විකෘති නොවී පෙනීමට
+        itemImage.style.backgroundColor = 'black'; // පසුබිම කළු කිරීමට
+        
+        // Image එක body එකට කෙලින්ම සම්බන්ධ කිරීම (පෙනීමට සැලැස්වීම)
+        document.body.appendChild(itemImage);
+    }
+});
+
+
         
         itemsContainer.appendChild(itemCard);
     });
