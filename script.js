@@ -785,7 +785,7 @@ function renderItems() {
       const itemImage = itemCard.querySelector('.item-image'); 
         const itemNameElement = itemCard.querySelector('.item-name');
         
-      /*  [itemImage, itemNameElement].forEach(element => {
+       [itemImage, itemNameElement].forEach(element => {
             element.style.cursor = 'pointer';
             element.addEventListener('click', function() {
                 const itemData = {
@@ -798,10 +798,10 @@ function renderItems() {
                 };
                 showWhatsAppPopup(itemData);
             }); 
-        }); */
+        }); 
 
 // 784 පේළියේ සිට ආදේශ කරන්න
-itemImage.style.cursor = 'pointer';
+/*itemImage.style.cursor = 'pointer';
 
 itemImage.addEventListener('click', (e) => {
     e.stopPropagation(); // වෙනත් click events ක්‍රියාත්මක වීම වළක්වයි
@@ -844,7 +844,7 @@ itemImage.addEventListener('click', (e) => {
         // Image එක body එකට කෙලින්ම සම්බන්ධ කිරීම (පෙනීමට සැලැස්වීම)
         document.body.appendChild(itemImage);
     }
-});
+});   */
 
 
         
