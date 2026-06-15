@@ -92,8 +92,12 @@ function setupMobileMenu() {
 // Load items from Firebase
 function loadItems() {
     itemsContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Loading items...</p></div>';
-    
-    db.collection('items').get()
+
+
+    db.collection('items')
+  .orderBy('date', 'desc')
+  .get()
+   // db.collection('items').get()
         .then((querySnapshot) => {
             allItems = [];
             querySnapshot.forEach((doc) => {
