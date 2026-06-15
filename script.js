@@ -50,7 +50,8 @@ const categoryIcons = {
     electronics: 'fas fa-laptop',
     home: 'fas fa-home',
     sports: 'fas fa-futbol',
-    other: 'fas fa-ellipsis-h'
+    other: 'fas fa-ellipsis-h',
+    music: 'fas fa-music'
 };
 
 // DOM Elements - Popup
