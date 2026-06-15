@@ -51,7 +51,7 @@ const categoryIcons = {
     home: 'fas fa-home',
     sports: 'fas fa-futbol',
     kitchen: 'fas fa-utensils',
-    song: 'fas fa-music',
+    music: 'fas fa-music',
     health: 'fas fa-heartbeat',
     other: 'fas fa-ellipsis-h'
 };
