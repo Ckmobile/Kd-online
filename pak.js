@@ -306,9 +306,9 @@ function showWhatsAppPopup(item) {
     popupOverlay.style.display = 'block';
     whatsappPopup.style.display = 'block';
     
-    setTimeout(() => {
-        document.getElementById('customerName').focus();
-    }, 300);
+ //   setTimeout(() => {
+ //       document.getElementById('customerName').focus();
+ //   }, 300);
 }
 
 function hideWhatsAppPopup() {
