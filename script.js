@@ -44,6 +44,7 @@ const categoryIcons = {
     gift: 'fas fa-gift',
     vehicle: 'fas fa-car',
     mobile: 'fas fa-mobile-alt',
+    music: 'fas fa-music',
     fashion: 'fas fa-tshirt',
     school: 'fas fa-graduation-cap',
     stores: 'fas fa-store',
@@ -53,7 +54,6 @@ const categoryIcons = {
     home: 'fas fa-home',
     sports: 'fas fa-futbol',
     kitchen: 'fas fa-utensils',
-    music: 'fas fa-music',
     health: 'fas fa-heartbeat',
     other: 'fas fa-ellipsis-h'
 };
