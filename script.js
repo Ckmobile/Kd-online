@@ -789,7 +789,7 @@ function renderItems() {
       const itemImage = itemCard.querySelector('.item-image'); 
         const itemNameElement = itemCard.querySelector('.item-name');
         
-       [itemImage, itemNameElement].forEach(element => {
+   /*    [itemImage, itemNameElement].forEach(element => {
             element.style.cursor = 'pointer';
             element.addEventListener('click', function() {
                 const itemData = {
@@ -802,53 +802,102 @@ function renderItems() {
                 };
                 showWhatsAppPopup(itemData);
             }); 
-        }); 
+        }); */
 
-// 784 පේළියේ සිට ආදේශ කරන්න
-/*itemImage.style.cursor = 'pointer';
+// ====== පින්තූරය ක්ලික් කළ විට Fullscreen (Lightbox) ලෙස පෙන්වීමේ නිවැරදි කේතය ======
+itemImage.style.cursor = 'pointer';
 
-itemImage.addEventListener('click', (e) => {
+itemImage.addEventListener('click', function(e) {
     e.stopPropagation(); // වෙනත් click events ක්‍රියාත්මක වීම වළක්වයි
 
-    // දැනට screen එකේ තියෙන image එකක් fullscreen වෙලාද බලන්න
-    if (itemImage.classList.contains('fullscreen-view')) {
-        // Fullscreen අයින් කර සාමාන්‍ය තත්ත්වයට පත් කිරීම
-        itemImage.classList.remove('fullscreen-view');
-        itemImage.style.position = '';
-        itemImage.style.top = '';
-        itemImage.style.left = '';
-        itemImage.style.width = '';
-        itemImage.style.height = '';
-        itemImage.style.zIndex = '';
-        itemImage.style.objectFit = '';
-        itemImage.style.backgroundColor = '';
+    // භාණ්ඩයේ පින්තූරයේ නිවැරදි URL එක ලබා ගැනීම
+    const imgElement = this.querySelector('img');
+    if (!imgElement) return;
+    const imgSrc = imgElement.src;
 
-        // සැඟවූ අනෙකුත් දේවල් නැවත පෙන්වීම
-        document.querySelectorAll('body > *:not(.fullscreen-view)').forEach(el => {
-            el.style.display = '';
-        });
-    } else {
-        // Image එක විතරක් පෙන්වීමට අනිත් සියලුම දේ සැඟවීම
-        document.querySelectorAll('body > *').forEach(el => {
-            el.style.display = 'none';
-        });
+    // Fullscreen පෙන්වීම සඳහා Lightbox Modal එකක් නිර්මාණය කිරීම
+    const lightbox = document.createElement('div');
+    lightbox.id = 'imageLightbox';
+    lightbox.className = 'lightbox-overlay';
+    
+    // Lightbox එක ඇතුළත ව්‍යුහය (පින්තූරය සහ Close බටන් එක)
+    lightbox.innerHTML = `
+        <div class="lightbox-close">&times;</div>
+        <img src="${imgSrc}" class="lightbox-image" alt="Fullscreen Image">
+    `;
 
-        // Image එක මුළු screen එක පුරාම පෙන්වීමට සකස් කිරීම
-        itemImage.classList.add('fullscreen-view');
-        itemImage.style.display = 'block';
-        itemImage.style.position = 'fixed';
-        itemImage.style.top = '0';
-        itemImage.style.left = '0';
-        itemImage.style.width = '100vw';
-        itemImage.style.height = '100vh';
-        itemImage.style.zIndex = '99999';
-        itemImage.style.objectFit = 'contain'; // රූපය විකෘති නොවී පෙනීමට
-        itemImage.style.backgroundColor = 'black'; // පසුබිම කළු කිරීමට
-        
-        // Image එක body එකට කෙලින්ම සම්බන්ධ කිරීම (පෙනීමට සැලැස්වීම)
-        document.body.appendChild(itemImage);
+    // CSS ස්ටයිල්ස් කෙලින්ම ජාවාස්ක්‍රිප්ට් මඟින් එකතු කිරීම
+    lightbox.style.position = 'fixed';
+    lightbox.style.top = '0';
+    lightbox.style.left = '0';
+    lightbox.style.width = '100vw';
+    lightbox.style.height = '100vh';
+    lightbox.style.backgroundColor = 'rgba(0, 0, 0, 0.9)'; // තද කළු පසුබිම
+    lightbox.style.display = 'flex';
+    lightbox.style.justifyContent = 'center';
+    lightbox.style.alignItems = 'center';
+    lightbox.style.zIndex = '999999'; // හැමදේටම උඩින් පෙනීමට
+    lightbox.style.cursor = 'zoom-out';
+    lightbox.style.opacity = '0';
+    lightbox.style.transition = 'opacity 0.3s ease';
+
+    // ඇතුළේ ඇති පින්තූරයේ ස්ටයිල්ස්
+    const lightboxImg = lightbox.querySelector('.lightbox-image');
+    lightboxImg.style.maxWidth = '90%';
+    lightboxImg.style.maxHeight = '90%';
+    lightboxImg.style.objectFit = 'contain';
+    lightboxImg.style.borderRadius = '4px';
+    lightboxImg.style.boxShadow = '0 5px 25px rgba(0,0,0,0.5)';
+    lightboxImg.style.transform = 'scale(0.9)';
+    lightboxImg.style.transition = 'transform 0.3s ease';
+
+    // වසන බටන් එකේ ස්ටයිල්ස්
+    const closeBtn = lightbox.querySelector('.lightbox-close');
+    closeBtn.style.position = 'absolute';
+    closeBtn.style.top = '20px';
+    closeBtn.style.right = '30px';
+    closeBtn.style.color = '#fff';
+    closeBtn.style.fontSize = '40px';
+    closeBtn.style.fontWeight = 'bold';
+    closeBtn.style.cursor = 'pointer';
+    closeBtn.style.zIndex = '1000000';
+
+    // body එකට එකතු කර පෙන්වීම
+    document.body.appendChild(lightbox);
+    
+    // Smooth animation එකක් ලබා දීමට
+    setTimeout(() => {
+        lightbox.style.opacity = '1';
+        lightboxImg.style.transform = 'scale(1)';
+    }, 10);
+
+    // Lightbox එක වසා දැමීමේ ශ්‍රිතය (Function)
+    function closeLightbox() {
+        lightbox.style.opacity = '0';
+        lightboxImg.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            if (lightbox.parentNode) {
+                lightbox.remove();
+            }
+        }, 300);
+        document.removeEventListener('keydown', handleEsc);
     }
-});   */
+
+    // ඕනෑම තැනක ක්ලික් කළ විට වැසීමට
+    lightbox.addEventListener('click', closeLightbox);
+    closeBtn.addEventListener('click', closeLightbox);
+
+    // Keyboard එකේ Escape (ESC) කී එක එබූ විට වැසීමට
+    function handleEsc(e) {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        }
+    }
+    document.addEventListener('keydown', handleEsc);
+});
+
+
+        
 
 
         
