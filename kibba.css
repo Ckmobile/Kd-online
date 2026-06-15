@@ -515,6 +515,7 @@ body {
 .category-card[data-category="gift"] i { color: #f72585; }
 .category-card[data-category="vehicle"] i { color: #4361ee; }
 .category-card[data-category="mobile"] i { color: #7209b7; }
+.category-card[data-category="music"] i { color: #9b59b6; }
 .category-card[data-category="fashion"] i { color: #f8961e; }
 .category-card[data-category="school"] i { color: #4cc9f0; }
 .category-card[data-category="stores"] i { color: #00b894; }
@@ -523,12 +524,8 @@ body {
 .category-card[data-category="electronics"] i { color: #3742fa; }
 .category-card[data-category="home"] i { color: #2ecc71; }
 .category-card[data-category="sports"] i { color: #ff6b6b; }
-
-/* අලුතින් add කරන්න */
 .category-card[data-category="kitchen"] i { color: #ff9f43; }
-.category-card[data-category="music"] i { color: #9b59b6; }
 .category-card[data-category="health"] i { color: #e74c3c; }
-
 .category-card[data-category="other"] i { color: #95afc0; }
 
 
