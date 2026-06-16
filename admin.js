@@ -514,6 +514,88 @@ db.collection('items').doc(itemId).delete()
 
 }
 
+function performAdminSearchLive() {
+
+    currentAdminSearch = adminSearch.value.trim().toLowerCase();
+
+    renderAdminItems();
+
+    const firstItem = document.querySelector('.admin-item-card');
+
+    if(firstItem){
+        firstItem.scrollIntoView({
+            behavior:'smooth',
+            block:'center'
+        });
+
+        firstItem.style.boxShadow =
+            '0 0 20px rgba(46,204,113,0.7)';
+
+        setTimeout(()=>{
+            firstItem.style.boxShadow='';
+        },2000);
+    }
+}
+
+function showSearchSuggestions(){
+
+    const box =
+        document.getElementById('searchSuggestions');
+
+    const keyword =
+        adminSearch.value.trim().toLowerCase();
+
+    if(!keyword){
+        box.style.display='none';
+        return;
+    }
+
+    const matches = adminItems.filter(item =>
+        item.name.toLowerCase().includes(keyword)
+    );
+
+    box.innerHTML='';
+
+    matches.slice(0,8).forEach(item=>{
+
+        const div=document.createElement('div');
+
+        div.className='suggestion-item';
+
+        div.innerHTML=`
+            <strong>${item.name}</strong><br>
+            <small>LKR ${item.price}</small>
+        `;
+
+        div.addEventListener('click',()=>{
+
+            adminSearch.value=item.name;
+
+            currentAdminSearch=item.name.toLowerCase();
+
+            renderAdminItems();
+
+            box.style.display='none';
+
+            const card =
+                document.querySelector('.admin-item-card');
+
+            if(card){
+                card.scrollIntoView({
+                    behavior:'smooth',
+                    block:'center'
+                });
+            }
+        });
+
+        box.appendChild(div);
+    });
+
+    box.style.display =
+        matches.length ? 'block' : 'none';
+}
+
+
 // Perform admin search
 function performAdminSearch() {
 currentAdminSearch = adminSearch.value.trim().toLowerCase();
