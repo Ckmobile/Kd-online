@@ -113,8 +113,8 @@ body {
 }
 
 .item-image {
-    width: 310px;
-    height: 250px;
+    width: 290px;
+    height: 240px;
     object-fit: cover;
     border-radius: 8px;
     display: block;
