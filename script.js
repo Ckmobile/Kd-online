@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Setup mobile menu toggle
-function setupMobileMenu() {
+/*function setupMobileMenu() {
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
     
@@ -92,7 +92,55 @@ function setupMobileMenu() {
             }
         });
     }
+}*/
+
+
+function setupMobileMenu() {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (mobileMenuBtn && navLinks) {
+
+        mobileMenuBtn.addEventListener('click', function() {
+
+            const isOpen = navLinks.classList.contains('active');
+
+            if (!isOpen) {
+                navLinks.classList.add('active');
+                this.querySelector('i').classList.remove('fa-bars');
+                this.querySelector('i').classList.add('fa-times');
+
+                // Back button support
+                history.pushState({ menuOpen: true }, '');
+            } else {
+                closeMenu();
+            }
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!mobileMenuBtn.contains(event.target) &&
+                !navLinks.contains(event.target)) {
+                closeMenu();
+            }
+        });
+
+        // Phone Back Button
+        window.addEventListener('popstate', function() {
+            if (navLinks.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+
+        function closeMenu() {
+            navLinks.classList.remove('active');
+
+            mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+            mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+        }
+    }
 }
+
+
 
 // Load items from Firebase
 function loadItems() {
