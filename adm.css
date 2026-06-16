@@ -1380,5 +1380,12 @@ body {
     }
 
 
+
+/* Hide back button in mobile menu */
+@media (max-width: 768px) {
+    .admin-back {
+        display: none !important;
+    }
+}
     
 }
