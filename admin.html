@@ -9,30 +9,39 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    
     <style>
-        /* කැටගරි ලිස්ට් එක ලස්සනට පෙනීමට අලුතින් එක් කල CSS */
+        /* කැටගරි කොටු සියල්ල ඇති ප්‍රධාන පෙට්ටිය */
         .categories-checkbox-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 10px;
-            background: #f9f9f9;
+            grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); /* එක පේලියක කැටගරි කිහිපයක් පෙන්වීමට */
+            gap: 12px;
+            background: #fdfdfd;
             padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
             max-height: 200px;
             overflow-y: auto;
+            margin-top: 5px;
         }
+
+        /* කොටුව සහ නම එක සමාන මට්ටමකට ගන්නා ප්‍රධාන කෝඩ් එක */
         .category-checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: flex;         /* Flexbox භාවිතයෙන් පේලියක් සාදයි */
+            align-items: center;   /* කොටුව සහ Text එක සිරස්ව එකම මැද මට්ටමට (Vertical Center) ගනියි */
+            gap: 8px;              /* කොටුව සහ නම අතර පරතරය */
             cursor: pointer;
             font-size: 14px;
+            color: #333;
+            user-select: none;
         }
-        .category-checkbox-item input {
+
+        /* ටික් කරන කොටුවේ ප්‍රමාණය සහ හැඩය සකස් කිරීම */
+        .category-checkbox-item input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
             cursor: pointer;
-            width: 16px;
-            height: 16px;
+            margin: 0;             /* අනවශ්‍ය Margin ඉවත් කර සමබර කරයි */
         }
     </style>
 </head>
@@ -43,6 +52,7 @@
 
     <header class="admin-header">
         <div class="admin-header-content">
+           
             <h1><i class="fas fa-lock"></i> <span class="header-text">Admin Panel</span></h1>
             <div class="admin-user">
                 <i class="fas fa-user-shield"></i>
@@ -80,7 +90,8 @@
                     
                     <div class="login-note">
                         <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Only Web Owner:</p>
-                        <ol></ol>
+                        <ol>
+                        </ol>
                     </div>
                 </div>
             </div>
@@ -96,21 +107,27 @@
             
             <div class="admin-stats">
                 <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-box"></i></div>
+                    <div class="stat-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
                     <div class="stat-info">
                         <h3 id="totalItems">0</h3>
                         <p>Total Items</p>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-tags"></i></div>
+                    <div class="stat-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
                     <div class="stat-info">
                         <h3 id="totalCategories">13</h3>
                         <p>Categories</p>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-edit"></i></div>
+                    <div class="stat-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
                     <div class="stat-info">
                         <h3 id="recentItems">0</h3>
                         <p>Added This Week</p>
@@ -137,21 +154,66 @@
                     <div class="form-group">
                         <label>Select Categories * <small>(Select one or more)</small></label>
                         <div class="categories-checkbox-container" id="categoriesContainer">
-                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="gift"> Gift</label>
-                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="vehicle"> Vehicle</label>
-                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="mobile"> Mobile</label>
-                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="music"> Music</label>
-                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="fashion"> Fashion</label>
-                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="school"> School</label>
-                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="stores"> Stores</label>
-                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="kids"> Kids</label>
-                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="toy"> Toy</label>
-                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="electronics"> Electronics</label>
-                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="home"> Home & Garden</label>
-                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="sports"> Sports</label>
-                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="health"> Health</label>
-                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="kitchen"> Kitchen</label>
-                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="other"> Other</label>
+                            <label class="category-checkbox-item">
+                                <input type="checkbox" name="itemCategories" value="gift">
+                                <span>Gift</span>
+                            </label>
+                            <label class="category-checkbox-item">
+                                <input type="checkbox" name="itemCategories" value="vehicle">
+                                <span>Vehicle</span>
+                            </label>
+                            <label class="category-checkbox-item">
+                                <input type="checkbox" name="itemCategories" value="mobile">
+                                <span>Mobile</span>
+                            </label>
+                            <label class="category-checkbox-item">
+                                <input type="checkbox" name="itemCategories" value="music">
+                                <span>Music</span>
+                            </label>
+                            <label class="category-checkbox-item">
+                                <input type="checkbox" name="itemCategories" value="fashion">
+                                <span>Fashion</span>
+                            </label>
+                            <label class="category-checkbox-item">
+                                <input type="checkbox" name="itemCategories" value="school">
+                                <span>School</span>
+                            </label>
+                            <label class="category-checkbox-item">
+                                <input type="checkbox" name="itemCategories" value="stores">
+                                <span>Stores</span>
+                            </label>
+                            <label class="category-checkbox-item">
+                                <input type="checkbox" name="itemCategories" value="kids">
+                                <span>Kids</span>
+                            </label>
+                            <label class="category-checkbox-item">
+                                <input type="checkbox" name="itemCategories" value="toy">
+                                <span>Toy</span>
+                            </label>
+                            <label class="category-checkbox-item">
+                                <input type="checkbox" name="itemCategories" value="electronics">
+                                <span>Electronics</span>
+                            </label>
+                            <label class="category-checkbox-item">
+                                <input type="checkbox" name="itemCategories" value="home">
+                                <span>Home & Garden</span>
+                            </label>
+                            <label class="category-checkbox-item">
+                                <input type="checkbox" name="itemCategories" value="sports">
+                                <span>Sports</span>
+                            </label>
+                            <label class="category-checkbox-item">
+                                <input type="checkbox" name="itemCategories" value="health">
+                                <span>Health</span>
+                            </label>
+                            <label class="category-checkbox-item">
+                                <input type="checkbox" name="itemCategories" value="kitchen">
+                                <span>Kitchen</span>
+                            </label>
+                            <label class="category-checkbox-item">
+                                <input type="checkbox" name="itemCategories" value="other">
+                                <span>Other</span>
+                            </label>
                         </div>
                     </div>
                     
