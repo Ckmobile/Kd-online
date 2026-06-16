@@ -15,6 +15,14 @@ const adminSearchBtn = document.getElementById('adminSearchBtn');
 const totalItemsEl = document.getElementById('totalItems');
 const recentItemsEl = document.getElementById('recentItems');
 
+// --- නව POP-UP MODAL සන්නිවේදනය සඳහා DOM Elements ---
+const catModal = document.getElementById('categoryModal');
+const openCatModalBtn = document.getElementById('openCategoryModalBtn');
+const closeCatModalBtn = document.getElementById('closeCategoryModalBtn');
+const saveCatModalBtn = document.getElementById('saveCategoryModalBtn');
+const selectedCatText = document.getElementById('selectedCategoriesText');
+const checkboxes = document.querySelectorAll('input[name="itemCategories"]');
+
 // State
 let adminLoggedIn = false;
 let adminItems = [];
@@ -63,11 +71,40 @@ function setupAdminEventListeners() {
     clearFormBtn.addEventListener('click', function() {
         addItemForm.reset();
         clearCategoryCheckboxes();
+        // Clear කරන විට Text එක මුල් තත්වයට පත් කිරීම
+        if (selectedCatText) {
+            selectedCatText.textContent = "No categories selected";
+            selectedCatText.style.color = "#e74c3c";
+        }
     });
     
     adminSearchBtn.addEventListener('click', performAdminSearch);
     adminSearch.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') performAdminSearch();
+    });
+
+    // --- POP-UP EVENT LISTENERS ---
+    if (openCatModalBtn) {
+        openCatModalBtn.addEventListener('click', () => {
+            catModal.style.display = 'flex';
+        });
+    }
+
+    if (closeCatModalBtn) {
+        closeCatModalBtn.addEventListener('click', () => {
+            catModal.style.display = 'none';
+        });
+    }
+
+    if (saveCatModalBtn) {
+        saveCatModalBtn.addEventListener('click', updateSelectedCategoriesUI);
+    }
+
+    // Pop-up එකෙන් පිටත Click කලහොත් එය වැසීම
+    window.addEventListener('click', (e) => {
+        if (e.target === catModal) {
+            catModal.style.display = 'none';
+        }
     });
 }
 
@@ -75,6 +112,25 @@ function setupAdminEventListeners() {
 function clearCategoryCheckboxes() {
     const checkboxes = document.querySelectorAll('input[name="itemCategories"]');
     checkboxes.forEach(cb => cb.checked = false);
+}
+
+// Pop-up එකේ තෝරාගත් දේ ප්‍රධාන UI එකේ පෙන්වන ශ්‍රිතය (Helper Function)
+function updateSelectedCategoriesUI() {
+    let selectedLabels = [];
+    checkboxes.forEach(cb => {
+        if (cb.checked) {
+            selectedLabels.push(cb.nextElementSibling.textContent);
+        }
+    });
+
+    if (selectedLabels.length > 0) {
+        selectedCatText.textContent = "Selected: " + selectedLabels.join(', ');
+        selectedCatText.style.color = "#27ae60";
+    } else {
+        selectedCatText.textContent = "No categories selected";
+        selectedCatText.style.color = "#e74c3c";
+    }
+    catModal.style.display = 'none';
 }
 
 // Admin login
@@ -171,7 +227,6 @@ function renderAdminItems() {
             const nameMatch = item.name.toLowerCase().includes(currentAdminSearch);
             const descMatch = item.description.toLowerCase().includes(currentAdminSearch);
             
-            // කැටගරි ලිස්ට් එක ඇතුලේ සර්ච් කිරීම
             let categoryMatch = false;
             if (item.categories && Array.isArray(item.categories)) {
                 categoryMatch = item.categories.some(cat => cat.toLowerCase().includes(currentAdminSearch));
@@ -194,7 +249,6 @@ function renderAdminItems() {
         const itemCard = document.createElement('div');
         itemCard.className = 'admin-item-card';
         
-        // කැටගරි කිහිපය කොමා (,) මගින් වෙන් කර UI එකේ පෙන්වීම සකස් කිරීම
         let categoriesDisplay = '';
         if (item.categories && Array.isArray(item.categories) && item.categories.length > 0) {
             categoriesDisplay = item.categories.map(cat => cat.toUpperCase()).join(', ');
@@ -249,7 +303,7 @@ function formatDate(dateString) {
     });
 }
 
-// Add new item (කැටගරි කිහිපයක් Array එකක් ලෙස Firestore එකට දැමීම)
+// Add new item
 function addNewItem(e) {
     e.preventDefault();
     
@@ -263,7 +317,6 @@ function addNewItem(e) {
     const itemImage = document.getElementById('itemImage').value.trim();
     const itemDescription = document.getElementById('itemDescription').value.trim();
     
-    // Select කර ඇති Checkboxes වල අගයන් Array එකකට ගැනීම
     const checkedBoxes = document.querySelectorAll('input[name="itemCategories"]:checked');
     const selectedCategories = Array.from(checkedBoxes).map(cb => cb.value);
     
@@ -275,8 +328,8 @@ function addNewItem(e) {
     const newItem = {
         name: itemName,
         price: parseFloat(itemPrice),
-        categories: selectedCategories, // නව කැටගරි ලිස්ට් එක (Array)
-        category: selectedCategories[0], // පැරණි කේතයන් බිඳ නොවැටීම සඳහා පළමු කැටගරි එකද වෙනම දමයි
+        categories: selectedCategories, 
+        category: selectedCategories[0], 
         description: itemDescription,
         date: new Date().toISOString()
     };
@@ -294,6 +347,9 @@ function addNewItem(e) {
             alert('Item added successfully with selected categories!');
             addItemForm.reset();
             clearCategoryCheckboxes();
+            // සේව් වූ පසු Text එක reset කිරීම
+            selectedCatText.textContent = "No categories selected";
+            selectedCatText.style.color = "#e74c3c";
             loadAdminItems();
         })
         .catch((error) => {
@@ -306,7 +362,7 @@ function addNewItem(e) {
         });
 }
 
-// Edit item (කැටගරි කිහිපයක් Checkboxes වල සලකුණු කිරීම)
+// Edit item
 function editItem(itemId) {
     const item = adminItems.find(i => i.id === itemId);
     
@@ -320,17 +376,32 @@ function editItem(itemId) {
     document.getElementById('itemImage').value = item.image || '';
     document.getElementById('itemDescription').value = item.description;
     
-    // Checkboxes සියල්ල මුලින්ම Clear කර Item එකට අදාල කැටගරි පමණක් සලකුණු (Check) කිරීම
     clearCategoryCheckboxes();
+    let selectedLabels = [];
+
     if (item.categories && Array.isArray(item.categories)) {
         item.categories.forEach(cat => {
             const checkbox = document.querySelector(`input[name="itemCategories"][value="${cat}"]`);
-            if (checkbox) checkbox.checked = true;
+            if (checkbox) {
+                checkbox.checked = true;
+                selectedLabels.push(checkbox.nextElementSibling.textContent);
+            }
         });
     } else if (item.category) {
-        // පැරණි සිංගල් කැටගරි ඩේටා එකක් නම්
         const checkbox = document.querySelector(`input[name="itemCategories"][value="${item.category}"]`);
-        if (checkbox) checkbox.checked = true;
+        if (checkbox) {
+            checkbox.checked = true;
+            selectedLabels.push(checkbox.nextElementSibling.textContent);
+        }
+    }
+    
+    // Edit බටන් එක එබූ විට තෝරාගත් කැටගරි ටික ප්‍රධාන UI එකේ දිස්වීමට සැලැස්වීම
+    if (selectedLabels.length > 0) {
+        selectedCatText.textContent = "Selected: " + selectedLabels.join(', ');
+        selectedCatText.style.color = "#27ae60";
+    } else {
+        selectedCatText.textContent = "No categories selected";
+        selectedCatText.style.color = "#e74c3c";
     }
     
     const formTitle = document.querySelector('.add-item-section h3');
@@ -356,7 +427,7 @@ function editItem(itemId) {
             name: document.getElementById('itemName').value.trim(),
             price: parseFloat(document.getElementById('itemPrice').value.trim()),
             categories: selectedCategories,
-            category: selectedCategories[0], // backward compatibility
+            category: selectedCategories[0], 
             description: document.getElementById('itemDescription').value.trim(),
             date: item.date
         };
@@ -376,6 +447,11 @@ function editItem(itemId) {
                 alert('Item updated successfully!');
                 addItemForm.reset();
                 clearCategoryCheckboxes();
+                
+                // යාවත්කාලීන වූ පසු ප්‍රධාන UI එක reset කිරීම
+                selectedCatText.textContent = "No categories selected";
+                selectedCatText.style.color = "#e74c3c";
+                
                 loadAdminItems();
                 
                 formTitle.innerHTML = '<i class="fas fa-plus-circle"></i> Add New Item';
