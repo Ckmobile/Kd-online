@@ -1377,4 +1377,26 @@ body {
         box-shadow: none !important;
         border: 1px solid #ddd !important;
     }
+
+/* Move menu icon to top-right */
+.admin-mobile-menu {
+    right: 20px !important;
+    left: auto !important;
+}
+
+@media (max-width: 480px) {
+    .admin-mobile-menu {
+        right: 15px !important;
+        left: auto !important;
+    }
+}
+
+/* Hide back button in mobile menu */
+@media (max-width: 768px) {
+    .admin-back {
+        display: none !important;
+    }
+}
+
+    
 }
