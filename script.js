@@ -422,10 +422,11 @@ function validateField(inputElement, isValid) {
 // Show WhatsApp popup with item details
 function showWhatsAppPopup(item) {
     // Fill item details
-    document.getElementById('popupItemName').textContent = item.name;
-    document.getElementById('popupCategory').textContent = item.category;
-    document.getElementById('popupPrice').textContent = `LKR ${parseFloat(item.price).toFixed(2)}`;
-    document.getElementById('popupDescription').textContent = item.description;
+document.getElementById('popupItemName').textContent = item.name;
+document.getElementById('popupCategory').textContent = item.category;
+document.getElementById('popupPrice').textContent = `LKR ${parseFloat(item.price).toFixed(2)}`;
+document.getElementById('popupDescription').textContent = item.description;
+document.getElementById('popupImage').src = item.image_url;
 
     // Load item image  
     loadItemImage(item);  
