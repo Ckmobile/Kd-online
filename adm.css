@@ -117,7 +117,8 @@ body {
     display: none;
     position: fixed;
     top: 20px;
-    left: 20px;
+    left:auto;
+    right: 20px;
     z-index: 1001;
     background: var(--primary);
     color: white;
@@ -1378,27 +1379,6 @@ body {
         border: 1px solid #ddd !important;
     }
 
-/* Move menu icon to top-right */
-.admin-mobile-menu {
-    right: 20px !important;
-    left: auto !important;
-}
 
-@media (max-width: 480px) {
-    .admin-mobile-menu {
-        right: 15px !important;
-        left: auto !important;
-    }
-}
-
-/* Hide back button in mobile menu */
-@media (max-width: 768px) {
-    .admin-back {
-        display: none !important;
-    }
-}
-.admin-mobile-menu {
-    left: 20px;
-}
     
 }
