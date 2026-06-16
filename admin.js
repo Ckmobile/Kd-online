@@ -78,10 +78,18 @@ clearFormBtn.addEventListener('click', function() {
     }  
 });  
   
-adminSearchBtn.addEventListener('click', performAdminSearch);  
-adminSearch.addEventListener('keypress', function(e) {  
-    if (e.key === 'Enter') performAdminSearch();  
-});  
+adminSearchBtn.addEventListener('click', performAdminSearchLive');
+
+adminSearch.addEventListener('input', function() {
+    performAdminSearchLive();
+    showSearchSuggestions();
+});
+
+adminSearch.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        performAdminSearchLive();
+    }
+});
 
 // --- POP-UP EVENT LISTENERS ---  
 if (openCatModalBtn) {  
