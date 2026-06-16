@@ -117,12 +117,7 @@ function setupMobileMenu() {
             }
         });
 
-        document.addEventListener('click', function(event) {
-            if (!mobileMenuBtn.contains(event.target) &&
-                !navLinks.contains(event.target)) {
-                closeMenu();
-            }
-        });
+        
 
         // Phone Back Button
         window.addEventListener('popstate', function() {
