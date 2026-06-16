@@ -1397,6 +1397,8 @@ body {
         display: none !important;
     }
 }
-
+.admin-mobile-menu {
+    left: 20px;
+}
     
 }
