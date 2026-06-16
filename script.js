@@ -116,7 +116,7 @@ function setupMobileMenu() {
                 closeMenu();
             }
         });
-
+    }
         window.addEventListener('popstate', function(event) {
            if (navLinks.classList.contains('active')) {
                navLinks.classList.remove('active');
