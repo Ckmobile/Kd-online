@@ -74,13 +74,6 @@ body {
     height: 10px;
 }
 
-.item-image {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 8px;
-    display: block;
-}
 
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
@@ -1990,6 +1983,16 @@ body {
     font-size: 0.95rem;
     position: relative;
 }
+
+.item-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+
 
 .footer-bottom::before {
     content: '✨';
