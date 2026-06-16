@@ -126,6 +126,14 @@ body {
     transform: translateY(-2px);
 }
 
+.admin-product-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
 .admin-header {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: white;
