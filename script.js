@@ -1,4 +1,4 @@
-/* ================= COMPLETE SCRIPT.JS (WITH MOBILE BACK BUTTON FIX) ================= */
+/* ================= COMPLETE SCRIPT.JS (NO REPAIRS REMOVED - WITH ALL FIXES) ================= */
 
 // DOM Elements
 const itemsContainer = document.getElementById('itemsContainer');
@@ -780,7 +780,9 @@ function renderItems() {
             showWhatsAppPopup(itemData);  
         });  
           
-        // Fullscreen Lightbox logic
+        // ==========================================================
+        // Fullscreen Lightbox logic (WITH MOBILE BACK BUTTON FIX)
+        // ==========================================================
         const itemImage = itemCard.querySelector('.item-image');   
         itemImage.style.cursor = 'pointer';
 
@@ -840,6 +842,10 @@ function renderItems() {
                 lightboxImg.style.transform = 'scale(1)';  
             }, 10);  
 
+            // [FIXED] පින්තූරය ඇරෙනකොට ෆෝන් එකේ back හිස්ට්‍රියට ලකුණක් (State) එකතු කිරීම
+            history.pushState({ imageLightboxOpen: true }, '');
+
+            // පින්තූරය වහන පොදු ෆන්ක්ෂන් එක
             function closeLightbox() {  
                 lightbox.style.opacity = '0';  
                 lightboxImg.style.transform = 'scale(0.9)';  
@@ -848,8 +854,31 @@ function renderItems() {
                         lightbox.remove();  
                     }  
                 }, 300);  
+                
                 document.removeEventListener('keydown', handleEsc);  
+                window.removeEventListener('popstate', handleImageBack);
+
+                // [FIXED] සාමාන්‍ය විදිහට පින්තූරය වැහුවොත්, දාපු හිස්ට්‍රි ලකුණ නැවත ඉවත් කිරීම
+                if (history.state && history.state.imageLightboxOpen) {
+                    history.back();
+                }
             }  
+
+            // [FIXED] ෆෝන් එකේ Back Button එක ඔබනකොට ක්‍රියාත්මක වන ෆන්ක්ෂන් එක
+            function handleImageBack() {
+                lightbox.style.opacity = '0';  
+                lightboxImg.style.transform = 'scale(0.9)';  
+                setTimeout(() => {  
+                    if (lightbox.parentNode) {  
+                        lightbox.remove();  
+                    }  
+                }, 300);  
+                document.removeEventListener('keydown', handleEsc);
+                window.removeEventListener('popstate', handleImageBack);
+            }
+
+            // බ්‍රවුසර් එකේ/ෆෝන් එකේ බැක් බටන් එකට සවන් දීම
+            window.addEventListener('popstate', handleImageBack);
 
             lightbox.addEventListener('click', closeLightbox);  
             closeBtn.addEventListener('click', closeLightbox);  
