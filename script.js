@@ -1,4 +1,4 @@
-/* ================= COMPLETE SCRIPT.JS (FIXED) ================= */
+/* ================= COMPLETE SCRIPT.JS (WITH MOBILE BACK BUTTON FIX) ================= */
 
 // DOM Elements
 const itemsContainer = document.getElementById('itemsContainer');
@@ -84,14 +84,14 @@ function setupMobileMenu() {
                 this.querySelector('i').classList.remove('fa-bars');  
                 this.querySelector('i').classList.add('fa-times');  
 
-                // Back button support  
+                // Back button support for Mobile Menu  
                 history.pushState({ menuOpen: true }, '');  
             } else {  
                 closeMenu();  
             }  
         });  
 
-        // Phone Back Button  
+        // Phone Back Button for Mobile Menu
         window.addEventListener('popstate', function() {  
             if (navLinks.classList.contains('active')) {  
                 closeMenu();  
@@ -389,6 +389,23 @@ function setupPopupEvents() {
             hideWhatsAppPopup();  
         }  
     });
+
+    // ==========================================================
+    // [FIX] ජංගම දුරකථනයේ BACK BUTTON එක එබූ විට POPUP එක වැසීම
+    // ==========================================================
+    window.addEventListener('popstate', function(event) {
+        // පොපප් එක දැනටමත් screen එකේ පේන්න තියෙනවා නම් විතරක් ක්‍රියාත්මක වේ
+        if (whatsappPopup.style.display === 'block') {
+            whatsappPopup.classList.remove('show');
+            popupOverlay.classList.remove('show');
+
+            setTimeout(() => {  
+                popupOverlay.style.display = 'none';  
+                whatsappPopup.style.display = 'none';  
+            }, 300);
+        }
+    });
+    // ==========================================================
 }
 
 // Validate input field
@@ -532,6 +549,9 @@ function showPopup() {
         whatsappPopup.classList.add('show');  
         popupOverlay.classList.add('show');  
     }, 10);
+
+    // [FIX] පොපප් එක ඇරෙනකොට ෆෝන් එකේ back හිස්ට්‍රියට ලකුණක් (State) ඇතුළත් කිරීම
+    history.pushState({ popupOpen: true }, '');
 }
 
 // Hide WhatsApp popup
@@ -543,6 +563,11 @@ function hideWhatsAppPopup() {
         popupOverlay.style.display = 'none';  
         whatsappPopup.style.display = 'none';  
     }, 300);
+
+    // [FIX] කතිරයෙන් වැහුවොත්, කලින් දාපු හිස්ට්‍රි ලකුණ නැවත ඉවත් කිරීම
+    if (history.state && history.state.popupOpen) {
+        history.back();
+    }
 }
 
 // Send WhatsApp order
