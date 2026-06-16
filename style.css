@@ -246,13 +246,7 @@ body {
     background: var(--accent-light);
 }
 
-.item-image {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 8px;
-    display: block;
-}
+
 
 /* Mobile Menu Button */
 .mobile-menu-btn {
