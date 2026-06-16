@@ -57,6 +57,8 @@
     --space-xxxl: 64px;
 }
 
+
+
 body {
     background: linear-gradient(135deg, #f8faff 0%, #f0f5ff 100%);
     color: var(--dark);
@@ -110,6 +112,9 @@ body {
     z-index: 1000;
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.95);
+}
+.admin-back .fa-whatsapp{
+    color: #25D366;
 }
 
 .nav-container {
