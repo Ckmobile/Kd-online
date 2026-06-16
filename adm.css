@@ -112,6 +112,14 @@ body {
     opacity: 0.05;
 }
 
+.item-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
 /* Mobile Menu Button */
 .admin-mobile-menu {
     display: none;
