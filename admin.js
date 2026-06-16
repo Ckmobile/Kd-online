@@ -78,10 +78,19 @@ function setupAdminEventListeners() {
         }
     });
     
-    adminSearchBtn.addEventListener('click', performAdminSearch);
-    adminSearch.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') performAdminSearch();
-    });
+    adminSearchBtn.addEventListener('click', performAdminSearchLive');
+
+// Live Search
+adminSearch.addEventListener('input', function() {
+    performAdminSearchLive();
+});
+
+// Enter Key Search
+adminSearch.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        performAdminSearchLive();
+    }
+});
 
     // --- POP-UP EVENT LISTENERS ---
     if (openCatModalBtn) {
@@ -108,6 +117,34 @@ function setupAdminEventListeners() {
     });
 }
 
+
+function performAdminSearchLive() {
+    currentAdminSearch = adminSearch.value.trim().toLowerCase();
+
+    renderAdminItems();
+
+    if (currentAdminSearch === '') {
+        return;
+    }
+
+    setTimeout(() => {
+        const firstItem = document.querySelector('.admin-item-card');
+
+        if (firstItem) {
+            firstItem.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            firstItem.style.transition = '0.3s';
+            firstItem.style.boxShadow = '0 0 20px #27ae60';
+
+            setTimeout(() => {
+                firstItem.style.boxShadow = '';
+            }, 2000);
+        }
+    }, 100);
+}
 // Helper function to clear checkboxes
 function clearCategoryCheckboxes() {
     const checkboxes = document.querySelectorAll('input[name="itemCategories"]');
