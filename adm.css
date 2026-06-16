@@ -1261,11 +1261,12 @@ body {
 /* Small Mobile (up to 480px) */
 @media (max-width: 480px) {
     .admin-mobile-menu {
-        top: 15px;
-        left: 15px;
-        width: 45px;
-        height: 45px;
-    }
+    top: 15px;
+    right: 15px;
+    left: auto;
+    width: 45px;
+    height: 45px;
+}
     
     .admin-header {
         width: 250px;
