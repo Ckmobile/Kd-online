@@ -6,21 +6,43 @@
     <title>Admin Panel | Item Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="adm.css">
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <style>
+        /* කැටගරි ලිස්ට් එක ලස්සනට පෙනීමට අලුතින් එක් කල CSS */
+        .categories-checkbox-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+            background: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .category-checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .category-checkbox-item input {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+    </style>
 </head>
 <body class="admin-body">
-    <!-- Mobile Menu Button -->
     <div class="mobile-menu-btn admin-mobile-menu">
         <i class="fas fa-bars"></i>
     </div>
 
-    <!-- Admin Header -->
     <header class="admin-header">
         <div class="admin-header-content">
-           
             <h1><i class="fas fa-lock"></i> <span class="header-text">Admin Panel</span></h1>
             <div class="admin-user">
                 <i class="fas fa-user-shield"></i>
@@ -30,7 +52,6 @@
     </header>
 
     <div class="admin-container">
-        <!-- Login Section -->
         <div class="admin-login-section" id="loginSection">
             <div class="login-card">
                 <h2><i class="fas fa-key"></i> Admin Authentication</h2>
@@ -59,14 +80,12 @@
                     
                     <div class="login-note">
                         <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Only Web Owner:</p>
-                        <ol>
-                        </ol>
+                        <ol></ol>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Admin Dashboard (Visible after login) -->
         <div class="admin-dashboard" id="adminDashboard" style="display: none;">
             <div class="dashboard-header">
                 <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
@@ -75,30 +94,23 @@
                 </button>
             </div>
             
-            <!-- Stats -->
             <div class="admin-stats">
                 <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-box"></i>
-                    </div>
+                    <div class="stat-icon"><i class="fas fa-box"></i></div>
                     <div class="stat-info">
                         <h3 id="totalItems">0</h3>
                         <p>Total Items</p>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-tags"></i>
-                    </div>
+                    <div class="stat-icon"><i class="fas fa-tags"></i></div>
                     <div class="stat-info">
                         <h3 id="totalCategories">13</h3>
                         <p>Categories</p>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-edit"></i>
-                    </div>
+                    <div class="stat-icon"><i class="fas fa-edit"></i></div>
                     <div class="stat-info">
                         <h3 id="recentItems">0</h3>
                         <p>Added This Week</p>
@@ -106,7 +118,6 @@
                 </div>
             </div>
             
-            <!-- Add Item Form -->
             <div class="add-item-section">
                 <h3><i class="fas fa-plus-circle"></i> Add New Item</h3>
                 
@@ -123,29 +134,28 @@
                         </div>
                     </div>
                     
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="itemCategory">Category *</label>
-                            <select id="itemCategory" required>
-                                <option value="">Select Category</option>
-                                <option value="gift">Gift</option>
-                                <option value="vehicle">Vehicle</option>
-                                <option value="mobile">Mobile</option>
-                                <option value="music">Music</option>
-                                <option value="fashion">Fashion</option>
-                                <option value="school">School</option>
-                                <option value="stores">Stores</option>
-                                <option value="kids">Kids</option>
-                                <option value="toy">Toy</option>
-                                <option value="electronics">Electronics</option>
-                                <option value="home">Home & Garden</option>
-                                <option value="sports">Sports</option>
-                                <option value="health">Health</option>
-                                <option value="kitchen">Kitchen</option>
-                                <option value="other">Other</option>
-                            </select>
+                    <div class="form-group">
+                        <label>Select Categories * <small>(Select one or more)</small></label>
+                        <div class="categories-checkbox-container" id="categoriesContainer">
+                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="gift"> Gift</label>
+                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="vehicle"> Vehicle</label>
+                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="mobile"> Mobile</label>
+                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="music"> Music</label>
+                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="fashion"> Fashion</label>
+                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="school"> School</label>
+                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="stores"> Stores</label>
+                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="kids"> Kids</label>
+                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="toy"> Toy</label>
+                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="electronics"> Electronics</label>
+                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="home"> Home & Garden</label>
+                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="sports"> Sports</label>
+                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="health"> Health</label>
+                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="kitchen"> Kitchen</label>
+                            <label class="category-checkbox-item"><input type="checkbox" name="itemCategories" value="other"> Other</label>
                         </div>
-                        
+                    </div>
+                    
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="itemImage">Image URL</label>
                             <input type="url" id="itemImage" placeholder="https://example.com/image.jpg">
@@ -169,7 +179,6 @@
                 </form>
             </div>
             
-            <!-- Manage Items Section -->
             <div class="manage-items-section">
                 <h3><i class="fas fa-edit"></i> Manage Existing Items</h3>
                 <div class="search-admin">
@@ -187,12 +196,10 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="admin-footer">
         <p class="footer-note">© made by Uk Online Shopping team</p>
     </footer>
 
-    <!-- Scripts -->
     <script src="firebase-config.js"></script>
     <script src="admin.js"></script>
     
