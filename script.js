@@ -117,10 +117,21 @@ function setupMobileMenu() {
             }
         });
 
-        
+        window.addEventListener('popstate', function(event) {
+           if (navLinks.classList.contains('active')) {
+               navLinks.classList.remove('active');
+
+        mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+        mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+
+        // නැවත history state එකක් add කරයි
+        history.pushState(null, '', location.href);
+    }
+
+});
 
         // Phone Back Button
-        window.addEventListener('popstate', function() {
+   /*     window.addEventListener('popstate', function() {
             if (navLinks.classList.contains('active')) {
                 closeMenu();
             }
@@ -135,7 +146,7 @@ function setupMobileMenu() {
     }
 }
 
-
+*/
 
 // Load items from Firebase
 function loadItems() {
