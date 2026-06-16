@@ -260,7 +260,7 @@ function renderAdminItems() {
         
         itemCard.innerHTML = `
     <div class="admin-item-image">
-        <img src="${item.image_url}" alt="${item.name}" class="item-image">
+        <img src="${item.image_url}" alt="${item.image}" class="item-image">
     </div>
 
     <div class="admin-item-info">
