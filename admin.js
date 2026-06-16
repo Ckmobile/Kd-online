@@ -30,13 +30,11 @@ document.addEventListener('DOMContentLoaded', function() {
 function checkAdminAuth() {
     auth.onAuthStateChanged(user => {
         if (user) {
-            // User is signed in
             adminLoggedIn = true;
             showAdminDashboard();
             loadAdminItems();
             adminStatus.textContent = user.email;
         } else {
-            // No user is signed in
             adminLoggedIn = false;
             showLoginSection();
             adminStatus.textContent = "Not Logged In";
@@ -58,25 +56,25 @@ function showAdminDashboard() {
 
 // Setup admin event listeners
 function setupAdminEventListeners() {
-    // Login
     loginBtn.addEventListener('click', adminLogin);
-    
-    // Logout
     logoutBtn.addEventListener('click', adminLogout);
-    
-    // Add item form
     addItemForm.addEventListener('submit', addNewItem);
     
-    // Clear form
     clearFormBtn.addEventListener('click', function() {
         addItemForm.reset();
+        clearCategoryCheckboxes();
     });
     
-    // Admin search
     adminSearchBtn.addEventListener('click', performAdminSearch);
     adminSearch.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') performAdminSearch();
     });
+}
+
+// Helper function to clear checkboxes
+function clearCategoryCheckboxes() {
+    const checkboxes = document.querySelectorAll('input[name="itemCategories"]');
+    checkboxes.forEach(cb => cb.checked = false);
 }
 
 // Admin login
@@ -90,8 +88,6 @@ function adminLogin() {
         return;
     }
     
-    // For security, in a real app you would validate the secret key differently
-    // This is a simplified version for demonstration
     if (secretKey !== "admin123") {
         alert('Invalid admin key');
         return;
@@ -102,7 +98,6 @@ function adminLogin() {
     
     auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            // Successfully logged in
             loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login as Admin';
             loginBtn.disabled = false;
             alert('Admin login successful!');
@@ -152,7 +147,6 @@ function loadAdminItems() {
 function updateAdminStats() {
     totalItemsEl.textContent = adminItems.length;
     
-    // Count items added in the last 7 days
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
     
@@ -171,14 +165,22 @@ function renderAdminItems() {
         return;
     }
     
-    // Filter items based on search
     let displayedItems = [...adminItems];
     if (currentAdminSearch) {
-        displayedItems = displayedItems.filter(item => 
-            item.name.toLowerCase().includes(currentAdminSearch) ||
-            item.description.toLowerCase().includes(currentAdminSearch) ||
-            item.category.toLowerCase().includes(currentAdminSearch)
-        );
+        displayedItems = displayedItems.filter(item => {
+            const nameMatch = item.name.toLowerCase().includes(currentAdminSearch);
+            const descMatch = item.description.toLowerCase().includes(currentAdminSearch);
+            
+            // කැටගරි ලිස්ට් එක ඇතුලේ සර්ච් කිරීම
+            let categoryMatch = false;
+            if (item.categories && Array.isArray(item.categories)) {
+                categoryMatch = item.categories.some(cat => cat.toLowerCase().includes(currentAdminSearch));
+            } else if (item.category) {
+                categoryMatch = item.category.toLowerCase().includes(currentAdminSearch);
+            }
+            
+            return nameMatch || descMatch || categoryMatch;
+        });
     }
     
     if (displayedItems.length === 0) {
@@ -192,12 +194,22 @@ function renderAdminItems() {
         const itemCard = document.createElement('div');
         itemCard.className = 'admin-item-card';
         
+        // කැටගරි කිහිපය කොමා (,) මගින් වෙන් කර UI එකේ පෙන්වීම සකස් කිරීම
+        let categoriesDisplay = '';
+        if (item.categories && Array.isArray(item.categories) && item.categories.length > 0) {
+            categoriesDisplay = item.categories.map(cat => cat.toUpperCase()).join(', ');
+        } else if (item.category) {
+            categoriesDisplay = item.category.toUpperCase();
+        } else {
+            categoriesDisplay = 'NO CATEGORY';
+        }
+        
         itemCard.innerHTML = `
             <div class="admin-item-info">
                 <h4 class="admin-item-name">${item.name}</h4>
-                <span class="admin-item-category">${item.category.toUpperCase()}</span>
+                <span class="admin-item-category">${categoriesDisplay}</span>
                 <p class="admin-item-description">${item.description.substring(0, 120)}${item.description.length > 120 ? '...' : ''}</p>
-                <div class="admin-item-price">LKR${parseFloat(item.price).toFixed(2)}</div>
+                <div class="admin-item-price">LKR ${parseFloat(item.price).toFixed(2)}</div>
                 <div class="admin-item-date">Added: ${formatDate(item.date)}</div>
             </div>
             <div class="admin-item-actions">
@@ -213,7 +225,6 @@ function renderAdminItems() {
         adminItemsContainer.appendChild(itemCard);
     });
     
-    // Add event listeners to edit and delete buttons
     document.querySelectorAll('.btn-edit').forEach(btn => {
         btn.addEventListener('click', function() {
             const itemId = this.getAttribute('data-id');
@@ -229,7 +240,6 @@ function renderAdminItems() {
     });
 }
 
-// Format date for display (reuse from main script or redefine)
 function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { 
@@ -239,7 +249,7 @@ function formatDate(dateString) {
     });
 }
 
-// Add new item
+// Add new item (කැටගරි කිහිපයක් Array එකක් ලෙස Firestore එකට දැමීම)
 function addNewItem(e) {
     e.preventDefault();
     
@@ -250,19 +260,23 @@ function addNewItem(e) {
     
     const itemName = document.getElementById('itemName').value.trim();
     const itemPrice = document.getElementById('itemPrice').value.trim();
-    const itemCategory = document.getElementById('itemCategory').value;
     const itemImage = document.getElementById('itemImage').value.trim();
     const itemDescription = document.getElementById('itemDescription').value.trim();
     
-    if (!itemName || !itemPrice || !itemCategory || !itemDescription) {
-        alert('Please fill in all required fields');
+    // Select කර ඇති Checkboxes වල අගයන් Array එකකට ගැනීම
+    const checkedBoxes = document.querySelectorAll('input[name="itemCategories"]:checked');
+    const selectedCategories = Array.from(checkedBoxes).map(cb => cb.value);
+    
+    if (!itemName || !itemPrice || selectedCategories.length === 0 || !itemDescription) {
+        alert('Please fill in all required fields (Select at least one category)');
         return;
     }
     
     const newItem = {
         name: itemName,
         price: parseFloat(itemPrice),
-        category: itemCategory,
+        categories: selectedCategories, // නව කැටගරි ලිස්ට් එක (Array)
+        category: selectedCategories[0], // පැරණි කේතයන් බිඳ නොවැටීම සඳහා පළමු කැටගරි එකද වෙනම දමයි
         description: itemDescription,
         date: new Date().toISOString()
     };
@@ -277,9 +291,10 @@ function addNewItem(e) {
     
     db.collection('items').add(newItem)
         .then((docRef) => {
-            alert('Item added successfully!');
+            alert('Item added successfully with selected categories!');
             addItemForm.reset();
-            loadAdminItems(); // Reload items
+            clearCategoryCheckboxes();
+            loadAdminItems();
         })
         .catch((error) => {
             console.error("Error adding item: ", error);
@@ -291,7 +306,7 @@ function addNewItem(e) {
         });
 }
 
-// Edit item
+// Edit item (කැටගරි කිහිපයක් Checkboxes වල සලකුණු කිරීම)
 function editItem(itemId) {
     const item = adminItems.find(i => i.id === itemId);
     
@@ -300,37 +315,58 @@ function editItem(itemId) {
         return;
     }
     
-    // In a full implementation, you would show an edit form/modal
-    // For simplicity, we'll just prefill the add form with item data
     document.getElementById('itemName').value = item.name;
     document.getElementById('itemPrice').value = item.price;
-    document.getElementById('itemCategory').value = item.category;
     document.getElementById('itemImage').value = item.image || '';
     document.getElementById('itemDescription').value = item.description;
     
-    // Change form to update mode
+    // Checkboxes සියල්ල මුලින්ම Clear කර Item එකට අදාල කැටගරි පමණක් සලකුණු (Check) කිරීම
+    clearCategoryCheckboxes();
+    if (item.categories && Array.isArray(item.categories)) {
+        item.categories.forEach(cat => {
+            const checkbox = document.querySelector(`input[name="itemCategories"][value="${cat}"]`);
+            if (checkbox) checkbox.checked = true;
+        });
+    } else if (item.category) {
+        // පැරණි සිංගල් කැටගරි ඩේටා එකක් නම්
+        const checkbox = document.querySelector(`input[name="itemCategories"][value="${item.category}"]`);
+        if (checkbox) checkbox.checked = true;
+    }
+    
     const formTitle = document.querySelector('.add-item-section h3');
     const submitBtn = addItemForm.querySelector('button[type="submit"]');
     
     formTitle.innerHTML = '<i class="fas fa-edit"></i> Edit Item';
     submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Item';
     
-    // Remove existing event listener and add update listener
     addItemForm.removeEventListener('submit', addNewItem);
     
     const updateItemHandler = function(e) {
         e.preventDefault();
         
+        const checkedBoxes = document.querySelectorAll('input[name="itemCategories"]:checked');
+        const selectedCategories = Array.from(checkedBoxes).map(cb => cb.value);
+        
+        if (selectedCategories.length === 0) {
+            alert('Please select at least one category');
+            return;
+        }
+        
         const updatedItem = {
             name: document.getElementById('itemName').value.trim(),
             price: parseFloat(document.getElementById('itemPrice').value.trim()),
-            category: document.getElementById('itemCategory').value,
+            categories: selectedCategories,
+            category: selectedCategories[0], // backward compatibility
             description: document.getElementById('itemDescription').value.trim(),
-            date: item.date // Keep original date
+            date: item.date
         };
         
         const imageUrl = document.getElementById('itemImage').value.trim();
-        if (imageUrl) updatedItem.image = imageUrl;
+        if (imageUrl) {
+            updatedItem.image = imageUrl;
+        } else {
+            updatedItem.image = "";
+        }
         
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
         submitBtn.disabled = true;
@@ -339,13 +375,12 @@ function editItem(itemId) {
             .then(() => {
                 alert('Item updated successfully!');
                 addItemForm.reset();
+                clearCategoryCheckboxes();
                 loadAdminItems();
                 
-                // Reset form to add mode
                 formTitle.innerHTML = '<i class="fas fa-plus-circle"></i> Add New Item';
                 submitBtn.innerHTML = '<i class="fas fa-save"></i> Add Item';
                 
-                // Remove update listener and re-add add listener
                 addItemForm.removeEventListener('submit', updateItemHandler);
                 addItemForm.addEventListener('submit', addNewItem);
             })
@@ -358,8 +393,6 @@ function editItem(itemId) {
     };
     
     addItemForm.addEventListener('submit', updateItemHandler);
-    
-    // Scroll to form
     document.querySelector('.add-item-section').scrollIntoView({ behavior: 'smooth' });
 }
 
