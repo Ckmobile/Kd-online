@@ -15,7 +15,7 @@ const adminSearchBtn = document.getElementById('adminSearchBtn');
 const totalItemsEl = document.getElementById('totalItems');
 const recentItemsEl = document.getElementById('recentItems');
 const suggestionsBox =
-document.getElementById('adminSearchSuggestions');
+document.getElementById('searchSuggestions');
 // --- නව POP-UP MODAL සන්නිවේදනය සඳහා DOM Elements ---
 const catModal = document.getElementById('categoryModal');
 const openCatModalBtn = document.getElementById('openCategoryModalBtn');
