@@ -78,12 +78,13 @@ clearFormBtn.addEventListener('click', function() {
         selectedCatText.style.color = "#e74c3c";  
     }  
 });  
-  
-adminSearchBtn.addEventListener('click', performAdminSearchLive');
 
-adminSearch.addEventListener('input', function() {
-    performAdminSearchLive();
-    showSearchSuggestions();
+
+adminSearch.addEventListener('input', function () {
+    currentAdminSearch =
+        this.value.trim().toLowerCase();
+
+    renderAdminItems();
 });
 
 adminSearch.addEventListener('keypress', function(e) {
