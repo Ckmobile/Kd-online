@@ -3,237 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uk Online | Shop Products</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>UK ONLINE SHOPPING - Home</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <i class="fas fa-store"></i>
-                <span>UK ONLINE SHOP</span>
-            </a>
-            
-            <div class="search-container">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Search for items...">
-                <button id="searchBtn">Search</button>
-            </div>
-            
-<div class="nav-links">
-    <a href="https://wa.me/94755997160" target="_blank" class="nav-link">
-        <i class="fab fa-whatsapp"></i>
-        <span>Contact Ask</span>
-    </a>
 
-    <a href="https://wa.me/94743590017" target="_blank" class="nav-link">
-        <i class="fab fa-whatsapp"></i>
-        <span>Support</span>
-    </a>
+    <header>
+        <div class="logo">UK ONLINE SHOPPING</div>
+        <button id="menu-btn" class="menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
 
-    <a href="https://www.facebook.com/share/18krXaCWHF/" target="_blank" class="nav-link">
-        <i class="fab fa-facebook"></i>
-        <span>Facebook</span>
-    </a>
-
-        <a href="https://whatsapp.com/channel/0029Vb6K8BJCBtx6yFx9a21a" target="_blank" class="nav-link">
-        <i class="fab fa-whatsapp"></i>
-        <span>Contact Channel</span>
-        </a>
-    
-    <a href="admin.html" class="nav-link admin-link">
-        <i class="fas fa-lock"></i>
-        <span>Admin Panel</span>
-    </a>
-
-
-</div>
-            
-            <div class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </div>
+    <div id="nav-menu" class="nav-menu">
+        <div class="menu-header">
+            <h3>MENU</h3>
+            <button id="close-menu" class="close-btn"><i class="fas fa-times"></i></button>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Discover Amazing Products</h1>
-            <p>Browse our collection of high-quality items with detailed descriptions and competitive prices.</p>
-            <!-- Hero section search bar එක remove කර ඇත -->
+        <ul class="menu-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="auth.html"><i class="fas fa-user"></i> Customer Login / Register</a></li>
+            <li><a href="admin.html"><i class="fas fa-user-shield"></i> Admin Panel</a></li>
+        </ul>
+        <hr>
+        <div class="menu-contact">
+            <h4>Contact Us (WhatsApp)</h4>
+            <a href="https://wa.me/94770557160" target="_blank"><i class="fab fa-whatsapp"></i> 0770557160</a>
+            <a href="https://wa.me/94743590017" target="_blank"><i class="fab fa-whatsapp"></i> 0743590017</a>
+            <a href="https://wa.me/94755997160" target="_blank"><i class="fab fa-whatsapp"></i> 0755997160</a>
         </div>
-        <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Shopping items">
-        </div>
-    </section>
-
-<!-- Categories Section -->
-<section class="categories" id="categories">
-    <div class="section-header">
-        <h2 class="section-title">Browse Categories</h2>
-        <div class="category-navigation">
-            <button class="nav-btn prev-btn" aria-label="Previous categories">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="nav-btn next-btn" aria-label="Next categories">
-                <i class="fas fa-chevron-right"></i>
-            </button>
+        <hr>
+        <div class="menu-socials">
+            <h4>Follow Us</h4>
+            <a href="#" id="fb-link" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="#" id="gmail-link" target="_blank"><i class="fas fa-envelope"></i> Gmail</a>
+            <a href="#" id="wa-channel-link" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Channel</a>
         </div>
     </div>
-    
-    <div class="categories-wrapper">
-        <div class="category-list" id="categoryList">
-            <div class="category-card" data-category="all">
-                <i class="fas fa-boxes"></i>
-                <h3>All Items</h3>
-            </div>
-            <div class="category-card" data-category="gift">
-                <i class="fas fa-gift"></i>
-                <h3>Gift</h3>
-            </div>
-            <div class="category-card" data-category="vehicle">
-                <i class="fas fa-car"></i>
-                <h3>Vehicle</h3>
-            </div>
-            <div class="category-card" data-category="mobile">
-                <i class="fas fa-mobile-alt"></i>
-                <h3>Mobile</h3>
-            </div>
-            <div class="category-card" data-category="music">
-                <i class="fas fa-futbol"></i>
-                <h3>Music</h3>
-            </div>
-            <div class="category-card" data-category="fashion">
-                <i class="fas fa-tshirt"></i>
-                <h3>Fashion</h3>
-            </div>
-            <div class="category-card" data-category="school">
-                <i class="fas fa-graduation-cap"></i>
-                <h3>School</h3>
-            </div>
-            <div class="category-card" data-category="stores">
-                <i class="fas fa-store"></i>
-                <h3>Stores</h3>
-            </div>
-            <div class="category-card" data-category="kids">
-                <i class="fas fa-child"></i>
-                <h3>Kids</h3>
-            </div>
-            <div class="category-card" data-category="toy">
-                <i class="fas fa-gamepad"></i>
-                <h3>Toy</h3>
-            </div>
-            <div class="category-card" data-category="electronics">
-                <i class="fas fa-laptop"></i>
-                <h3>Electronics</h3>
-            </div>
-            <div class="category-card" data-category="home">
-                <i class="fas fa-home"></i>
-                <h3>Home & Garden</h3>
-            </div>            
-            <div class="category-card" data-category="sports">
-                <i class="fas fa-futbol"></i>
-                <h3>Sports</h3>
-            </div> 
-            <div class="category-card" data-category="kitchen">
-                <i class="fas fa-futbol"></i>
-                <h3>Kitchen</h3>
-            </div> 
-            <div class="category-card" data-category="health">
-                <i class="fas fa-futbol"></i>
-                <h3>Health</h3>
-            </div>
-<div class="category-card" data-category="other">
-    <i class="fas fa-ellipsis-h"></i>
-    <h3>Other</h3>
-</div>
-            </div>
-    </div>
-</section>
-    <!-- Items Listing Section -->
-    <section class="items-section">
-        <div class="section-header">
-            <h2 class="section-title">All products</h2>
-            <div class="items-count">
-                <span id="itemsCount">0</span> Items Found
-            </div>
-        </div>
-        
-        <div class="filter-container">
-            <select id="sortSelect">
-                <option value="newest">Newest First</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="name">Name: A to Z</option>
-            </select>
-            <button id="clearFilters" class="clear-btn">Clear Filters</button>
-        </div>
-        
-        <!-- Items will be dynamically loaded here -->
-        <div class="items-container" id="itemsContainer">
-            <div class="loading">
-                <div class="spinner"></div>
-                <p>Loading items...</p>
-            </div>
-        </div>
-        
-        <!-- Empty State -->
-        <div class="empty-state" id="emptyState" style="display: none;">
-            <i class="fas fa-box-open"></i>
-            <h3>No Items Found</h3>
-            <p>Try adjusting your search or filter to find what you're looking for.</p>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3><i class="fas fa-store"></i>UK ONLINE SHOPPING</h3>
-                <p>Your one-stop destination for quality products and great deals.</p>
-           
-            </div>
-            <div class="footer-section">
-                <h3>Contact and support</h3>
-
-<p>
-    
-    <a href="mailto:kavishkairoshan54@gmail.com" target="blank">
-      <i class="fas fa-envelope"></i>  kavishkairoshan54@gmail.com</a>
-</p>
-
-<p>
-    <a href="https://wa.me/94755997160" target="_blank">
-        <i class="fab fa-whatsapp"></i> +94 75 599 7160
-    </a>
-</p>
-
-<p>
-    <a href="https://wa.me/94743590017" target="_blank">
-        <i class="fab fa-whatsapp"></i> +94 74 359 0017
-    </a>
-</p>
-
-<p>
-    <a href="https://www.facebook.com/YourPageName" target="_blank">
-        <i class="fab fa-facebook-f"></i> Facebook
-    </a>
-</p>
-            </div>
+    <main class="container">
+        <h2>Our Products</h2>
+        <div id="products-grid" class="products-grid">
+            <div class="loading">Loading products...</div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 | Made by Uk Online Shopping team</p>
-        </div>
-    </footer>
+    </main>
 
-    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="firebase-config.js"></script>
-    <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
