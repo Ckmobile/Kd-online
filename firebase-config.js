@@ -1,14 +1,19 @@
 // Replace with your Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyAzC12vNtk6gmBKeIrXhRsKu6rFQepojsc",
-  authDomain: "itemshop-146f3.firebaseapp.com",
-  projectId: "itemshop-146f3",
-  storageBucket: "itemshop-146f3.firebasestorage.app",
-  messagingSenderId: "678429795030",
-  appId: "1:678429795030:web:1d36b025b9c6319f139f77"
+  apiKey: "AIzaSyDhTuYCrOTO8BvvHMqJF-AP9liFXlH8JxA",
+  authDomain: "ukonline.firebaseapp.com",
+  projectId: "ukonline",
+  storageBucket: "ukonline.firebasestorage.app",
+  messagingSenderId: "807239150810",
+  appId: "1:807239150810:web:188d487a7827aa5af789e3",
+  measurementId: "G-1R09KVCHW2"
 };
+
+
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
+
+
