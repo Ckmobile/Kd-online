@@ -1,0 +1,12 @@
+{
+  "name": "uk-online-shopping",
+  "version": "1.0.0",
+  "description": "UK ONLINE SHOPPING E-Commerce Website using Firebase",
+  "main": "app.js",
+  "scripts": {
+    "start": "echo \"Static site running...\" && exit 0"
+  },
+  "keywords": [],
+  "author": "Kavishka Iroshan",
+  "license": "ISC"
+}
