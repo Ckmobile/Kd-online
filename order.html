@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UK ONLINE SHOPPING - Place Order</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <button onclick="goBack()" class="back-arrow-btn"><i class="fas fa-arrow-left"></i></button>
+        <div class="logo">UK ONLINE SHOPPING</div>
+        <button onclick="window.location.href='index.html'" class="close-btn-top"><i class="fas fa-times"></i></button>
+    </header>
+
+    <main class="container form-container">
+        <h2>Order Details</h2>
+        <div id="selected-product-summary" class="product-summary">
+            </div>
+
+        <form id="order-form">
+            <div class="form-group">
+                <label for="cust-name">Full Name</label>
+                <input type="text" id="cust-name" required placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="cust-phone">Phone Number</label>
+                <input type="tel" id="cust-phone" required placeholder="Enter your phone number">
+            </div>
+            <div class="form-group">
+                <label for="cust-address">Delivery Address</label>
+                <textarea id="cust-address" required placeholder="Enter your shipping address"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="cust-qty">Quantity</label>
+                <input type="number" id="cust-qty" value="1" min="1" required>
+            </div>
+            <button type="submit" class="btn-submit">Confirm Order</button>
+        </form>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="order.js"></script>
+</body>
+</html>
